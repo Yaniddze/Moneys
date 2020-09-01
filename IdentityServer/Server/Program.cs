@@ -1,4 +1,6 @@
+using System.Linq;
 using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +22,35 @@ namespace Server
                 
                 var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
+
+                if (!context.Clients.Any())
+                {
+                    IdentityConfiguration.GetClients()
+                        .ToList()
+                        .ForEach(client => context.Clients.Add(client.ToEntity()));
+
+                    context.SaveChanges();
+                }
+
+                if (!context.IdentityResources.Any())
+                {
+                    IdentityConfiguration.GetIdentityResources()
+                        .ToList()
+                        .ForEach(resource => context.IdentityResources.Add(resource.ToEntity()));
+
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiScopes.Any())
+                {
+                    IdentityConfiguration.GetApiScopes()
+                        .ToList()
+                        .ForEach(api => context.ApiScopes.Add(api.ToEntity()));
+
+                    context.SaveChanges();
+                }
             }
+            
 
             app.Run();
         }
