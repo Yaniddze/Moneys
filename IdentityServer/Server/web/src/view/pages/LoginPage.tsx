@@ -1,5 +1,5 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 // Components
 import { LoginInput as Input } from '../components/inputs';
@@ -9,6 +9,10 @@ type PropTypes = {
 }
 
 export const LoginPage: FC<PropTypes> = () => {
+  useEffect(() => {
+    document.title = 'Login';
+  });
+  
   return (
     <div>
       Login page

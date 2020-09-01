@@ -13,8 +13,18 @@ import { RegisterPage } from './view/pages/RegisterPage';
 export const App: FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/Auth/Login" render={(props) => <LoginPage />} />
-      <Route path="/Auth/Register" render={(props) => <RegisterPage />} />
+      <Route
+        path="/Auth/Login"
+        render={
+          (props) => <LoginPage />
+        }
+      />
+      <Route
+        path="/Auth/Register"
+        render={
+          (props) => <RegisterPage />
+        }
+      />
 
       <Redirect to="/Auth/Login" />
     </Switch>
