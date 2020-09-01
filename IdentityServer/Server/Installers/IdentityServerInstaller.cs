@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Server.Data;
 
 namespace Server.Installers
 {
@@ -20,7 +21,9 @@ namespace Server.Installers
                 config.Password.RequireUppercase = false;
 
                 config.User.RequireUniqueEmail = true;
-            });
+            })
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
