@@ -1,23 +1,18 @@
 import React, { FC } from 'react';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
 export const App: FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <p>
-        Edit 
-        <code>
-          src/App.tsx
-        </code> 
-        and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+  <BrowserRouter>
+    <Switch>
+      <Route path="/Auth/Login" render={(props) => (<div>123</div>)} />
+      <Route path="/Auth/Register" render={(props) => (<div>123</div>)} />
+
+      <Redirect to="/Auth/Login" />
+    </Switch>
+  </BrowserRouter>
 );
