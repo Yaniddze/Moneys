@@ -6,10 +6,13 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+// Pages
+import { LoginPage } from './view/pages/LoginPage';
+
 export const App: FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/Auth/Login" render={(props) => (<div>123</div>)} />
+      <Route path="/Auth/Login" render={(props) => <LoginPage />} />
       <Route path="/Auth/Register" render={(props) => (<div>123</div>)} />
 
       <Redirect to="/Auth/Login" />
