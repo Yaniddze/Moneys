@@ -13,10 +13,12 @@ namespace Server.Controllers
     public class AuthController: Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
-
-        public AuthController(SignInManager<IdentityUser> signInManager)
+        private readonly UserManager<IdentityUser> _userManager;
+        
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpPost("login")]
@@ -44,6 +46,34 @@ namespace Server.Controllers
             {
                 Success = false,
                 Errors = new []{ "User doesn't exist" }
+            });
+        }
+        
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody]RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new RegisterResponse
+                {
+                    Success = false,
+                    Errors = GetModelStateErrors()
+                });
+            }
+            var user = new IdentityUser(request.Username);
+
+            var registerResult = await _userManager.CreateAsync(user, request.Password);
+
+            if (!registerResult.Succeeded) return Ok(new RegisterResponse
+            {
+                Success = false,
+                Errors = registerResult.Errors.Select(x => x.Description)
+            });
+            
+            await _signInManager.SignInAsync(user, false);
+            return Ok(new RegisterResponse
+            {
+                Success = true,
             });
         }
 
