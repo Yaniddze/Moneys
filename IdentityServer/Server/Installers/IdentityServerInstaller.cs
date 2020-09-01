@@ -12,6 +12,8 @@ namespace Server.Installers
         {
             var assembly = typeof(Startup).Assembly.GetName().Name;
             var connectionString = configuration.GetConnectionString("PostgresConnection");
+            services.AddDbContextPool<IdentityContext>(config => 
+                config.UseNpgsql(connectionString));
 
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
