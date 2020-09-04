@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 
-namespace Server.Controllers.Requests
+namespace Server.UseCases.Register
 {
-    public class RegisterRequest
+    public class RegisterRequest: IRequest<RegisterResponse>
     {
         [Required]
         public string Username { get; set; }

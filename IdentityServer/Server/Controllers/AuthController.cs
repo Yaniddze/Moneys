@@ -1,24 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-using Server.Controllers.Requests;
-using Server.Controllers.Responses;
+using Server.UseCases.Login;
+using Server.UseCases.Register;
 
 namespace Server.Controllers
 {
     [Route("api/v1/auth")]
     public class AuthController: Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IMediator _mediator;
         
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AuthController(IMediator mediator)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _mediator = mediator;
         }
 
         [HttpPost("login")]
@@ -32,21 +30,10 @@ namespace Server.Controllers
                     Errors = GetModelStateErrors()
                 });
             }
-            var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, false);
 
-            if (signInResult.Succeeded)
-            {
-                return Ok(new LoginResponse
-                {
-                    Success = true,
-                });
-            }
-            
-            return Ok(new LoginResponse
-            {
-                Success = false,
-                Errors = new []{ "User doesn't exist" }
-            });
+            var response = await _mediator.Send(request);
+
+            return Ok(response);
         }
         
         [HttpPost("register")]
@@ -61,24 +48,9 @@ namespace Server.Controllers
                 });
             }
 
-            var user = new IdentityUser(request.Username)
-            {
-                Email = request.Email
-            };
+            var response = await _mediator.Send(request);
 
-            var registerResult = await _userManager.CreateAsync(user, request.Password);
-
-            if (!registerResult.Succeeded) return Ok(new RegisterResponse
-            {
-                Success = false,
-                Errors = registerResult.Errors.Select(x => x.Description)
-            });
-            
-            await _signInManager.SignInAsync(user, false);
-            return Ok(new RegisterResponse
-            {
-                Success = true,
-            });
+            return Ok(response);
         }
 
         private IEnumerable<string> GetModelStateErrors() => ModelState.Values.Select(x =>

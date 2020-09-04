@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 
-namespace Server.Controllers.Requests
+namespace Server.UseCases.Login
 {
-    public class LoginRequest
+    public class LoginRequest: IRequest<LoginResponse>
     {
         [Required]
         public string Username { get; set; }
