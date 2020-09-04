@@ -9,21 +9,26 @@ import {
 // Pages
 import { LoginPage } from './view/pages/LoginPage';
 import { RegisterPage } from './view/pages/RegisterPage';
+import { Particles } from './view/components/particles';
 
 export const App: FC = () => (
   <BrowserRouter>
     <Switch>
       <Route
-        path="/Auth/Login"
+        path="/auth/login"
         render={
           (props) => <LoginPage />
         }
       />
       <Route
-        path="/Auth/Register"
+        path="/auth/register"
         render={
           (props) => <RegisterPage />
         }
+      />
+      <Route
+        path="/particles"
+        component={Particles}
       />
 
       <Redirect to="/Auth/Login" />
