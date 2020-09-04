@@ -60,7 +60,11 @@ namespace Server.Controllers
                     Errors = GetModelStateErrors()
                 });
             }
-            var user = new IdentityUser(request.Username);
+
+            var user = new IdentityUser(request.Username)
+            {
+                Email = request.Email
+            };
 
             var registerResult = await _userManager.CreateAsync(user, request.Password);
 

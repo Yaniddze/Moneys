@@ -16,7 +16,6 @@ export const LoginPage: FC<PropTypes> = () => {
   return (
     <div>
       Login page
-
       <div>
         <Input />
       </div>
