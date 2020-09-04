@@ -191,8 +191,8 @@ export const Particles: FC = () => {
       };
 
       handleMouseOut = (): void => {
-        mouse.x = -100;
-        mouse.y = -100;
+        mouse.x = -1000000;
+        mouse.y = -1000000;
       };
 
       window.addEventListener('resize', handleResize);
