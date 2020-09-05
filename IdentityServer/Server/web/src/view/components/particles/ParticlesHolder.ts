@@ -19,8 +19,8 @@ export class ParticlesHolder {
 
   mouse: Mouse;
 
-  private randomCoordinate = (size: number): number => (
-    Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2
+  private randomCoordinate = (size: number, border: number): number => (
+    Math.random() * ((border - size * 2) - (size * 2)) + size * 2
   );
 
   private randomDirection = (): number => (Math.random() * 5) - 2.5;
@@ -31,8 +31,8 @@ export class ParticlesHolder {
     for (let i = 0; i < numberOfParticles; i++) {
       const size = (Math.random() * 5) + 1;
 
-      const x = this.randomCoordinate(size);
-      const y = this.randomCoordinate(size);
+      const x = this.randomCoordinate(size, window.innerWidth);
+      const y = this.randomCoordinate(size, window.innerHeight);
 
       const directionX = this.randomDirection();
       const directionY = this.randomDirection();
