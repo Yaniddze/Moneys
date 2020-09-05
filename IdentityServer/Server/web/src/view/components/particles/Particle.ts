@@ -30,11 +30,32 @@ export class Particle {
     this.ctx.fill();
   }
 
+  private checkBorderCollision = (coordinate: number, border: number): boolean => (
+    coordinate > border || coordinate < 0
+  );
+
+  private checkPositiveCollision = (
+    coordinate: number,
+    collisionCoordinate: number,
+    border: number,
+    size: number,
+  ): boolean => (
+    collisionCoordinate < coordinate && coordinate < border - size * 10
+  );
+
+  private checkNegativeCollision = (
+    coordinate: number,
+    collisionCoordinate: number,
+    size: number,
+  ): boolean => (
+    collisionCoordinate > coordinate && coordinate > size * 10
+  );
+
   update(): void {
-    if (this.x > this.canvas.width || this.x < 0) {
+    if (this.checkBorderCollision(this.x, this.canvas.width)) {
       this.directionX = -this.directionX;
     }
-    if (this.y > this.canvas.height || this.y < 0) {
+    if (this.checkBorderCollision(this.y, this.canvas.height)) {
       this.directionY = -this.directionY;
     }
 
@@ -43,22 +64,23 @@ export class Particle {
 
     const distance = Math.sqrt(dx * dx + dy * dy);
     if (distance < this.mouse.radius + this.size) {
-      if (this.mouse.x < this.x && this.x < this.canvas.width - this.size * 10) {
+      if (this.checkPositiveCollision(this.x, this.mouse.x, this.canvas.width, this.size)) {
         this.x += 10;
       }
-      if (this.mouse.x > this.x && this.x > this.size * 10) {
+      if (this.checkNegativeCollision(this.x, this.mouse.x, this.size)) {
         this.x -= 10;
       }
-      if (this.mouse.y < this.y && this.y < this.canvas.height - this.size * 10) {
+      if (this.checkPositiveCollision(this.y, this.mouse.y, this.canvas.height, this.size)) {
         this.y += 10;
       }
-      if (this.mouse.y > this.y && this.y > this.size * 10) {
+      if (this.checkNegativeCollision(this.y, this.mouse.y, this.size)) {
         this.y -= 10;
       }
     }
 
     this.x += this.directionX;
     this.y += this.directionY;
+
     this.draw();
   }
 
