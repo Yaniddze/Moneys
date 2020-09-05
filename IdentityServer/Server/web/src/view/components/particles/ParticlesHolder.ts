@@ -19,15 +19,24 @@ export class ParticlesHolder {
 
   mouse: Mouse;
 
-  init(): void {
+  private randomCoordinate = (size: number): number => (
+    Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2
+  );
+
+  private randomDirection = (): number => (Math.random() * 5) - 2.5;
+
+  fillParticlesArray(): void {
     this.particlesArray.length = 0;
     const numberOfParticles = (this.canvas.width * this.canvas.height) / 9000;
     for (let i = 0; i < numberOfParticles; i++) {
       const size = (Math.random() * 5) + 1;
-      const x = (Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2);
-      const y = (Math.random() * ((window.innerWidth - size * 2) - (size * 2)) + size * 2);
-      const directionX = (Math.random() * 5) - 2.5;
-      const directionY = (Math.random() * 5) - 2.5;
+
+      const x = this.randomCoordinate(size);
+      const y = this.randomCoordinate(size);
+
+      const directionX = this.randomDirection();
+      const directionY = this.randomDirection();
+
       const color = '#8c5523';
 
       this.particlesArray.push(new Particle(
@@ -44,14 +53,13 @@ export class ParticlesHolder {
     }
   }
 
-  private connect(): void {
+  private connectParticles(): void {
     const array = this.particlesArray;
     for (let i = 0; i < array.length; i++) {
       for (let j = i; j < array.length; j++) {
-        const distance = ((array[i].x - array[j].x)
-          * (array[i].x - array[j].x))
-          + ((array[i].y - array[j].y)
-            * (array[i].y - array[j].y));
+        const distance = (
+          (array[i].x - array[j].x) ** 2 + (array[i].y - array[j].y) ** 2
+        );
 
         if (distance < (this.canvas.width / 7) * (this.canvas.height / 7)) {
           const opacity = 1 - (distance / 20000);
@@ -74,6 +82,6 @@ export class ParticlesHolder {
       this.particlesArray[i].update();
     }
 
-    this.connect();
+    this.connectParticles();
   }
 }

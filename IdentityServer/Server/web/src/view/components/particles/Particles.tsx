@@ -18,10 +18,17 @@ export const Particles: FC = () => {
   useEffect(() => {
     const canvas = ref.current!!;
 
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const calcMouseRadius = (height: number, width: number): number => (
+      (height / 100) * (width / 100)
+    );
+
     const mouse: Mouse = {
       x: -1,
       y: -1,
-      radius: (canvas.height / 80) * (canvas.width / 80),
+      radius: calcMouseRadius(canvas.height, canvas.width),
     };
 
     const particles = new ParticlesHolder(canvas, mouse);
@@ -29,8 +36,8 @@ export const Particles: FC = () => {
     const handleResize = (): void => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      mouse.radius = ((canvas.height / 80) * (canvas.height / 80));
-      particles.init();
+      mouse.radius = calcMouseRadius(canvas.height, canvas.width);
+      particles.fillParticlesArray();
     };
 
     const handleMouseMove = (e: MouseEvent): void => {
@@ -43,14 +50,11 @@ export const Particles: FC = () => {
       mouse.y = -1000000;
     };
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     window.addEventListener('resize', handleResize);
     window.addEventListener('mouseout', handleMouseOut);
     window.addEventListener('mousemove', handleMouseMove);
 
-    particles.init();
+    particles.fillParticlesArray();
     particles.animate();
 
     return (): void => {
