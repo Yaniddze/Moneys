@@ -1,4 +1,8 @@
-import React, { FC, useRef, useEffect } from 'react';
+import React, {
+  FC,
+  useRef,
+  useEffect,
+} from 'react';
 import styled from 'styled-components';
 import { ParticlesHolder } from './ParticlesHolder';
 import { Mouse } from './types';
@@ -12,7 +16,11 @@ const Canvas = styled.canvas`
   background: radial-gradient(#ffc38c, #ff9b40);
 `;
 
-export const Particles: FC = () => {
+type PropTypes = {
+  children?: never;
+}
+
+export const Particles: FC<PropTypes> = () => {
   const ref = useRef<HTMLCanvasElement>();
 
   useEffect(() => {
@@ -26,8 +34,8 @@ export const Particles: FC = () => {
     );
 
     const mouse: Mouse = {
-      x: -1,
-      y: -1,
+      x: -1000000,
+      y: -1000000,
       radius: calcMouseRadius(canvas.height, canvas.width),
     };
 
@@ -64,7 +72,7 @@ export const Particles: FC = () => {
     };
   });
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  return (<Canvas ref={ref} />);
+  return (
+    <Canvas ref={ref} />
+  );
 };

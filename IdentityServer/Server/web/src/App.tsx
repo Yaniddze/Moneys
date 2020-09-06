@@ -9,7 +9,6 @@ import {
 // Pages
 import { LoginPage } from './view/pages/LoginPage';
 import { RegisterPage } from './view/pages/RegisterPage';
-import { Particles } from './view/components/particles';
 
 export const App: FC = () => (
   <BrowserRouter>
@@ -25,10 +24,6 @@ export const App: FC = () => (
         render={
           (props) => <RegisterPage />
         }
-      />
-      <Route
-        path="/particles"
-        component={Particles}
       />
 
       <Redirect to="/Auth/Login" />

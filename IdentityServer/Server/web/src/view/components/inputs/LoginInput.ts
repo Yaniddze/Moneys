@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const LoginInput = styled.input`
+type PropTypes = {
+  width?: string;
+}
+
+export const LoginInput = styled.input<PropTypes>`
+  ${(props): string => (props.width ? `width: ${props.width};` : '')}
   padding: 10px;
   margin: 10px;
   border: 1px solid #D77A61;
