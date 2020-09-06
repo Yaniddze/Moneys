@@ -1,22 +1,14 @@
 // Core
 import React, { FC } from 'react';
-import styled from 'styled-components';
 
 // Components
-import { CentredDiv } from './centredDiv';
+import { CentredDiv } from './CentredDiv';
 import { LoginInput } from '../inputs';
-
-const Form = styled.form`
-  padding: 10px;
-  border: 1px solid white;
-  color: black;
-  background: white;
-  border-radius: 10px;
-`;
+import { StyledForm } from './StyledForm';
 
 export const LoginForm: FC = () => (
   <CentredDiv>
-    <Form>
+    <StyledForm>
 
       <div>
         <div>
@@ -33,10 +25,10 @@ export const LoginForm: FC = () => (
       </div>
 
       <div>
-        <button>
+        <button type="submit">
           Submit
         </button>
       </div>
-    </Form>
+    </StyledForm>
   </CentredDiv>
 );
