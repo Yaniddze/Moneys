@@ -1,3 +1,4 @@
+// Core
 import React, { FC } from 'react';
 import {
   BrowserRouter,
@@ -6,12 +7,16 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+// GlobalStyle
+import { GlobalStyle } from './GlobalStyle';
+
 // Pages
 import { LoginPage } from './view/pages/LoginPage';
 import { RegisterPage } from './view/pages/RegisterPage';
 
 export const App: FC = () => (
   <BrowserRouter>
+    <GlobalStyle />
     <Switch>
       <Route
         path="/auth/login"
