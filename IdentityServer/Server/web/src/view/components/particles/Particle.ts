@@ -64,19 +64,21 @@ export class Particle {
 
     const distance = Math.sqrt(dx ** 2 + dy ** 2);
 
+    const collisionOffset = 1;
+
     // Collision check
     if (distance < this.mouse.radius + this.size) {
       if (this.checkPositiveCollision(this.x, this.mouse.x, this.canvas.width, this.size)) {
-        this.x += 10;
+        this.x += collisionOffset;
       }
       if (this.checkNegativeCollision(this.x, this.mouse.x, this.size)) {
-        this.x -= 10;
+        this.x -= collisionOffset;
       }
       if (this.checkPositiveCollision(this.y, this.mouse.y, this.canvas.height, this.size)) {
-        this.y += 10;
+        this.y += collisionOffset;
       }
       if (this.checkNegativeCollision(this.y, this.mouse.y, this.size)) {
-        this.y -= 10;
+        this.y -= collisionOffset;
       }
     }
 
