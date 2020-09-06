@@ -1,1 +1,1 @@
-export { LoginInput } from './LoginInput';
+export { StyledInput } from './StyledInput';

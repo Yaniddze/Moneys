@@ -72,7 +72,7 @@ export const Particles: FC<PropTypes> = () => {
     };
   });
 
-  return (
-    <Canvas ref={ref} />
-  );
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  return (<Canvas ref={ref} />);
 };
