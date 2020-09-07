@@ -7,10 +7,14 @@ export class ParticlesHolder {
   constructor(
     canvas: HTMLCanvasElement,
     mouse: Mouse,
+    particleColor: string,
+    connectLineColor: (opacity: number) => string,
   ) {
     this.canvas = canvas;
     this.canvasContext = canvas.getContext('2d')!!;
     this.mouse = mouse;
+    this.particleColor = particleColor;
+    this.connectLineColor = connectLineColor;
   }
 
   canvas: HTMLCanvasElement;
@@ -18,6 +22,10 @@ export class ParticlesHolder {
   canvasContext: CanvasRenderingContext2D;
 
   mouse: Mouse;
+
+  particleColor: string;
+
+  connectLineColor: (opacity: number) => string;
 
   private randomCoordinate = (size: number, border: number): number => (
     Math.random() * ((border - size * 2) - (size * 2)) + size * 2
@@ -37,7 +45,7 @@ export class ParticlesHolder {
       const directionX = this.randomDirection();
       const directionY = this.randomDirection();
 
-      const color = '#346c09';
+      const color = this.particleColor;
 
       this.particlesArray.push(new Particle(
         x,
@@ -64,7 +72,7 @@ export class ParticlesHolder {
         if (distance < (this.canvas.width / 7) * (this.canvas.height / 7)) {
           const opacity = 1 - (distance / 20000);
           const context = this.canvasContext;
-          context.strokeStyle = `rgba(64,147,0,${opacity})`;
+          context.strokeStyle = this.connectLineColor(opacity);
           context.beginPath();
           context.moveTo(array[i].x, array[i].y);
           context.lineTo(array[j].x, array[j].y);

@@ -3,7 +3,7 @@ import React, {
   useRef,
   useEffect,
 } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { ParticlesHolder } from './ParticlesHolder';
 import { Mouse } from './types';
 
@@ -13,7 +13,7 @@ const Canvas = styled.canvas`
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(#A6F16C, #62E200);
+  background:${(props): string => (`radial-gradient(${props.theme.colors.dim},  ${props.theme.colors.main})`)};
 `;
 
 type PropTypes = {
@@ -22,6 +22,7 @@ type PropTypes = {
 
 export const Particles: FC<PropTypes> = () => {
   const ref = useRef<HTMLCanvasElement>();
+  const theme = useTheme();
 
   useEffect(() => {
     const canvas = ref.current!!;
@@ -39,7 +40,12 @@ export const Particles: FC<PropTypes> = () => {
       radius: calcMouseRadius(canvas.height, canvas.width),
     };
 
-    const particles = new ParticlesHolder(canvas, mouse);
+    const particles = new ParticlesHolder(
+      canvas,
+      mouse,
+      theme.colors.dark,
+      theme.colors.calcDarkInRgba,
+    );
 
     const handleResize = (): void => {
       canvas.width = window.innerWidth;
