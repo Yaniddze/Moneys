@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 
-// type Border = {
-//   radius?: string;
-//   color: string;
-//   thickness: number;
-// }
-//
-// type PropTypes = {
-//   padding: number;
-//   border?: Border;
-// }
-
 export const CentredDiv = styled.div`
   left: 50%;
   top: 50%;

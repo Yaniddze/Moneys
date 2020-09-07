@@ -6,8 +6,12 @@ import React, {
 } from 'react';
 
 // Components
-import { CentredDiv } from './CentredDiv';
+import {
+  RightWrappedDiv,
+  CentredDiv,
+} from '../divs';
 import { StyledForm } from './StyledForm';
+import { SquareButton } from '../buttons';
 import {
   InputWithAnimatedSpan,
   InputChangeEvent,
@@ -53,11 +57,11 @@ export const LoginForm: FC = () => {
           onChange={handleInputChange}
         />
 
-        <div>
-          <button onClick={handleSubmit} type="submit">
+        <RightWrappedDiv>
+          <SquareButton onClick={handleSubmit} type="submit">
             Submit
-          </button>
-        </div>
+          </SquareButton>
+        </RightWrappedDiv>
 
       </StyledForm>
     </CentredDiv>
