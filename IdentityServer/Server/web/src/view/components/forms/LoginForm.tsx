@@ -1,12 +1,17 @@
 // Core
-import React, { ChangeEvent, FC, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, {
+  FC,
+  useState,
+  MouseEvent,
+} from 'react';
 
 // Components
 import { CentredDiv } from './CentredDiv';
 import { StyledForm } from './StyledForm';
-import { AnimatedLabel } from '../inputs/AnimatedLabel';
-import { StyledInput } from '../inputs';
+import {
+  InputWithAnimatedSpan,
+  InputChangeEvent,
+} from '../inputs/InputWithAnimatedSpan';
 
 type FormTypes = {
   login: string;
@@ -18,69 +23,42 @@ export const LoginForm: FC = () => {
     login: '',
     password: '',
   });
-  const { register, handleSubmit, errors } = useForm<FormTypes>();
 
-  const onSubmit = (data: FormTypes): void => {
-    console.log(data);
+  const handleSubmit = (e: MouseEvent): void => {
+    e.preventDefault();
+
+    console.log(formValues);
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (e: InputChangeEvent): void => {
     setFormValues({
       ...formValues,
-      [e.target.name]: e.target.value,
+      [e.name]: e.newText,
     });
   };
 
   return (
     <CentredDiv>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm>
+
+        <InputWithAnimatedSpan
+          inputName="login"
+          labelText="Login"
+          onChange={handleInputChange}
+        />
+
+        <InputWithAnimatedSpan
+          inputName="password"
+          labelText="Password"
+          onChange={handleInputChange}
+        />
 
         <div>
-          <p>
-            {errors.login?.message}
-          </p>
-          <AnimatedLabel
-            labelText="Login"
-            isValueEntered={formValues.login.length > 0}
-            input={(
-              <StyledInput
-                name="login"
-                onChange={handleInputChange}
-                ref={register({
-                  required: true,
-                  maxLength: 50,
-                })}
-              />
-            )}
-          />
-        </div>
-
-        <div>
-          <p>
-            {errors.password?.message}
-          </p>
-          <AnimatedLabel
-            labelText="Password"
-            isValueEntered={formValues.password.length > 0}
-            input={(
-              <StyledInput
-                name="password"
-                type="password"
-                onChange={handleInputChange}
-                ref={register({
-                  required: true,
-                  maxLength: 50,
-                })}
-              />
-            )}
-          />
-        </div>
-
-        <div>
-          <button type="submit">
+          <button onClick={handleSubmit} type="submit">
             Submit
           </button>
         </div>
+
       </StyledForm>
     </CentredDiv>
   );
