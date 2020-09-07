@@ -75,8 +75,10 @@ export const Particles: FC<PropTypes> = () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseOut);
+
+      particles.stopAnimation();
     };
-  });
+  }, [theme]);
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore

@@ -15,6 +15,7 @@ export class ParticlesHolder {
     this.mouse = mouse;
     this.particleColor = particleColor;
     this.connectLineColor = connectLineColor;
+    this.animationId = -1;
   }
 
   canvas: HTMLCanvasElement;
@@ -26,6 +27,8 @@ export class ParticlesHolder {
   particleColor: string;
 
   connectLineColor: (opacity: number) => string;
+
+  private animationId: number;
 
   private randomCoordinate = (size: number, border: number): number => (
     Math.random() * ((border - size * 2) - (size * 2)) + size * 2
@@ -83,7 +86,7 @@ export class ParticlesHolder {
   }
 
   animate = (): void => {
-    requestAnimationFrame(this.animate);
+    this.animationId = requestAnimationFrame(this.animate);
     this.canvasContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
     for (let i = 0; i < this.particlesArray.length; i++) {
@@ -91,5 +94,9 @@ export class ParticlesHolder {
     }
 
     this.connectParticles();
+  }
+
+  stopAnimation = (): void => {
+    window.cancelAnimationFrame(this.animationId);
   }
 }
