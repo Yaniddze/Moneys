@@ -1,17 +1,12 @@
 // Core
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  FC,
-  useState,
-} from 'react';
-import { createGlobalStyle } from 'styled-components';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // Components
 import { CentredDiv } from './CentredDiv';
-import { StyledInput } from '../inputs';
 import { StyledForm } from './StyledForm';
+import { AnimatedLabel } from '../inputs/AnimatedLabel';
+import { StyledInput } from '../inputs';
 
 type FormTypes = {
   login: string;
@@ -19,77 +14,65 @@ type FormTypes = {
 }
 
 export const LoginForm: FC = () => {
-  const [loginInput, setLoginInput] = useState(false);
+  const [formValues, setFormValues] = useState<FormTypes>({
+    login: '',
+    password: '',
+  });
   const { register, handleSubmit, errors } = useForm<FormTypes>();
-
-  const LabelStateStyles = createGlobalStyle`
-    .form-label__to-up {
-      margin-top: -10px;
-      font-size: 13px;
-    }
-    
-    .form-label__to-down {
-      margin-top: 20px;
-    }
-    
-    .form-label {
-      position: absolute;
-      left: 0;
-      margin-left: 30px;
-      transition: .5s all ease
-    }
-  `;
 
   const onSubmit = (data: FormTypes): void => {
     console.log(data);
   };
 
-  const handleLoginChange: ChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-
-    setLoginInput(text.length > 0);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
     <CentredDiv>
-      <LabelStateStyles />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
 
         <div>
           <p>
-            {errors.login && errors.login.message}
+            {errors.login?.message}
           </p>
-          <div>
-            <StyledInput
-              name="login"
-              ref={register({
-                required: true,
-                maxLength: 50,
-              })}
-              onChange={handleLoginChange}
-            />
-            <span
-              className={`${loginInput ? 'form-label__to-up' : 'form-label__to-down'} form-label`}
-            >
-              Login
-            </span>
-          </div>
+          <AnimatedLabel
+            labelText="Login"
+            isValueEntered={formValues.login.length > 0}
+            input={(
+              <StyledInput
+                name="login"
+                onChange={handleInputChange}
+                ref={register({
+                  required: true,
+                  maxLength: 50,
+                })}
+              />
+            )}
+          />
         </div>
 
         <div>
           <p>
-            {errors.password && errors.password.message}
+            {errors.password?.message}
           </p>
-          <div>
-            Password
-          </div>
-          <StyledInput
-            name="password"
-            type="password"
-            ref={register({
-              required: true,
-              maxLength: 50,
-            })}
+          <AnimatedLabel
+            labelText="Password"
+            isValueEntered={formValues.password.length > 0}
+            input={(
+              <StyledInput
+                name="password"
+                type="password"
+                onChange={handleInputChange}
+                ref={register({
+                  required: true,
+                  maxLength: 50,
+                })}
+              />
+            )}
           />
         </div>
 
