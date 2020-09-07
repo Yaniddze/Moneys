@@ -10,7 +10,6 @@ export const StyledInput = styled.input<PropTypes>`
   margin: 10px;
   border: 1px solid black;
   border-radius: 5px;
-  background-color: #ffc38c;
   color: black;
   font-size: 16px;
   

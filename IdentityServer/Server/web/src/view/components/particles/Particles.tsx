@@ -13,7 +13,7 @@ const Canvas = styled.canvas`
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(#ffc38c, #ff9b40);
+  background: radial-gradient(#A6F16C, #62E200);
 `;
 
 type PropTypes = {

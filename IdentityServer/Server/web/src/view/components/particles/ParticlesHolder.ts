@@ -37,7 +37,7 @@ export class ParticlesHolder {
       const directionX = this.randomDirection();
       const directionY = this.randomDirection();
 
-      const color = '#8c5523';
+      const color = '#346c09';
 
       this.particlesArray.push(new Particle(
         x,
@@ -64,7 +64,7 @@ export class ParticlesHolder {
         if (distance < (this.canvas.width / 7) * (this.canvas.height / 7)) {
           const opacity = 1 - (distance / 20000);
           const context = this.canvasContext;
-          context.strokeStyle = `rgba(140,85,31,${opacity})`;
+          context.strokeStyle = `rgba(64,147,0,${opacity})`;
           context.beginPath();
           context.moveTo(array[i].x, array[i].y);
           context.lineTo(array[j].x, array[j].y);
