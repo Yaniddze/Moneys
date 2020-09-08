@@ -4,11 +4,13 @@ import React, {
   useState,
   MouseEvent,
 } from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
 import { RightWrappedDiv } from '../divs';
 import { ErrorDiv } from '../ErrorDiv';
 import { StyledForm } from './StyledForm';
+import { StyledLink } from '../links';
 import { SquareButtonWithShadow } from '../buttons';
 import {
   InputWithAnimatedSpan,
@@ -27,9 +29,14 @@ type PropTypes = {
   children?: never;
   handleSubmit: (e: LoginInfo) => void;
   error: string;
+  registerFormPath: string;
 }
 
-export const LoginForm: FC<PropTypes> = ({ handleSubmit, error }: PropTypes) => {
+export const LoginForm: FC<PropTypes> = ({
+  handleSubmit,
+  error,
+  registerFormPath,
+}: PropTypes) => {
   const [formValues, setFormValues] = useState<FormTypes>({
     login: '',
     password: '',
@@ -73,10 +80,22 @@ export const LoginForm: FC<PropTypes> = ({ handleSubmit, error }: PropTypes) => 
       />
 
       <RightWrappedDiv>
+        <Link
+          to={registerFormPath}
+          style={{
+            marginRight: 'auto',
+          }}
+        >
+          <StyledLink>
+            Sign on
+          </StyledLink>
+        </Link>
         <SquareButtonWithShadow onClick={handleClick} type="submit">
           Sign in
         </SquareButtonWithShadow>
       </RightWrappedDiv>
+
+      <RightWrappedDiv />
 
     </StyledForm>
   );

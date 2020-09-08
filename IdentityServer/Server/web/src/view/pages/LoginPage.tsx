@@ -38,7 +38,11 @@ export const LoginPage: FC<PropTypes> = () => {
     <div>
       <Particles />
       <CentredDiv>
-        <LoginForm error={error} handleSubmit={handleSubmit} />
+        <LoginForm
+          registerFormPath="/auth/register"
+          error={error}
+          handleSubmit={handleSubmit}
+        />
       </CentredDiv>
     </div>
   ));

@@ -13,12 +13,14 @@ import {
   darkTheme,
 } from './themes';
 
-const SwitchInput = styled.input`
+import {
+  ToogleSwitch,
+} from './view/components/switch';
+
+const SwitchInput = styled(ToogleSwitch)`
   position: absolute;
   left: 0;
   top: 0;
-  margin: 10px;
-  z-index:10;
 `;
 
 type PropTypes = {
@@ -47,13 +49,14 @@ export const ThemedApp: FC<PropTypes> = ({ children }: PropTypes) => {
 
   return (
     <div>
-      <SwitchInput
-        checked={currentTheme === darkTheme}
-        type="checkbox"
-        onChange={handleChange}
-      />
       <ThemeProvider theme={currentTheme}>
-        {children}
+        <div>
+          {children}
+        </div>
+        <SwitchInput
+          initValue={!isGreenCooked}
+          handleChange={handleChange}
+        />
       </ThemeProvider>
     </div>
   );

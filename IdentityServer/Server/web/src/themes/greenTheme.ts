@@ -8,6 +8,7 @@ export const greenTheme: DefaultTheme = {
     dark: '#409300',
     calcDarkInRgba: ((opacity): string => `rgba(64,147,0,${opacity})`),
     error: 'red',
+    linkColor: 'black',
   },
 
   font: {

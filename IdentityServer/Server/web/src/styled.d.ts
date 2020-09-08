@@ -9,6 +9,7 @@ declare module 'styled-components' {
       dark: string;
       calcDarkInRgba: (opacity: number) => string;
       error: string;
+      linkColor: string;
     };
 
     font: {
