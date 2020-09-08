@@ -59,12 +59,14 @@ export const LoginForm: FC<PropTypes> = ({ handleSubmit, error }: PropTypes) => 
       </ErrorDiv>
 
       <InputWithAnimatedSpan
+        inputType="text"
         inputName="login"
         labelText="Login"
         onChange={handleInputChange}
       />
 
       <InputWithAnimatedSpan
+        inputType="password"
         inputName="password"
         labelText="Password"
         onChange={handleInputChange}
@@ -72,7 +74,7 @@ export const LoginForm: FC<PropTypes> = ({ handleSubmit, error }: PropTypes) => 
 
       <RightWrappedDiv>
         <SquareButton onClick={handleClick} type="submit">
-          Submit
+          Sign in
         </SquareButton>
       </RightWrappedDiv>
 

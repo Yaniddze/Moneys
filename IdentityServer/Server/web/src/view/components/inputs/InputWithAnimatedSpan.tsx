@@ -10,6 +10,7 @@ type PropTypes = {
   children?: never;
   labelText: string;
   inputName: string;
+  inputType: string;
   onChange: (e: InputChangeEvent) => void;
 };
 
@@ -22,9 +23,12 @@ const Wrapper = styled.div`
   margin-top: 10px;
 `;
 
-export const InputWithAnimatedSpan: FC<PropTypes> = (
-  { labelText, inputName, onChange }: PropTypes,
-) => {
+export const InputWithAnimatedSpan: FC<PropTypes> = ({
+  labelText,
+  inputName,
+  onChange,
+  inputType,
+}: PropTypes) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -43,6 +47,7 @@ export const InputWithAnimatedSpan: FC<PropTypes> = (
       <LabelAnimationStyles />
       <StyledInput
         name={inputName}
+        type={inputType}
         onChange={handleInput}
       />
       <span
