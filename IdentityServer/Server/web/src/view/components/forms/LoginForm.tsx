@@ -6,10 +6,7 @@ import React, {
 } from 'react';
 
 // Components
-import {
-  RightWrappedDiv,
-  CentredDiv,
-} from '../divs';
+import { RightWrappedDiv } from '../divs';
 import { StyledForm } from './StyledForm';
 import { SquareButton } from '../buttons';
 import {
@@ -42,28 +39,26 @@ export const LoginForm: FC = () => {
   };
 
   return (
-    <CentredDiv>
-      <StyledForm>
+    <StyledForm>
 
-        <InputWithAnimatedSpan
-          inputName="login"
-          labelText="Login"
-          onChange={handleInputChange}
-        />
+      <InputWithAnimatedSpan
+        inputName="login"
+        labelText="Login"
+        onChange={handleInputChange}
+      />
 
-        <InputWithAnimatedSpan
-          inputName="password"
-          labelText="Password"
-          onChange={handleInputChange}
-        />
+      <InputWithAnimatedSpan
+        inputName="password"
+        labelText="Password"
+        onChange={handleInputChange}
+      />
 
-        <RightWrappedDiv>
-          <SquareButton onClick={handleSubmit} type="submit">
-            Submit
-          </SquareButton>
-        </RightWrappedDiv>
+      <RightWrappedDiv>
+        <SquareButton onClick={handleSubmit} type="submit">
+          Submit
+        </SquareButton>
+      </RightWrappedDiv>
 
-      </StyledForm>
-    </CentredDiv>
+    </StyledForm>
   );
 };

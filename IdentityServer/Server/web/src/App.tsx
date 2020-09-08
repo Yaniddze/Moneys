@@ -17,6 +17,9 @@ import { ThemedApp } from './ThemedApp';
 import { LoginPage } from './view/pages/LoginPage';
 import { RegisterPage } from './view/pages/RegisterPage';
 
+// Dependencies
+import { LoginDependencies } from './dependencies/LoginDependencies';
+
 export const App: FC = () => (
   <BrowserRouter>
     <GlobalStyle />
@@ -25,8 +28,12 @@ export const App: FC = () => (
         <Route
           path="/auth/login"
           render={
-              (props) => <LoginPage />
-            }
+            (props) => (
+              <LoginDependencies>
+                <LoginPage />
+              </LoginDependencies>
+            )
+          }
         />
         <Route
           path="/auth/register"

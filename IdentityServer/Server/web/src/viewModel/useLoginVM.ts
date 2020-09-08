@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 
 // Context
-import { LoginUnitContext } from '../view/pages/LoginPage';
+import { LoginUnitContext } from '../dependencies/LoginDependencies';
 
 // Types
 import {
