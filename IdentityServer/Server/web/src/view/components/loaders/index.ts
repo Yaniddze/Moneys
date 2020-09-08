@@ -1,0 +1,1 @@
+export { FourColorsLoader } from './FourColorsLoader';

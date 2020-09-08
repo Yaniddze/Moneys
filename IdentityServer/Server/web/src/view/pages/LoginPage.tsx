@@ -12,6 +12,7 @@ import { useLoginVM } from '../../viewModel/useLoginVM';
 // Components
 import { CentredDiv } from '../components/divs';
 import { LoginInfo } from '../../model/login/types';
+import { FourColorsLoader } from '../components/loaders';
 
 type PropTypes = {
   children?: never;
@@ -20,9 +21,12 @@ type PropTypes = {
 export const LoginPage: FC<PropTypes> = () => {
   const { fetchLogin, loginState } = useLoginVM();
   const [error, setError] = useState('');
+  const [isFetching, setIsFetching] = useState(loginState.isFetching);
 
   const handleSubmit = (e: LoginInfo): void => {
-    fetchLogin(e);
+    if (!isFetching) {
+      fetchLogin(e);
+    }
   };
 
   useEffect(() => {
@@ -30,13 +34,23 @@ export const LoginPage: FC<PropTypes> = () => {
   });
 
   useEffect(() => autorun(() => {
-    const tempErrors = loginState.data.errors;
-    setError(tempErrors.length > 0 ? tempErrors[0] : '');
+    setIsFetching(loginState.isFetching);
+    if (loginState.isFetching) {
+      setError('');
+    } else {
+      const tempErrors = loginState.data.errors;
+      setError(tempErrors.length > 0 ? tempErrors[0] : '');
+    }
   }));
+
+  const loader = isFetching && (
+    <FourColorsLoader />
+  );
 
   return useObserver(() => (
     <div>
       <Particles />
+      {loader}
       <CentredDiv>
         <LoginForm
           registerFormPath="/auth/register"
