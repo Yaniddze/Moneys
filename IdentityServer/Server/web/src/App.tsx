@@ -42,7 +42,7 @@ export const App: FC = () => (
             }
         />
 
-        <Redirect to="/Auth/Login" />
+        <Redirect to="/auth/login" />
       </Switch>
     </ThemedApp>
   </BrowserRouter>

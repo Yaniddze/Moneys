@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SquareButton = styled.button`
+export const SquareButtonWithShadow = styled.button`
   padding: 10px;
   border: none;
   color: ${(props): string => props.theme.font.btnFontColor};

@@ -9,7 +9,7 @@ import React, {
 import { RightWrappedDiv } from '../divs';
 import { ErrorDiv } from '../ErrorDiv';
 import { StyledForm } from './StyledForm';
-import { SquareButton } from '../buttons';
+import { SquareButtonWithShadow } from '../buttons';
 import {
   InputWithAnimatedSpan,
   InputChangeEvent,
@@ -73,9 +73,9 @@ export const LoginForm: FC<PropTypes> = ({ handleSubmit, error }: PropTypes) => 
       />
 
       <RightWrappedDiv>
-        <SquareButton onClick={handleClick} type="submit">
+        <SquareButtonWithShadow onClick={handleClick} type="submit">
           Sign in
-        </SquareButton>
+        </SquareButtonWithShadow>
       </RightWrappedDiv>
 
     </StyledForm>

@@ -1,1 +1,1 @@
-export { SquareButton } from './SquareButton';
+export { SquareButtonWithShadow } from './SquareButtonWithShadow';
