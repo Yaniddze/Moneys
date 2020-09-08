@@ -73,7 +73,7 @@ export class ParticlesHolder {
         );
 
         if (distance < (this.canvas.width / 7) * (this.canvas.height / 7)) {
-          const opacity = 1 - (distance / 20000);
+          const opacity = 1 - (distance / (this.canvas.width + this.canvas.height) / 8);
           const context = this.canvasContext;
           context.strokeStyle = this.connectLineColor(opacity);
           context.beginPath();
