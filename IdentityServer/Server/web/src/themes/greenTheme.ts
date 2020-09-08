@@ -7,6 +7,7 @@ export const greenTheme: DefaultTheme = {
     dim: '#A6F16C',
     dark: '#409300',
     calcDarkInRgba: ((opacity): string => `rgba(64,147,0,${opacity})`),
+    error: 'red',
   },
 
   font: {

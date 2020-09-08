@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const httpClient = axios.create({
-  baseURL: 'api/v1/auth',
+  baseURL: 'https://localhost:5001/api/v1/auth',
 });

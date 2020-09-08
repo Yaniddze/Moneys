@@ -8,6 +8,7 @@ declare module 'styled-components' {
       dim: string;
       dark: string;
       calcDarkInRgba: (opacity: number) => string;
+      error: string;
     };
 
     font: {

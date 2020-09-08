@@ -7,6 +7,7 @@ import React, {
 
 // Components
 import { RightWrappedDiv } from '../divs';
+import { ErrorDiv } from '../ErrorDiv';
 import { StyledForm } from './StyledForm';
 import { SquareButton } from '../buttons';
 import {
@@ -14,21 +15,33 @@ import {
   InputChangeEvent,
 } from '../inputs/InputWithAnimatedSpan';
 
+// Types
+import { LoginInfo } from '../../../model/login/types';
+
 type FormTypes = {
   login: string;
   password: string;
 }
 
-export const LoginForm: FC = () => {
+type PropTypes = {
+  children?: never;
+  handleSubmit: (e: LoginInfo) => void;
+  error: string;
+}
+
+export const LoginForm: FC<PropTypes> = ({ handleSubmit, error }: PropTypes) => {
   const [formValues, setFormValues] = useState<FormTypes>({
     login: '',
     password: '',
   });
 
-  const handleSubmit = (e: MouseEvent): void => {
+  const handleClick = (e: MouseEvent): void => {
     e.preventDefault();
 
-    console.log(formValues);
+    handleSubmit({
+      username: formValues.login,
+      password: formValues.password,
+    });
   };
 
   const handleInputChange = (e: InputChangeEvent): void => {
@@ -40,6 +53,10 @@ export const LoginForm: FC = () => {
 
   return (
     <StyledForm>
+
+      <ErrorDiv>
+        {error}
+      </ErrorDiv>
 
       <InputWithAnimatedSpan
         inputName="login"
@@ -54,7 +71,7 @@ export const LoginForm: FC = () => {
       />
 
       <RightWrappedDiv>
-        <SquareButton onClick={handleSubmit} type="submit">
+        <SquareButton onClick={handleClick} type="submit">
           Submit
         </SquareButton>
       </RightWrappedDiv>
