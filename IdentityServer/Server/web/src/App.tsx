@@ -19,12 +19,16 @@ import { RegisterPage } from './view/pages/RegisterPage';
 
 // Dependencies
 import { LoginDependencies } from './dependencies/LoginDependencies';
+import { RegisterDependencies } from './dependencies/RegisterDependencies';
 
 export const App: FC = () => (
   <BrowserRouter>
     <GlobalStyle />
+
     <ThemedApp>
+
       <Switch>
+
         <Route
           path="/auth/login"
           render={
@@ -35,15 +39,23 @@ export const App: FC = () => (
             )
           }
         />
+
         <Route
           path="/auth/register"
           render={
-              (props) => <RegisterPage />
-            }
+              (props) => (
+                <RegisterDependencies>
+                  <RegisterPage />
+                </RegisterDependencies>
+              )
+          }
         />
 
         <Redirect to="/auth/login" />
+
       </Switch>
+
     </ThemedApp>
+
   </BrowserRouter>
 );

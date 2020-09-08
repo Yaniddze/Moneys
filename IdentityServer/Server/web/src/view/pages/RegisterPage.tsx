@@ -1,29 +1,63 @@
 // Core
-import React, { FC, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { autorun } from 'mobx';
 
 // Components
-import {
-  StyledLink,
-} from '../components/links';
+import { Particles } from '../components/particles';
+import { CentredDiv } from '../components/divs';
+import { RegisterForm } from '../components/forms';
+import { FourColorsLoader } from '../components/loaders';
+
+// Hook
+import { useRegisterVM } from '../../viewModel/useRegisterVM';
+
+// Types
+import { RegisterInfo } from '../../model/register/types';
 
 type PropTypes = {
   children?: never;
 }
 
 export const RegisterPage: FC<PropTypes> = () => {
+  const { registerState, fetchRegister } = useRegisterVM();
+  const [error, setError] = useState('');
+  const [isFetching, setIsFetching] = useState(registerState.isFetching);
+
+  useEffect(() => autorun(() => {
+    setIsFetching(registerState.isFetching);
+    if (registerState.isFetching) {
+      setError('');
+    } else {
+      const tempErrors = registerState.data.errors;
+      setError(tempErrors.length > 0 ? tempErrors[0] : '');
+    }
+  }));
+
   useEffect(() => {
     document.title = 'Registration';
   });
 
+  const handleSubmit = (e: RegisterInfo): void => {
+    if (!isFetching) {
+      fetchRegister(e);
+    }
+  };
+
+  const loader = isFetching && (
+    <FourColorsLoader />
+  );
+
   return (
     <div>
-      Register Page
-      <Link to="/auth/login">
-        <StyledLink>
-          Sign in
-        </StyledLink>
-      </Link>
+      <Particles />
+      {loader}
+      <CentredDiv>
+        <RegisterForm
+          handleSubmit={handleSubmit}
+          error={error}
+          loginFormPath="/auth/login"
+        />
+      </CentredDiv>
     </div>
   );
 };

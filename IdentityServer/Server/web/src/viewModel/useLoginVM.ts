@@ -8,7 +8,6 @@ import { LoginUnitContext } from '../dependencies/LoginDependencies';
 import {
   FetchingLoginResponse,
   LoginInfo,
-  LoginUnit,
 } from '../model/login/types';
 
 // Storage
@@ -20,7 +19,7 @@ type ReturnType = {
 }
 
 export const useLoginVM = (): ReturnType => {
-  const loginUnit: LoginUnit = useContext(LoginUnitContext);
+  const loginUnit = useContext(LoginUnitContext);
 
   const fetchLogin = (loginInfo: LoginInfo): void => {
     loginResponseStorage.isFetching = true;
