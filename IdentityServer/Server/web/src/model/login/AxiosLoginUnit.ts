@@ -2,6 +2,7 @@ import {
   AxiosResponse,
   AxiosInstance,
   Canceler,
+  AxiosError,
 } from 'axios';
 import { LoginInfo, LoginResponse, LoginUnit } from './types';
 
@@ -14,6 +15,8 @@ export class AxiosLoginUnit implements LoginUnit {
     this.canceler = canceler;
   }
 
+  private readonly cancellationWord = 'AxiosLoginUnit_Request_Cancellation';
+
   private readonly httpClient: AxiosInstance;
 
   private readonly canceler: Canceler | undefined;
@@ -21,15 +24,24 @@ export class AxiosLoginUnit implements LoginUnit {
   Invoke(loginInfo: LoginInfo): Promise<LoginResponse> {
     return this.httpClient.post('/login', loginInfo)
       .then((result: AxiosResponse<LoginResponse>) => result.data)
-      .catch(() => ({
-        success: false,
-        errors: ['Network error'],
-      }));
+      .catch((e: AxiosError) => {
+        if (e.message === this.cancellationWord) {
+          return {
+            success: false,
+            errors: [''],
+          };
+        }
+
+        return {
+          success: false,
+          errors: ['Network error'],
+        };
+      });
   }
 
   InvokeCancel(): void {
     if (this.canceler) {
-      this.canceler();
+      this.canceler(this.cancellationWord);
     }
   }
 }
