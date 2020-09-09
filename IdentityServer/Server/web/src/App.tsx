@@ -1,5 +1,5 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import {
   BrowserRouter,
   Switch,
@@ -35,9 +35,9 @@ export const App: FC = () => (
           <Route
             path="/auth/login"
             render={
-              (props) => (
+              (props): ReactElement => (
                 <LoginDependencies>
-                  <LoginPage />
+                  <LoginPage searchParams={props?.location.search} />
                 </LoginDependencies>
               )
             }
@@ -46,9 +46,9 @@ export const App: FC = () => (
           <Route
             path="/auth/register"
             render={
-              (props) => (
+              (props): ReactElement => (
                 <RegisterDependencies>
-                  <RegisterPage />
+                  <RegisterPage searchParams={props?.location.search} />
                 </RegisterDependencies>
               )
             }

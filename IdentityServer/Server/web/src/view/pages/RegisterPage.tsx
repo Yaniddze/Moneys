@@ -13,16 +13,27 @@ import { useRegisterVM } from '../../viewModel/useRegisterVM';
 // Types
 import { RegisterInfo } from '../../model/register/types';
 
+// Utils
+import { redirect } from '../../model/utils/redirect';
+import { getReturnUrl } from '../../model/utils/getReturnUrl';
+
 type PropTypes = {
   children?: never;
+  searchParams: string;
 }
 
-export const RegisterPage: FC<PropTypes> = () => {
+export const RegisterPage: FC<PropTypes> = ({
+  searchParams,
+}: PropTypes) => {
   const { registerState, fetchRegister, tryCancelFetch } = useRegisterVM();
   const [error, setError] = useState('');
   const [isFetching, setIsFetching] = useState(registerState.isFetching);
+  const [successRegister, setSuccessRegister] = useState(registerState.data.success);
+
+  const returnUrl = getReturnUrl(searchParams);
 
   useEffect(() => autorun(() => {
+    setSuccessRegister(registerState.data.success);
     setIsFetching(registerState.isFetching);
     if (registerState.isFetching) {
       setError('');
@@ -48,6 +59,10 @@ export const RegisterPage: FC<PropTypes> = () => {
     <FourColorsLoader />
   );
 
+  if (successRegister) {
+    redirect(returnUrl);
+  }
+
   return (
     <div>
       {loader}
@@ -55,7 +70,7 @@ export const RegisterPage: FC<PropTypes> = () => {
         <RegisterForm
           handleSubmit={handleSubmit}
           error={error}
-          loginFormPath="/auth/login"
+          loginFormPath={`/auth/login${searchParams}`}
         />
       </CentredDiv>
     </div>
