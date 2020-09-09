@@ -4,7 +4,6 @@ import { autorun } from 'mobx';
 import { useObserver } from 'mobx-react';
 
 import { LoginForm } from '../components/forms';
-import { Particles } from '../components/particles';
 
 // Hooks
 import { useLoginVM } from '../../viewModel/useLoginVM';
@@ -49,7 +48,6 @@ export const LoginPage: FC<PropTypes> = () => {
 
   return useObserver(() => (
     <div>
-      <Particles />
       {loader}
       <CentredDiv>
         <LoginForm

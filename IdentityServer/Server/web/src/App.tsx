@@ -12,6 +12,7 @@ import { GlobalStyle } from './GlobalStyle';
 
 // Components
 import { ThemedApp } from './ThemedApp';
+import { Particles } from './view/components/particles';
 
 // Pages
 import { LoginPage } from './view/pages/LoginPage';
@@ -26,35 +27,37 @@ export const App: FC = () => (
     <GlobalStyle />
 
     <ThemedApp>
+      <div>
+        <Particles />
 
-      <Switch>
+        <Switch>
 
-        <Route
-          path="/auth/login"
-          render={
-            (props) => (
-              <LoginDependencies>
-                <LoginPage />
-              </LoginDependencies>
-            )
-          }
-        />
+          <Route
+            path="/auth/login"
+            render={
+              (props) => (
+                <LoginDependencies>
+                  <LoginPage />
+                </LoginDependencies>
+              )
+            }
+          />
 
-        <Route
-          path="/auth/register"
-          render={
+          <Route
+            path="/auth/register"
+            render={
               (props) => (
                 <RegisterDependencies>
                   <RegisterPage />
                 </RegisterDependencies>
               )
-          }
-        />
+            }
+          />
 
-        <Redirect to="/auth/login" />
+          <Redirect to="/auth/login" />
 
-      </Switch>
-
+        </Switch>
+      </div>
     </ThemedApp>
 
   </BrowserRouter>

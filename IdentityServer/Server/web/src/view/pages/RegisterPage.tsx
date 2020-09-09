@@ -3,7 +3,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { autorun } from 'mobx';
 
 // Components
-import { Particles } from '../components/particles';
 import { CentredDiv } from '../components/divs';
 import { RegisterForm } from '../components/forms';
 import { FourColorsLoader } from '../components/loaders';
@@ -49,7 +48,6 @@ export const RegisterPage: FC<PropTypes> = () => {
 
   return (
     <div>
-      <Particles />
       {loader}
       <CentredDiv>
         <RegisterForm
