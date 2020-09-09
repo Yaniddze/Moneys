@@ -17,4 +17,5 @@ export type RegisterInfo = {
 
 export interface RegisterUnit {
   Invoke(registerInfo: RegisterInfo): Promise<RegisterResponse>;
+  InvokeCancel: () => void;
 }

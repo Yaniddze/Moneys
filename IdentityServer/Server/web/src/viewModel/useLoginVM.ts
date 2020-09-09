@@ -16,6 +16,7 @@ import { loginResponseStorage } from '../model/login/loginStateStorage';
 type ReturnType = {
   loginState: FetchingLoginResponse;
   fetchLogin: (loginInfo: LoginInfo) => void;
+  tryCancelFetch: () => void;
 }
 
 export const useLoginVM = (): ReturnType => {
@@ -29,8 +30,16 @@ export const useLoginVM = (): ReturnType => {
     });
   };
 
+  const tryCancelFetch = (): void => {
+    if (loginResponseStorage.isFetching) {
+      loginResponseStorage.isFetching = false;
+      loginUnit.InvokeCancel();
+    }
+  };
+
   return {
     fetchLogin,
     loginState: loginResponseStorage,
+    tryCancelFetch,
   };
 };

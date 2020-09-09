@@ -18,7 +18,7 @@ type PropTypes = {
 }
 
 export const RegisterPage: FC<PropTypes> = () => {
-  const { registerState, fetchRegister } = useRegisterVM();
+  const { registerState, fetchRegister, tryCancelFetch } = useRegisterVM();
   const [error, setError] = useState('');
   const [isFetching, setIsFetching] = useState(registerState.isFetching);
 
@@ -34,7 +34,9 @@ export const RegisterPage: FC<PropTypes> = () => {
 
   useEffect(() => {
     document.title = 'Registration';
-  });
+
+    return tryCancelFetch;
+  }, []);
 
   const handleSubmit = (e: RegisterInfo): void => {
     if (!isFetching) {

@@ -16,6 +16,7 @@ import { registerStateStorage } from '../model/register/registerStateStorage';
 type ReturnType = {
   registerState: FetchingRegisterResponse;
   fetchRegister: (registerInfo: RegisterInfo) => void;
+  tryCancelFetch: () => void;
 }
 
 export const useRegisterVM = (): ReturnType => {
@@ -30,8 +31,16 @@ export const useRegisterVM = (): ReturnType => {
       });
   };
 
+  const tryCancelFetch = (): void => {
+    if (registerStateStorage.isFetching) {
+      registerStateStorage.isFetching = false;
+      registerUnit.InvokeCancel();
+    }
+  };
+
   return {
     fetchRegister,
     registerState: registerStateStorage,
+    tryCancelFetch,
   };
 };

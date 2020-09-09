@@ -15,4 +15,5 @@ export type LoginInfo = {
 
 export interface LoginUnit {
   Invoke: (loginInfo: LoginInfo) => Promise<LoginResponse>;
+  InvokeCancel: () => void;
 }

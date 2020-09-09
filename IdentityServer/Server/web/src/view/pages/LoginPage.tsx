@@ -18,7 +18,7 @@ type PropTypes = {
 }
 
 export const LoginPage: FC<PropTypes> = () => {
-  const { fetchLogin, loginState } = useLoginVM();
+  const { fetchLogin, loginState, tryCancelFetch } = useLoginVM();
   const [error, setError] = useState('');
   const [isFetching, setIsFetching] = useState(loginState.isFetching);
 
@@ -30,7 +30,9 @@ export const LoginPage: FC<PropTypes> = () => {
 
   useEffect(() => {
     document.title = 'Login';
-  });
+
+    return tryCancelFetch;
+  }, []);
 
   useEffect(() => autorun(() => {
     setIsFetching(loginState.isFetching);
