@@ -22,7 +22,7 @@ export class AxiosLoginUnit implements LoginUnit {
   private readonly canceler: Canceler | undefined;
 
   Invoke(loginInfo: LoginInfo): Promise<LoginResponse> {
-    return this.httpClient.post('/login', loginInfo)
+    return this.httpClient.post('/auth/login', loginInfo)
       .then((result: AxiosResponse<LoginResponse>) => result.data)
       .catch((e: AxiosError) => {
         if (e.message === this.cancellationWord) {

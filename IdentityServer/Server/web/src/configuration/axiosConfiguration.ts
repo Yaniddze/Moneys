@@ -13,7 +13,7 @@ export const createClient = (): ReturnType => {
   });
 
   const httpClient = axios.create({
-    baseURL: 'https://localhost:5001/api/v1/auth',
+    baseURL: 'https://localhost:5001/api/v1',
     cancelToken: cancellation,
   });
 

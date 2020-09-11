@@ -21,7 +21,7 @@ export class AxiosRegisterUnit implements RegisterUnit {
   private readonly canceler: Canceler | undefined;
 
   Invoke(registerInfo: RegisterInfo): Promise<RegisterResponse> {
-    return this.httpClient.post('/register', registerInfo)
+    return this.httpClient.post('/auth/register', registerInfo)
       .then((result: AxiosResponse<RegisterResponse>) => result.data)
       .catch((e: AxiosError) => {
         if (e.message === this.cancellationWord) {

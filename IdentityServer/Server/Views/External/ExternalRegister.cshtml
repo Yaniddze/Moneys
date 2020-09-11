@@ -1,0 +1,16 @@
+﻿@model ExternalRegisterViewModel;
+
+<form asp-controller="External" asp-action="ExternalRegister" method="post">
+    <input type="hidden" asp-for="ReturnUrl" />
+    <p>
+        @Model.Errors
+    </p>
+    <div>
+        <label>Username</label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <div>
+        <button type="submit">Sign Up</button>
+    </div>
+</form>

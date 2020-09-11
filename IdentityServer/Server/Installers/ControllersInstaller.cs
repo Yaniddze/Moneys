@@ -7,7 +7,7 @@ namespace Server.Installers
     {
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers();
+            services.AddControllersWithViews();
         }
     }
 }

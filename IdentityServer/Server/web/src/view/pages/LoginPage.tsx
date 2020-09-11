@@ -66,11 +66,19 @@ export const LoginPage: FC<PropTypes> = ({
     <div>
       {loader}
       <CentredDiv>
-        <LoginForm
-          registerFormPath={`/auth/register${searchParams}`}
-          error={error}
-          handleSubmit={handleSubmit}
-        />
+        <div>
+          <LoginForm
+            registerFormPath={`/auth/register${searchParams}`}
+            error={error}
+            handleSubmit={handleSubmit}
+          />
+          <div style={{ margin: '10px' }}>
+            <a href={`https://localhost:5001/external/ExternalLogin?provider=Google&returnUrl=${returnUrl}`}>
+              Google
+            </a>
+          </div>
+        </div>
+
       </CentredDiv>
     </div>
   ));
