@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Server.Controllers.ViewModels;
+using Server.Options;
 
 namespace Server.Controllers
 {
@@ -12,11 +13,16 @@ namespace Server.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ApplicationUrls _urls;
 
-        public ExternalController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public ExternalController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager, 
+            ApplicationUrls urls)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _urls = urls;
         }
         
         public IActionResult ExternalLogin(string provider, string returnUrl)
@@ -31,7 +37,7 @@ namespace Server.Controllers
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                return Redirect("https://localhost:5001/auth/login");
+                return Redirect(_urls.LoginPage);
             }
 
             var result = await _signInManager
@@ -39,10 +45,10 @@ namespace Server.Controllers
 
             if (result.Succeeded)
             {
-                return Redirect(returnUrl ?? "https://google.com");
+                return Redirect(returnUrl ?? _urls.DefaultRedirect);
             }
 
-            var username = info.Principal.FindFirst(ClaimTypes.Name.Replace(" ", "_")).Value;
+            var username = info.Principal.FindFirst(ClaimTypes.Name).Value.Replace(" ", "_");
             return View("ExternalRegister", new ExternalRegisterViewModel
             {
                 Username = username,
@@ -55,7 +61,7 @@ namespace Server.Controllers
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                return Redirect("https://localhost:5001/auth/login");
+                return Redirect(_urls.LoginPage);
             }
 
             var user = new IdentityUser(vm.Username)
@@ -89,7 +95,7 @@ namespace Server.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            return Redirect(vm.ReturnUrl ?? "https://google.com");
+            return Redirect(vm.ReturnUrl ?? _urls.DefaultRedirect);
         }
     }
 }

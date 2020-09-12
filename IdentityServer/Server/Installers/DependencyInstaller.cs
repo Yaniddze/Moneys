@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Server.Data;
+using Server.Options;
 
 namespace Server.Installers
 {
@@ -8,6 +8,11 @@ namespace Server.Installers
     {
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {
+            var urls = new ApplicationUrls();
+            var urlsFromConfig = configuration.GetSection("ApplicationUrls");
+            urlsFromConfig.Bind(urls);
+
+            services.AddSingleton(urls);
         }
     }
 }
