@@ -27,7 +27,10 @@ namespace Server.Controllers
         
         public IActionResult ExternalLogin(string provider, string returnUrl)
         {
-            var redirectUri = Url.Action(nameof(ExternalLoginCallback), "External", new { returnUrl });
+            var redirectUri = Url.Action(nameof(ExternalLoginCallback), "External", new
+            {
+                returnUrl = returnUrl ?? _urls.DefaultRedirect
+            });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUri);
             return Challenge(properties, provider);
         }
@@ -45,7 +48,7 @@ namespace Server.Controllers
 
             if (result.Succeeded)
             {
-                return Redirect(returnUrl ?? _urls.DefaultRedirect);
+                return Redirect(returnUrl);
             }
 
             var username = info.Principal.FindFirst(ClaimTypes.Name).Value.Replace(" ", "_");
@@ -95,7 +98,7 @@ namespace Server.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            return Redirect(vm.ReturnUrl ?? _urls.DefaultRedirect);
+            return Redirect(vm.ReturnUrl);
         }
     }
 }
