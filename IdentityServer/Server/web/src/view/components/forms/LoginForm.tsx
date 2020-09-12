@@ -11,7 +11,10 @@ import { RightWrappedDiv } from '../divs';
 import { ErrorDiv } from '../ErrorDiv';
 import { StyledForm } from './StyledForm';
 import { StyledLink } from '../links';
-import { SquareButtonWithShadow } from '../buttons';
+import {
+  SquareButtonWithShadow,
+  GoogleButton,
+} from '../buttons';
 import {
   InputWithAnimatedSpan,
   InputChangeEvent,
@@ -30,12 +33,14 @@ type PropTypes = {
   handleSubmit: (e: LoginInfo) => void;
   error: string;
   registerFormPath: string;
+  handleGoogleClick: () => void;
 }
 
 export const LoginForm: FC<PropTypes> = ({
   handleSubmit,
   error,
   registerFormPath,
+  handleGoogleClick,
 }: PropTypes) => {
   const [formValues, setFormValues] = useState<FormTypes>({
     login: '',
@@ -80,23 +85,27 @@ export const LoginForm: FC<PropTypes> = ({
       />
 
       <RightWrappedDiv>
-        <Link
-          to={registerFormPath}
-          style={{
-            marginRight: 'auto',
-          }}
-        >
-          <StyledLink>
-            Sign on
-          </StyledLink>
-        </Link>
         <SquareButtonWithShadow onClick={handleClick} type="submit">
           Sign in
         </SquareButtonWithShadow>
       </RightWrappedDiv>
 
-      <RightWrappedDiv />
+      <div>
+        <Link
+          to={registerFormPath}
+        >
+          <StyledLink>
+            Sign on
+          </StyledLink>
+        </Link>
+      </div>
 
+      <div>
+        <GoogleButton
+          onClick={handleGoogleClick}
+          text="Sign in"
+        />
+      </div>
     </StyledForm>
   );
 };

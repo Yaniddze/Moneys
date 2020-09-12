@@ -16,6 +16,8 @@ import { LoginForm } from '../components/forms';
 import { getReturnUrl } from '../../model/utils/getReturnUrl';
 import { redirect } from '../../model/utils/redirect';
 
+import { ExternalGoogleAuth } from '../../configuration/ExternalAuthUrls';
+
 type PropTypes = {
   children?: never;
   searchParams: string;
@@ -35,6 +37,10 @@ export const LoginPage: FC<PropTypes> = ({
     if (!isFetching) {
       fetchLogin(e);
     }
+  };
+
+  const handleGoogleClick = (): void => {
+    redirect(ExternalGoogleAuth(returnUrl));
   };
 
   useEffect(() => {
@@ -66,19 +72,12 @@ export const LoginPage: FC<PropTypes> = ({
     <div>
       {loader}
       <CentredDiv>
-        <div>
-          <LoginForm
-            registerFormPath={`/auth/register${searchParams}`}
-            error={error}
-            handleSubmit={handleSubmit}
-          />
-          <div style={{ margin: '10px' }}>
-            <a href={`https://localhost:5001/external/ExternalLogin?provider=Google&returnUrl=${returnUrl}`}>
-              Google
-            </a>
-          </div>
-        </div>
-
+        <LoginForm
+          handleGoogleClick={handleGoogleClick}
+          registerFormPath={`/auth/register${searchParams}`}
+          error={error}
+          handleSubmit={handleSubmit}
+        />
       </CentredDiv>
     </div>
   ));
