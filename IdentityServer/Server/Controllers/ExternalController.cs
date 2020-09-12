@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 namespace Server.Controllers
 {
@@ -70,7 +70,7 @@ namespace Server.Controllers
                 {
                     ReturnUrl = vm.ReturnUrl,
                     Username = vm.Username,
-                    Errors = String.Join(',', registerResult.Errors.Select(x => x.Description)),
+                    Errors = Strings.Join(registerResult.Errors.Select(x => x.Description).ToArray()),
                 });
             }
 
@@ -82,7 +82,7 @@ namespace Server.Controllers
                 {
                     ReturnUrl = vm.ReturnUrl,
                     Username = vm.Username,
-                    Errors = String.Join(',', loginResult.Errors),
+                    Errors = Strings.Join(loginResult.Errors.Select(x => x.Description).ToArray()),
                 });
             }
 
