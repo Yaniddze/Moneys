@@ -1,0 +1,69 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+@media (min-width:450px) {
+    .external-register__form {
+        position: absolute;
+        padding: 10px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+.external-register__header-holder {
+    display: flex;
+}
+
+.external-register__header-holder > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.external-register__form {
+    margin: 10px;
+    border-radius: 10px;
+    color: black;
+}
+
+.external-register__form__errors {
+    color: red;
+}
+
+.external-register__form__input-holder {
+    display: flex;
+    margin: 10px;
+}
+
+.external-register__form__input-holder input {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1em;
+    width: 100%;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.external-register__form__button-holder {
+    display: flex;
+}
+
+.external-register__form__button-holder button {
+    margin: 10px 10px 10px auto;
+    padding: 10px;
+    border: none;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    transition: .4s box-shadow ease;
+}
+
+.external-register__form__button-holder button:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
