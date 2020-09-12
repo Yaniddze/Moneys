@@ -53,6 +53,6 @@ namespace Server.Controllers
             return Ok(response);
         }
         private IEnumerable<string> GetModelStateErrors() => ModelState.Values.Select(x =>
-            Strings.Join(x.Errors.Select(error => error.ErrorMessage).ToArray(), ", "));
+            Strings.Join(x.Errors.Select(error => error.ErrorMessage).ToArray(), " "));
     }
 }

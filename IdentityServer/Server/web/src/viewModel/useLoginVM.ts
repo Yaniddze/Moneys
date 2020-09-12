@@ -1,5 +1,5 @@
 // Core
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 // Context
 import { LoginUnitContext } from '../dependencies/LoginDependencies';
@@ -30,6 +30,10 @@ export const useLoginVM = (): ReturnType => {
       loginResponseStorage.data = result;
     });
   };
+
+  useEffect(() => (): void => {
+    loginResponseStorage.data.errors = [];
+  }, []);
 
   const tryCancelFetch = (): void => {
     if (loginResponseStorage.isFetching) {

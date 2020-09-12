@@ -1,5 +1,5 @@
 // Core
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 // Context
 import { RegisterUnitContext } from '../dependencies/RegisterDependencies';
@@ -31,6 +31,10 @@ export const useRegisterVM = (): ReturnType => {
         registerStateStorage.data = result;
       });
   };
+
+  useEffect(() => (): void => {
+    registerStateStorage.data.errors = [];
+  }, []);
 
   const tryCancelFetch = (): void => {
     if (registerStateStorage.isFetching) {
