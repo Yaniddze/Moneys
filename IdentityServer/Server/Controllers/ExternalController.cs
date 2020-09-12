@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using Server.Controllers.ViewModels;
 
 namespace Server.Controllers
 {
@@ -90,12 +91,5 @@ namespace Server.Controllers
 
             return Redirect(vm.ReturnUrl ?? "https://google.com");
         }
-    }
-
-    public class ExternalRegisterViewModel
-    {
-        public string Username { get; set; }
-        public string ReturnUrl { get; set; }
-        public string Errors { get; set; }
     }
 }
