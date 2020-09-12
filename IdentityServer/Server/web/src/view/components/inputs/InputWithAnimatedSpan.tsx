@@ -21,6 +21,7 @@ export type InputChangeEvent = {
 
 const Wrapper = styled.div`
   margin-top: 10px;
+  display: flex;
 `;
 
 export const InputWithAnimatedSpan: FC<PropTypes> = ({

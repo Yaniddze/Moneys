@@ -24,6 +24,7 @@ export const useLoginVM = (): ReturnType => {
 
   const fetchLogin = (loginInfo: LoginInfo): void => {
     loginResponseStorage.isFetching = true;
+    loginResponseStorage.data.errors = [];
     loginUnit.Invoke(loginInfo).then((result) => {
       loginResponseStorage.isFetching = false;
       loginResponseStorage.data = result;

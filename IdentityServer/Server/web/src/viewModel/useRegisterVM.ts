@@ -24,6 +24,7 @@ export const useRegisterVM = (): ReturnType => {
 
   const fetchRegister = (registerInfo: RegisterInfo): void => {
     registerStateStorage.isFetching = true;
+    registerStateStorage.data.errors = [];
     registerUnit.Invoke(registerInfo)
       .then((result) => {
         registerStateStorage.isFetching = false;
