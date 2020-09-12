@@ -97,16 +97,16 @@ export const RegisterForm: FC<PropTypes> = ({
         onChange={handleInputChange}
       />
 
-      <RightWrappedDiv>
+      <div style={{ display: 'flex' }}>
         <SquareButtonWithShadow
           onClick={handleClick}
           type="submit"
         >
           Sign on
         </SquareButtonWithShadow>
-      </RightWrappedDiv>
+      </div>
 
-      <div>
+      <RightWrappedDiv>
         <Link
           to={loginFormPath}
         >
@@ -114,7 +114,7 @@ export const RegisterForm: FC<PropTypes> = ({
             Sign in
           </StyledLink>
         </Link>
-      </div>
+      </RightWrappedDiv>
 
       <div>
         <GoogleButton

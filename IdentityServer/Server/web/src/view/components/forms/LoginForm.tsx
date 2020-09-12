@@ -84,13 +84,13 @@ export const LoginForm: FC<PropTypes> = ({
         onChange={handleInputChange}
       />
 
-      <RightWrappedDiv>
+      <div style={{ display: 'flex' }}>
         <SquareButtonWithShadow onClick={handleClick} type="submit">
           Sign in
         </SquareButtonWithShadow>
-      </RightWrappedDiv>
+      </div>
 
-      <div>
+      <RightWrappedDiv>
         <Link
           to={registerFormPath}
         >
@@ -98,7 +98,7 @@ export const LoginForm: FC<PropTypes> = ({
             Sign on
           </StyledLink>
         </Link>
-      </div>
+      </RightWrappedDiv>
 
       <div>
         <GoogleButton

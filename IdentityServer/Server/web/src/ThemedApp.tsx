@@ -1,5 +1,9 @@
 // Core
-import React, { FC, ReactElement, useState } from 'react';
+import React, {
+  FC,
+  ReactElement,
+  useState,
+} from 'react';
 import Cookies from 'js-cookie';
 import
 styled, {
