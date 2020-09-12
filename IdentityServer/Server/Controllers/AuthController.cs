@@ -14,7 +14,7 @@ namespace Server.Controllers
     {
         private readonly IMediator _mediator;
         
-        public AuthController(Mediator mediator)
+        public AuthController(IMediator mediator)
         {
             _mediator = mediator;
         }
