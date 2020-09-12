@@ -1,4 +1,8 @@
 ﻿@model ExternalRegisterViewModel;
+@{
+    Layout = "../_Layout";
+    ViewData["Title"] = "Registration";
+}
 
 <form asp-controller="External" asp-action="ExternalRegister" method="post">
     <input type="hidden" asp-for="ReturnUrl" />
