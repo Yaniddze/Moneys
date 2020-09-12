@@ -1,5 +1,9 @@
 // Core
-import React, { FC, useState, MouseEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  MouseEvent,
+} from 'react';
 import { Link } from 'react-router-dom';
 
 // Types
@@ -10,7 +14,7 @@ import { StyledForm } from './StyledForm';
 import { InputChangeEvent, InputWithAnimatedSpan } from '../inputs/InputWithAnimatedSpan';
 import { RightWrappedDiv } from '../divs';
 import { StyledLink } from '../links';
-import { SquareButtonWithShadow } from '../buttons';
+import { SquareButtonWithShadow, GoogleButton } from '../buttons';
 import { ErrorDiv } from '../ErrorDiv';
 
 type FormTypes = {
@@ -25,11 +29,13 @@ type PropTypes = {
   handleSubmit: (e: RegisterInfo) => void;
   error: string;
   loginFormPath: string;
+  handleGoogleClick: () => void;
 }
 export const RegisterForm: FC<PropTypes> = ({
   handleSubmit,
   error,
   loginFormPath,
+  handleGoogleClick,
 }: PropTypes) => {
   const [formValues, setFormValues] = useState<FormTypes>({
     login: '',
@@ -92,16 +98,6 @@ export const RegisterForm: FC<PropTypes> = ({
       />
 
       <RightWrappedDiv>
-        <Link
-          to={loginFormPath}
-          style={{
-            marginRight: 'auto',
-          }}
-        >
-          <StyledLink>
-            Sign in
-          </StyledLink>
-        </Link>
         <SquareButtonWithShadow
           onClick={handleClick}
           type="submit"
@@ -110,7 +106,22 @@ export const RegisterForm: FC<PropTypes> = ({
         </SquareButtonWithShadow>
       </RightWrappedDiv>
 
-      <RightWrappedDiv />
+      <div>
+        <Link
+          to={loginFormPath}
+        >
+          <StyledLink>
+            Sign in
+          </StyledLink>
+        </Link>
+      </div>
+
+      <div>
+        <GoogleButton
+          text="Sign in"
+          onClick={handleGoogleClick}
+        />
+      </div>
 
     </StyledForm>
   );

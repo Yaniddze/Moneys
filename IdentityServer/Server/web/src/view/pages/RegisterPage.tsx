@@ -17,6 +17,8 @@ import { RegisterInfo } from '../../model/register/types';
 import { redirect } from '../../model/utils/redirect';
 import { getReturnUrl } from '../../model/utils/getReturnUrl';
 
+import { ExternalGoogleAuth } from '../../configuration/ExternalAuthUrls';
+
 type PropTypes = {
   children?: never;
   searchParams: string;
@@ -55,6 +57,10 @@ export const RegisterPage: FC<PropTypes> = ({
     }
   };
 
+  const handleGoogleClick = (): void => {
+    redirect(ExternalGoogleAuth(returnUrl));
+  };
+
   const loader = isFetching && (
     <FourColorsLoader />
   );
@@ -68,6 +74,7 @@ export const RegisterPage: FC<PropTypes> = ({
       {loader}
       <CentredDiv>
         <RegisterForm
+          handleGoogleClick={handleGoogleClick}
           handleSubmit={handleSubmit}
           error={error}
           loginFormPath={`/auth/login${searchParams}`}
