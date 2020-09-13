@@ -1,5 +1,10 @@
 // Core
-import { useContext, useEffect } from 'react';
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 // Context
 import { RegisterUnitContext } from '../dependencies/RegisterDependencies';
@@ -10,9 +15,6 @@ import {
   RegisterInfo,
 } from '../model/register/types';
 
-// Storage
-import { registerStateStorage } from '../model/register/registerStateStorage';
-
 type ReturnType = {
   registerState: FetchingRegisterResponse;
   fetchRegister: (registerInfo: RegisterInfo) => void;
@@ -20,32 +22,55 @@ type ReturnType = {
 }
 
 export const useRegisterVM = (): ReturnType => {
+  const terminatedRef = useRef(false);
+  const fetchingRef = useRef(false);
+
   const registerUnit = useContext(RegisterUnitContext);
+  const [registerStorage, setRegisterState] = useState<FetchingRegisterResponse>({
+    isFetching: false,
+    data: {
+      success: false,
+      errors: [],
+    },
+  });
 
   const fetchRegister = (registerInfo: RegisterInfo): void => {
-    registerStateStorage.isFetching = true;
-    registerStateStorage.data.errors = [];
+    fetchingRef.current = true;
+
+    setRegisterState({
+      isFetching: true,
+      data: {
+        success: false,
+        errors: [],
+      },
+    });
+
     registerUnit.Invoke(registerInfo)
       .then((result) => {
-        registerStateStorage.isFetching = false;
-        registerStateStorage.data = result;
+        if (!terminatedRef.current) {
+          fetchingRef.current = false;
+
+          setRegisterState({
+            isFetching: false,
+            data: result,
+          });
+        }
       });
   };
 
   useEffect(() => (): void => {
-    registerStateStorage.data.errors = [];
+    terminatedRef.current = true;
   }, []);
 
   const tryCancelFetch = (): void => {
-    if (registerStateStorage.isFetching) {
-      registerStateStorage.isFetching = false;
+    if (fetchingRef.current) {
       registerUnit.InvokeCancel();
     }
   };
 
   return {
     fetchRegister,
-    registerState: registerStateStorage,
+    registerState: registerStorage,
     tryCancelFetch,
   };
 };

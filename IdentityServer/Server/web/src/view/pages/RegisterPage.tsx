@@ -1,6 +1,5 @@
 // Core
-import React, { FC, useEffect, useState } from 'react';
-import { autorun } from 'mobx';
+import React, { FC, useEffect } from 'react';
 
 // Components
 import { CentredDiv } from '../components/divs';
@@ -28,22 +27,8 @@ export const RegisterPage: FC<PropTypes> = ({
   searchParams,
 }: PropTypes) => {
   const { registerState, fetchRegister, tryCancelFetch } = useRegisterVM();
-  const [error, setError] = useState('');
-  const [isFetching, setIsFetching] = useState(registerState.isFetching);
-  const [successRegister, setSuccessRegister] = useState(registerState.data.success);
 
   const returnUrl = getReturnUrl(searchParams);
-
-  useEffect(() => autorun(() => {
-    setSuccessRegister(registerState.data.success);
-    setIsFetching(registerState.isFetching);
-    if (registerState.isFetching) {
-      setError('');
-    } else {
-      const tempErrors = registerState.data.errors;
-      setError(tempErrors.length > 0 ? tempErrors[0] : '');
-    }
-  }));
 
   useEffect(() => {
     document.title = 'Registration';
@@ -52,7 +37,7 @@ export const RegisterPage: FC<PropTypes> = ({
   }, []);
 
   const handleSubmit = (e: RegisterInfo): void => {
-    if (!isFetching) {
+    if (!registerState.isFetching) {
       fetchRegister(e);
     }
   };
@@ -61,12 +46,18 @@ export const RegisterPage: FC<PropTypes> = ({
     redirect(ExternalGoogleAuth(returnUrl));
   };
 
-  const loader = isFetching && (
+  const loader = registerState.isFetching && (
     <FourColorsLoader />
   );
 
-  if (successRegister) {
+  if (registerState.data.success) {
     redirect(returnUrl);
+  }
+
+  let registerError = '';
+
+  if (!registerState.isFetching && registerState.data.errors.length > 0) {
+    registerError = registerState.data.errors[0];
   }
 
   return (
@@ -76,7 +67,7 @@ export const RegisterPage: FC<PropTypes> = ({
         <RegisterForm
           handleGoogleClick={handleGoogleClick}
           handleSubmit={handleSubmit}
-          error={error}
+          error={registerError}
           loginFormPath={`/auth/login${searchParams}`}
         />
       </CentredDiv>

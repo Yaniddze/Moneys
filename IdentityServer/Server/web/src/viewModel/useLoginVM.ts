@@ -48,7 +48,7 @@ export const useLoginVM = (): ReturnType => {
       .then((result) => {
         fetchingRef.current = false;
 
-        if (!terminatedRef) {
+        if (!terminatedRef.current) {
           setLoginStorage({
             isFetching: false,
             data: result,
