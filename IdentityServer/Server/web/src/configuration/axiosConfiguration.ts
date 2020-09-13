@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, Canceler } from 'axios';
+import { hostAddress } from './hostConfig';
 
 type ReturnType = {
   httpClient: AxiosInstance;
@@ -13,7 +14,7 @@ export const createClient = (): ReturnType => {
   });
 
   const httpClient = axios.create({
-    baseURL: 'https://localhost:5001/api/v1',
+    baseURL: `${hostAddress}/api/v1`,
     cancelToken: cancellation,
   });
 

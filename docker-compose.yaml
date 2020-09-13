@@ -1,0 +1,18 @@
+version: "3.7"
+
+services: 
+
+  identity-server:
+    build: ./IdentityServer/Server
+    ports: 
+      - "8081:80"
+    depends_on:
+      - identity-postgres
+    
+  identity-postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./VolumeData/IdentityServer:/var/lib/postgresql/data

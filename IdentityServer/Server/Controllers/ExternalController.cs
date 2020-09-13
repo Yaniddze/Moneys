@@ -48,7 +48,7 @@ namespace Server.Controllers
 
             if (result.Succeeded)
             {
-                return Redirect(returnUrl);
+                return Redirect(returnUrl ?? _urls.DefaultRedirect);
             }
 
             var username = info.Principal.FindFirst(ClaimTypes.Name).Value.Replace(" ", "_");
@@ -98,7 +98,7 @@ namespace Server.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            return Redirect(vm.ReturnUrl);
+            return Redirect(vm.ReturnUrl ?? _urls.DefaultRedirect);
         }
     }
 }
