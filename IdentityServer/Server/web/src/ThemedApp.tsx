@@ -54,13 +54,13 @@ export const ThemedApp: FC<PropTypes> = ({ children }: PropTypes) => {
   return (
     <div>
       <ThemeProvider theme={currentTheme}>
-        <div>
-          {children}
-        </div>
         <SwitchInput
           initValue={!isGreenCooked}
           handleChange={handleChange}
         />
+        <div>
+          {children}
+        </div>
       </ThemeProvider>
     </div>
   );

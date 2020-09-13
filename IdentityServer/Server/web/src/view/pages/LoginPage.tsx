@@ -1,5 +1,8 @@
 // Core
-import React, { FC, useEffect } from 'react';
+import React, {
+  FC,
+  useEffect,
+} from 'react';
 
 // Hooks
 import { useLoginVM } from '../../viewModel/useLoginVM';
@@ -14,19 +17,45 @@ import { LoginForm } from '../components/forms';
 import { getReturnUrl } from '../../model/utils/getReturnUrl';
 import { redirect } from '../../model/utils/redirect';
 
+// Types
+import { Screens } from '../../hooks/useScreens';
+
+// Wrappers
+import {
+  DesktopWrapper,
+  MobileWrapper,
+  ScreenWrapper,
+} from './Wrappers';
+
 import { ExternalGoogleAuth } from '../../configuration/ExternalAuthUrls';
 
 type PropTypes = {
   children?: never;
   searchParams: string;
+  screen: Screens;
 }
 
 export const LoginPage: FC<PropTypes> = ({
-  searchParams,
+  searchParams, screen,
 }: PropTypes) => {
   const { fetchLogin, loginState, tryCancelFetch } = useLoginVM();
 
   const returnUrl = getReturnUrl(searchParams);
+
+  let Wrapper: ScreenWrapper = DesktopWrapper;
+
+  switch (screen) {
+    case Screens.Desktop:
+      Wrapper = DesktopWrapper;
+      break;
+
+    case Screens.Mobile:
+      Wrapper = MobileWrapper;
+      break;
+
+    default:
+      throw new Error('Unhandled screen state');
+  }
 
   const handleSubmit = (e: LoginInfo): void => {
     if (!loginState.isFetching) {
@@ -60,14 +89,14 @@ export const LoginPage: FC<PropTypes> = ({
   return (
     <div>
       {loader}
-      <CentredDiv>
+      <Wrapper>
         <LoginForm
           handleGoogleClick={handleGoogleClick}
           registerFormPath={`/auth/register${searchParams}`}
           error={loginError}
           handleSubmit={handleSubmit}
         />
-      </CentredDiv>
+      </Wrapper>
     </div>
   );
 };

@@ -50,6 +50,7 @@ export const App: FC = () => {
                 (props): ReactElement => (
                   <LoginDependencies>
                     <LoginPage
+                      screen={screen}
                       searchParams={props?.location.search}
                     />
                   </LoginDependencies>
