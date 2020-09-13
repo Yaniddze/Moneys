@@ -42,8 +42,8 @@ export class ParticlesHolder {
     for (let i = 0; i < numberOfParticles; i++) {
       const size = (Math.random() * 5) + 1;
 
-      const x = this.randomCoordinate(size, window.innerWidth);
-      const y = this.randomCoordinate(size, window.innerHeight);
+      const x = this.randomCoordinate(size, this.canvas.width);
+      const y = this.randomCoordinate(size, this.canvas.height);
 
       const directionX = this.randomDirection();
       const directionY = this.randomDirection();
@@ -87,7 +87,7 @@ export class ParticlesHolder {
 
   animate = (): void => {
     this.animationId = requestAnimationFrame(this.animate);
-    this.canvasContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let i = 0; i < this.particlesArray.length; i++) {
       this.particlesArray[i].update();
