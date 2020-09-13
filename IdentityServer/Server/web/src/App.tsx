@@ -36,10 +36,10 @@ export const App: FC = () => {
 
   return (
     <BrowserRouter>
-      <GlobalStyle />
 
       <ThemedApp>
         <div>
+          <GlobalStyle />
           {particles}
 
           <Switch>

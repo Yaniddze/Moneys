@@ -13,7 +13,7 @@ export const LabelAnimationStyles = createGlobalStyle`
     .form-label {
       position: absolute;
       left: 0;
-      margin-left: 30px;
+      margin-left: 40px;
       transition: .5s all ease
     }
   `;
