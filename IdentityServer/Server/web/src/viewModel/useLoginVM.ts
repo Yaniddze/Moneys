@@ -1,5 +1,10 @@
 // Core
-import { useContext, useEffect } from 'react';
+import {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from 'react';
 
 // Context
 import { LoginUnitContext } from '../dependencies/LoginDependencies';
@@ -10,9 +15,6 @@ import {
   LoginInfo,
 } from '../model/login/types';
 
-// Storage
-import { loginResponseStorage } from '../model/login/loginStateStorage';
-
 type ReturnType = {
   loginState: FetchingLoginResponse;
   fetchLogin: (loginInfo: LoginInfo) => void;
@@ -20,31 +22,54 @@ type ReturnType = {
 }
 
 export const useLoginVM = (): ReturnType => {
+  const terminatedRef = useRef(false);
+  const fetchingRef = useRef(false);
+
   const loginUnit = useContext(LoginUnitContext);
+  const [loginStorage, setLoginStorage] = useState<FetchingLoginResponse>({
+    isFetching: false,
+    data: {
+      success: false,
+      errors: [],
+    },
+  });
 
   const fetchLogin = (loginInfo: LoginInfo): void => {
-    loginResponseStorage.isFetching = true;
-    loginResponseStorage.data.errors = [];
-    loginUnit.Invoke(loginInfo).then((result) => {
-      loginResponseStorage.isFetching = false;
-      loginResponseStorage.data = result;
+    fetchingRef.current = true;
+    setLoginStorage({
+      isFetching: true,
+      data: {
+        success: false,
+        errors: [],
+      },
     });
+
+    loginUnit.Invoke(loginInfo)
+      .then((result) => {
+        fetchingRef.current = false;
+
+        if (!terminatedRef) {
+          setLoginStorage({
+            isFetching: false,
+            data: result,
+          });
+        }
+      });
   };
 
-  useEffect(() => (): void => {
-    loginResponseStorage.data.errors = [];
-  }, []);
-
   const tryCancelFetch = (): void => {
-    if (loginResponseStorage.isFetching) {
-      loginResponseStorage.isFetching = false;
+    if (fetchingRef) {
       loginUnit.InvokeCancel();
     }
   };
 
+  useEffect(() => (): void => {
+    terminatedRef.current = true;
+  }, []);
+
   return {
     fetchLogin,
-    loginState: loginResponseStorage,
+    loginState: loginStorage,
     tryCancelFetch,
   };
 };

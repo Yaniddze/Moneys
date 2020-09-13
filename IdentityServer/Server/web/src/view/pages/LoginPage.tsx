@@ -1,7 +1,5 @@
 // Core
-import React, { FC, useEffect, useState } from 'react';
-import { autorun } from 'mobx';
-import { useObserver } from 'mobx-react';
+import React, { FC, useEffect } from 'react';
 
 // Hooks
 import { useLoginVM } from '../../viewModel/useLoginVM';
@@ -27,14 +25,11 @@ export const LoginPage: FC<PropTypes> = ({
   searchParams,
 }: PropTypes) => {
   const { fetchLogin, loginState, tryCancelFetch } = useLoginVM();
-  const [error, setError] = useState('');
-  const [isFetching, setIsFetching] = useState(loginState.isFetching);
-  const [successLogin, setSuccessLogin] = useState(loginState.data.success);
 
   const returnUrl = getReturnUrl(searchParams);
 
   const handleSubmit = (e: LoginInfo): void => {
-    if (!isFetching) {
+    if (!loginState.isFetching) {
       fetchLogin(e);
     }
   };
@@ -49,36 +44,30 @@ export const LoginPage: FC<PropTypes> = ({
     return tryCancelFetch;
   }, []);
 
-  useEffect(() => autorun(() => {
-    setIsFetching(loginState.isFetching);
-    setSuccessLogin(loginState.data.success);
-    if (loginState.isFetching) {
-      setError('');
-    } else {
-      const tempErrors = loginState.data.errors;
-      setError(tempErrors.length > 0 ? tempErrors[0] : '');
-    }
-  }));
-
-  const loader = isFetching && (
+  const loader = loginState.isFetching && (
     <FourColorsLoader />
   );
 
-  if (successLogin) {
+  if (loginState.data.success) {
     redirect(returnUrl);
   }
+  let loginError = '';
 
-  return useObserver(() => (
+  if (!loginState.isFetching && loginState.data.errors.length > 0) {
+    loginError = loginState.data.errors[0];
+  }
+
+  return (
     <div>
       {loader}
       <CentredDiv>
         <LoginForm
           handleGoogleClick={handleGoogleClick}
           registerFormPath={`/auth/register${searchParams}`}
-          error={error}
+          error={loginError}
           handleSubmit={handleSubmit}
         />
       </CentredDiv>
     </div>
-  ));
+  );
 };

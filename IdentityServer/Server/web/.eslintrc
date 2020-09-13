@@ -16,6 +16,10 @@
   },
   "rules":  {
     "@typescript-eslint/no-non-null-assertion": "off",
+    "prefer-destructuring": ["error", {
+      "object": true,
+      "array": false
+    }],
     "class-methods-use-this": "off",
     "linebreak-style": 0,
     "no-plusplus": "off",
