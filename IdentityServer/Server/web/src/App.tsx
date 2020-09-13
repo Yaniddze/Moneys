@@ -64,6 +64,7 @@ export const App: FC = () => {
                 (props): ReactElement => (
                   <RegisterDependencies>
                     <RegisterPage
+                      screen={screen}
                       searchParams={props?.location.search}
                     />
                   </RegisterDependencies>

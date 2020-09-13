@@ -2,7 +2,6 @@
 import React, { FC, useEffect } from 'react';
 
 // Components
-import { CentredDiv } from '../components/divs';
 import { RegisterForm } from '../components/forms';
 import { FourColorsLoader } from '../components/loaders';
 
@@ -11,6 +10,14 @@ import { useRegisterVM } from '../../viewModel/useRegisterVM';
 
 // Types
 import { RegisterInfo } from '../../model/register/types';
+import { Screens } from '../../hooks/useScreens';
+
+// Wrappers
+import {
+  MobileWrapper,
+  DesktopWrapper,
+  ScreenWrapper,
+} from './Wrappers';
 
 // Utils
 import { redirect } from '../../model/utils/redirect';
@@ -21,14 +28,30 @@ import { ExternalGoogleAuth } from '../../configuration/ExternalAuthUrls';
 type PropTypes = {
   children?: never;
   searchParams: string;
+  screen: Screens;
 }
 
 export const RegisterPage: FC<PropTypes> = ({
-  searchParams,
+  searchParams, screen,
 }: PropTypes) => {
   const { registerState, fetchRegister, tryCancelFetch } = useRegisterVM();
 
   const returnUrl = getReturnUrl(searchParams);
+
+  let Wrapper: ScreenWrapper = DesktopWrapper;
+
+  switch (screen) {
+    case Screens.Mobile:
+      Wrapper = MobileWrapper;
+      break;
+
+    case Screens.Desktop:
+      Wrapper = DesktopWrapper;
+      break;
+
+    default:
+      throw new Error('Unhandled screen state');
+  }
 
   useEffect(() => {
     document.title = 'Registration';
@@ -63,14 +86,14 @@ export const RegisterPage: FC<PropTypes> = ({
   return (
     <div>
       {loader}
-      <CentredDiv>
+      <Wrapper>
         <RegisterForm
           handleGoogleClick={handleGoogleClick}
           handleSubmit={handleSubmit}
           error={registerError}
           loginFormPath={`/auth/login${searchParams}`}
         />
-      </CentredDiv>
+      </Wrapper>
     </div>
   );
 };

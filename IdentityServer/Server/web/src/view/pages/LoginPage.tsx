@@ -8,7 +8,6 @@ import React, {
 import { useLoginVM } from '../../viewModel/useLoginVM';
 
 // Components
-import { CentredDiv } from '../components/divs';
 import { LoginInfo } from '../../model/login/types';
 import { FourColorsLoader } from '../components/loaders';
 import { LoginForm } from '../components/forms';
