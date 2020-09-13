@@ -1,64 +1,81 @@
 // Core
 import React, { FC, ReactElement } from 'react';
 import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Redirect,
+  BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
-
 // GlobalStyle
 import { GlobalStyle } from './GlobalStyle';
-
 // Components
 import { ThemedApp } from './ThemedApp';
 import { Particles } from './view/components/particles';
-
 // Pages
 import { LoginPage } from './view/pages/LoginPage';
 import { RegisterPage } from './view/pages/RegisterPage';
-
+// Hooks
+import { Screens, useScreens } from './hooks/useScreens';
 // Dependencies
 import { LoginDependencies } from './dependencies/LoginDependencies';
 import { RegisterDependencies } from './dependencies/RegisterDependencies';
 
-export const App: FC = () => (
-  <BrowserRouter>
-    <GlobalStyle />
+export const App: FC = () => {
+  const screen = useScreens();
 
-    <ThemedApp>
-      <div>
-        <Particles />
+  let particles: ReactElement | undefined;
 
-        <Switch>
+  switch (screen) {
+    case Screens.Mobile:
+      break;
 
-          <Route
-            path="/auth/login"
-            render={
-              (props): ReactElement => (
-                <LoginDependencies>
-                  <LoginPage searchParams={props?.location.search} />
-                </LoginDependencies>
-              )
-            }
-          />
+    case Screens.Desktop:
+      particles = <Particles />;
+      break;
 
-          <Route
-            path="/auth/register"
-            render={
-              (props): ReactElement => (
-                <RegisterDependencies>
-                  <RegisterPage searchParams={props?.location.search} />
-                </RegisterDependencies>
-              )
-            }
-          />
+    default:
+      throw new Error('Unhandled screen error');
+  }
 
-          <Redirect to="/auth/login" />
+  return (
+    <BrowserRouter>
+      <GlobalStyle />
 
-        </Switch>
-      </div>
-    </ThemedApp>
+      <ThemedApp>
+        <div>
+          {particles}
 
-  </BrowserRouter>
-);
+          <Switch>
+
+            <Route
+              path="/auth/login"
+              render={
+                (props): ReactElement => (
+                  <LoginDependencies>
+                    <LoginPage
+                      searchParams={props?.location.search}
+                    />
+                  </LoginDependencies>
+                )
+              }
+            />
+
+            <Route
+              path="/auth/register"
+              render={
+                (props): ReactElement => (
+                  <RegisterDependencies>
+                    <RegisterPage
+                      searchParams={props?.location.search}
+                    />
+                  </RegisterDependencies>
+                )
+              }
+            />
+
+            <Redirect to="/auth/login" />
+
+          </Switch>
+        </div>
+      </ThemedApp>
+
+    </BrowserRouter>
+  );
+};
