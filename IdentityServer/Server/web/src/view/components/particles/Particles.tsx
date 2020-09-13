@@ -4,6 +4,8 @@ import React, {
   useEffect,
 } from 'react';
 import styled, { useTheme } from 'styled-components';
+import debounce from 'lodash.debounce';
+
 import { ParticlesHolder } from './ParticlesHolder';
 import { Mouse } from './types';
 
@@ -47,12 +49,12 @@ export const Particles: FC<PropTypes> = () => {
       theme.colors.calcDarkInRgba,
     );
 
-    const handleResize = (): void => {
+    const handleResize = debounce(() => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       mouse.radius = calcMouseRadius(canvas.height, canvas.width);
       particles.fillParticlesArray();
-    };
+    }, 20);
 
     const handleMouseMove = (e: MouseEvent): void => {
       mouse.x = e.x;
