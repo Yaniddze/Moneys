@@ -29,10 +29,21 @@ namespace Api
             }
 
             app.UseRouting();
+            
+            app.UseCors(x =>
+            {
+                x.AllowAnyOrigin();
+                x.AllowAnyMethod();
+                x.AllowAnyHeader();
+            });
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapDefaultControllerRoute()
+                    .RequireAuthorization("ApiScope");
             });
         }
     }
