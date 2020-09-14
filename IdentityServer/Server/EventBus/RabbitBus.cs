@@ -14,7 +14,7 @@ namespace Server.EventBus
         private readonly IServiceProvider _serviceProvider;
         private IModel _channel;
 
-        public IModel Channel => _channel ??= _connection.CreateModel();
+        private IModel Channel => _channel ??= _connection.CreateModel();
 
         public RabbitBus(IConnectionFactory connection, IServiceProvider serviceProvider)
         {
