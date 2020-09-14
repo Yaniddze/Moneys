@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Server.Controllers.ViewModels;
+using Server.EventBus.Abstractions;
+using Server.EventBus.Events;
 using Server.Options;
 
 namespace Server.Controllers
@@ -15,15 +17,18 @@ namespace Server.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationUrls _urls;
+        private readonly IEventBus _eventBus;
 
         public ExternalController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager, 
-            ApplicationUrls urls)
+            ApplicationUrls urls, 
+            IEventBus eventBus)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _urls = urls;
+            _eventBus = eventBus;
         }
         
         public IActionResult ExternalLogin(string provider, string returnUrl)
@@ -97,6 +102,12 @@ namespace Server.Controllers
                     Errors = Strings.Join(loginResult.Errors.Select(x => x.Description).ToArray()),
                 });
             }
+            
+            _eventBus.Publish(new NewUserEvent
+            {
+                Username = vm.Username,
+                Id = user.Id,
+            }, nameof(NewUserEvent));
 
             await _signInManager.SignInAsync(user, false);
 
