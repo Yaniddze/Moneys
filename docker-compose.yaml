@@ -24,3 +24,12 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./VolumeData/IdentityServer:/var/lib/postgresql/data
+
+  moneys-api:
+    build: ./MoneyApi/Api
+    restart: always
+    ports: 
+      - "8082:80"
+    depends_on:
+      - identity-server
+      - rabbit
