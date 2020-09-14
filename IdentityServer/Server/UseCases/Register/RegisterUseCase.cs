@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -21,6 +22,7 @@ namespace Server.UseCases.Register
         {
             var user = new IdentityUser(request.Username)
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = request.Email
             };
 

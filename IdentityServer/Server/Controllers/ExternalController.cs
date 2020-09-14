@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -69,6 +70,7 @@ namespace Server.Controllers
 
             var user = new IdentityUser(vm.Username)
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = info.Principal.Claims.First(x => x.Type == ClaimTypes.Email).Value, 
                 EmailConfirmed = true,
             };
