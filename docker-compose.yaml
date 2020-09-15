@@ -34,3 +34,12 @@ services:
     depends_on:
       - identity-server
       - rabbit
+      - moneys-postgres
+
+  moneys-postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./VolumeData/Moneys:/var/lib/postgresql/data
