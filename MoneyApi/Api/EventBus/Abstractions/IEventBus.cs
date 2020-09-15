@@ -1,4 +1,4 @@
-﻿﻿namespace Server.EventBus.Abstractions
+﻿﻿ namespace Api.EventBus.Abstractions
 {
     public interface IEventBus
     {

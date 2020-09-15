@@ -1,12 +1,12 @@
-﻿﻿using System;
+﻿using System;
 using System.Text;
+using Api.EventBus.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Server.EventBus.Abstractions;
 
-namespace Server.EventBus
+namespace Api.EventBus
 {
     public class RabbitBus: IEventBus
     {

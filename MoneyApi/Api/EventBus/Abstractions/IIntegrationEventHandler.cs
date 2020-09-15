@@ -1,6 +1,6 @@
 ﻿﻿using System.Threading.Tasks;
 
-namespace Server.EventBus.Abstractions
+ namespace Api.EventBus.Abstractions
 {
     public interface IIntegrationEventHandler<TEvent>
     {

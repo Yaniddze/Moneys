@@ -1,6 +1,6 @@
-﻿﻿using Server.EventBus.Abstractions;
+﻿﻿using Api.EventBus.Abstractions;
 
-namespace Server.EventBus.Events
+ namespace Api.EventBus.Events
 {
     public class NewUserEvent: IIntegrationEvent
     {
