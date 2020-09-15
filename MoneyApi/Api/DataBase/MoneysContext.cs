@@ -1,7 +1,10 @@
-﻿namespace Api.DataBase
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Api.DataBase
 {
-    public class MoneysContext
+    public class MoneysContext: DbContext
     {
-        
+        public MoneysContext(DbContextOptions<MoneysContext> options)
+            :base(options) { }
     }
 }
