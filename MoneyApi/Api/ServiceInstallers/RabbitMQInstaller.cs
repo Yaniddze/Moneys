@@ -1,9 +1,10 @@
-﻿using Api.Options;
+﻿using Api.EventBus;
+using Api.EventBus.Abstractions;
+using Api.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
-using Server.EventBus;
-using Server.EventBus.Abstractions;
+using Api.EventBus;
 
 namespace Api.ServiceInstallers
 {

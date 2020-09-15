@@ -1,8 +1,8 @@
-﻿using Api.UseCases.EventHandlers;
+﻿using Api.EventBus.Abstractions;
+using Api.EventBus.Events;
+using Api.UseCases.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Server.EventBus.Abstractions;
-using Server.EventBus.Events;
 
 namespace Api.ServiceInstallers
 {

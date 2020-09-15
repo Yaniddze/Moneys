@@ -1,16 +1,22 @@
 ﻿using System.Threading.Tasks;
-using Server.EventBus.Abstractions;
-using Server.EventBus.Events;
+using Api.EventBus.Abstractions;
+using Api.EventBus.Events;
+using Microsoft.Extensions.Logging;
 
 namespace Api.UseCases.EventHandlers
 {
     public class NewUserEventHandler: IIntegrationEventHandler<NewUserEvent>
     {
-        public static int UsersCount = 0;
-        
+        private readonly ILogger<NewUserEventHandler> _logger;
+
+        public NewUserEventHandler(ILogger<NewUserEventHandler> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task HandleAsync(NewUserEvent @event)
         {
-            UsersCount++;
+            _logger.LogInformation($"New user\n\t name: {@event.Username}, id: {@event.Id}");
         }
     }
 }
