@@ -1,3 +1,4 @@
+using Api.ApplicationInstallers;
 using Api.Options;
 using Api.ServiceInstallers;
 using Microsoft.AspNetCore.Builder;
@@ -48,6 +49,10 @@ namespace Api
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            
+            // ~/ApplicationInstallers
+            app.InstallFromAssembly(env);
 
             app.UseEndpoints(endpoints =>
             {
