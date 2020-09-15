@@ -44,7 +44,7 @@ namespace Server.EventBus
             {
                 using var scope = _serviceProvider.CreateScope();
                 
-                var handler = scope.ServiceProvider.GetService<THandler>();
+                var handler = scope.ServiceProvider.GetService<IIntegrationEventHandler<TEvent>>();
 
                 var jsonRequest = Encoding.UTF8.GetString(args.Body.ToArray());
                 var request = JsonConvert.DeserializeObject<TEvent>(jsonRequest);
