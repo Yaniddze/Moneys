@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace Api.AutoMappers
 {
-    public class UserMapper: IMapperInstaller
+    public class BillMapper: IMapperInstaller
     {
         public void Install(IMapperConfigurationExpression options)
         {
