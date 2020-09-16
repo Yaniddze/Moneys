@@ -1,9 +1,9 @@
 ﻿using System;
 using MediatR;
 
-namespace Api.UseCases.Requests
+namespace Api.UseCases.ManualCases.UpdateBill
 {
-    public class UpdateBillTitleRequest: IRequest<bool>
+    public class UpdateBillRequest: IRequest<AbstractAnswer>
     {
         public Guid UserId { get; set; }
         public Guid BillId { get; set; }
