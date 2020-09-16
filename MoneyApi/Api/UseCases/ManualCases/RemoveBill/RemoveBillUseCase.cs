@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Api.EventBus.Abstractions;
 using Api.EventBus.Events;
+using Api.UseCases.Abstractions;
 using Api.UseCases.Requests;
-using Api.UseCases.Requests.Abstractions;
 using MediatR;
 
 namespace Api.UseCases.ManualCases.RemoveBill

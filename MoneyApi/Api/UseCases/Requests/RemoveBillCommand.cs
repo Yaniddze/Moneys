@@ -1,5 +1,5 @@
 ﻿using System;
-using Api.UseCases.Requests.Abstractions;
+using Api.UseCases.Abstractions;
 using MediatR;
 
 namespace Api.UseCases.Requests

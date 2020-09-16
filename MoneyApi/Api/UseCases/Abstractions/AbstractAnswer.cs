@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Api.UseCases.Requests.Abstractions
+namespace Api.UseCases.Abstractions
 {
     public class AbstractAnswer
     {
