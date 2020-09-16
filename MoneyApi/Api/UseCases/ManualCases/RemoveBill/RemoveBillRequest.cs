@@ -1,4 +1,5 @@
 ﻿using System;
+using Api.UseCases.Requests.Abstractions;
 using MediatR;
 
 namespace Api.UseCases.ManualCases.RemoveBill
