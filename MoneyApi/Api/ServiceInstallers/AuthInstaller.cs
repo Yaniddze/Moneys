@@ -1,5 +1,6 @@
 ﻿using System;
 using Api.Options;
+using Api.ServiceInstallers.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;

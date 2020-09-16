@@ -1,4 +1,5 @@
 ﻿using Api.DataBase;
+using Api.ServiceInstallers.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

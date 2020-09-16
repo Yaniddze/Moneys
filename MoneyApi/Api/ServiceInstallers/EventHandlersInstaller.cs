@@ -1,5 +1,6 @@
 ﻿using Api.EventBus.Abstractions;
 using Api.EventBus.Events;
+using Api.ServiceInstallers.Abstractions;
 using Api.UseCases.EventHandlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

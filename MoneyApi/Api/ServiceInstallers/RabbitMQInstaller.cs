@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using Api.EventBus;
+using Api.ServiceInstallers.Abstractions;
 
 namespace Api.ServiceInstallers
 {

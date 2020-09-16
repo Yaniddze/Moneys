@@ -2,6 +2,7 @@ using Api.ApplicationInstallers;
 using Api.ApplicationInstallers.Extensions;
 using Api.Options;
 using Api.ServiceInstallers;
+using Api.ServiceInstallers.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Api.ServiceInstallers
+namespace Api.ServiceInstallers.Abstractions
 {
     public interface IServiceInstaller
     {
