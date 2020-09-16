@@ -2,12 +2,12 @@
 using Api.UseCases.Abstractions;
 using MediatR;
 
-namespace Api.UseCases.ManualCases.UpdateBill
+namespace Api.UseCases.Requests
 {
-    public class UpdateBillRequest: IRequest<AbstractAnswer>
+    public class UpdateBillCommand: IRequest<AbstractAnswer>
     {
-        public Guid UserId { get; set; }
         public Guid BillId { get; set; }
+        public Guid UserId { get; set; }
         public string NewTitle { get; set; }
     }
 }
