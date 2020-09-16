@@ -18,10 +18,6 @@ namespace Api.AutoMappers
                     map => map.MapFrom(
                         dest => dest.Title    
                     ))
-                .ForMember(x => x.User,
-                    map => map.MapFrom(
-                        dest => dest.Owner    
-                    ))
                 .ForMember(x => x.UserId,
                     map => map.MapFrom(
                         dest => dest.Owner.Id    
