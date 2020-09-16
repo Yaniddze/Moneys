@@ -1,4 +1,5 @@
-﻿using Api.EventBus.Abstractions;
+﻿using Api.ApplicationInstallers.Abstractions;
+using Api.EventBus.Abstractions;
 using Api.EventBus.Events;
 using Api.UseCases.EventHandlers;
 using Microsoft.AspNetCore.Builder;

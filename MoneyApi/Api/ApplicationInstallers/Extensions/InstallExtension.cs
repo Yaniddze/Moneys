@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Api.ApplicationInstallers.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Api.ApplicationInstallers
+namespace Api.ApplicationInstallers.Extensions
 {
     public static class InstallExtension
     {

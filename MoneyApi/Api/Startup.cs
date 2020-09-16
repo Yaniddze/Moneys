@@ -1,4 +1,5 @@
 using Api.ApplicationInstallers;
+using Api.ApplicationInstallers.Extensions;
 using Api.Options;
 using Api.ServiceInstallers;
 using Microsoft.AspNetCore.Builder;

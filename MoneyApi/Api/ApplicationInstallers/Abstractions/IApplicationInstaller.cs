@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Api.ApplicationInstallers
+namespace Api.ApplicationInstallers.Abstractions
 {
     public interface IApplicationInstaller
     {
