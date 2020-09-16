@@ -51,7 +51,7 @@ namespace Api
             app.UseAuthorization();
             
             
-            // ~/ApplicationInstallers
+            // ApplicationInstallers folder
             app.InstallFromAssembly(env);
 
             app.UseEndpoints(endpoints =>
