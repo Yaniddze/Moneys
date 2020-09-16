@@ -10,7 +10,7 @@ namespace Api.ServiceInstallers
     {
         public void Install(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(options => options.InstallFromAssembly());
+            services.AddAutoMapper(options => options.InstallFromAssembly(), typeof(Startup));
         }
     }
 }
