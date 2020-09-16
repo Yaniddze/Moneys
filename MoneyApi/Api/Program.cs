@@ -1,4 +1,7 @@
+using Api.DataBase;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Api
@@ -7,7 +10,14 @@ namespace Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var application = CreateHostBuilder(args).Build();
+
+            using (var scope = application.Services.CreateScope())
+            {
+                scope.ServiceProvider.GetService<MoneysContext>().Database.Migrate();
+            }
+            
+            application.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
