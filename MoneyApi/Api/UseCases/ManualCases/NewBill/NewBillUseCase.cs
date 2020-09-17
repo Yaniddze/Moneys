@@ -22,7 +22,7 @@ namespace Api.UseCases.ManualCases.NewBill
 
         public async Task<AbstractAnswer> Handle(NewBillRequest request, CancellationToken cancellationToken)
         {
-            var creationResponse = await _mediator.Send(new CreateBillRequest
+            var creationResponse = await _mediator.Send(new CreateBillCommand
             {
                 UserId = request.UserId,
                 Title = request.Title,
