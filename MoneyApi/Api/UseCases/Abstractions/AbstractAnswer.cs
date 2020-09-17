@@ -6,6 +6,17 @@ namespace Api.UseCases.Abstractions
     {
         public bool Success { get; set; }
         public IEnumerable<string> Errors { get; set; }
+
+        public static AbstractAnswer CreateSuccess() => new AbstractAnswer
+        {
+            Success = true,
+        };
+        
+        public static AbstractAnswer CreateFailed(IEnumerable<string> errors) => new AbstractAnswer
+        {
+            Success = false,
+            Errors = errors,
+        };
     }
 
     public class AbstractAnswer<TData>
@@ -13,5 +24,17 @@ namespace Api.UseCases.Abstractions
         public bool Success { get; set; }
         public IEnumerable<string> Errors { get; set; }
         public TData Data { get; set; }
+        
+        public static AbstractAnswer<T> CreateSuccess<T>(T data) => new AbstractAnswer<T>
+        {
+            Success = true,
+            Data = data,
+        };
+        
+        public static AbstractAnswer<T> CreateFailed<T>(IEnumerable<string> errors) => new AbstractAnswer<T>
+        {
+            Success = true,
+            Errors = errors,
+        };
     }
 }
