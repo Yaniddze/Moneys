@@ -1,18 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Api.EventBus.Abstractions;
-using Api.EventBus.Events;
 using Api.EventBus.Events.BillEvents;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 
-using static Api.UseCases.Abstractions.AbstractAnswer;
-
 namespace Api.UseCases.ManualCases.NewBill
 {
-    public class NewBillUseCase: IRequestHandler<NewBillRequest, AbstractAnswer>
+    public class NewBillUseCase: IRequestHandler<NewBillRequest, AbstractAnswer<Guid>>
     {
         private readonly IEventBus _eventBus;
         private readonly IMediator _mediator;
@@ -23,7 +20,7 @@ namespace Api.UseCases.ManualCases.NewBill
             _mediator = mediator;
         }
 
-        public async Task<AbstractAnswer> Handle(NewBillRequest request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Guid>> Handle(NewBillRequest request, CancellationToken cancellationToken)
         {
             var creationResponse = await _mediator.Send(new CreateBillCommand
             {
@@ -39,11 +36,9 @@ namespace Api.UseCases.ManualCases.NewBill
                     Title = request.Title,
                     UserId = request.UserId,
                 }, nameof(NewBillEvent));
-
-                return CreateSuccess();
             }
 
-            return CreateFailed(creationResponse.Errors);
+            return creationResponse;
         }
     }
 }
