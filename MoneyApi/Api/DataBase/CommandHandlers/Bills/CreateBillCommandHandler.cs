@@ -3,14 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
 using static Api.UseCases.Abstractions.AbstractAnswer<System.Guid>;
 
-namespace Api.DataBase.CommandHandlers
+namespace Api.DataBase.CommandHandlers.Bills
 {
     public class CreateBillCommandHandler: IRequestHandler<CreateBillCommand, AbstractAnswer<Guid>>
     {

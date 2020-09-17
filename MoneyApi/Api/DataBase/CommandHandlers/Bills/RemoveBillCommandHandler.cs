@@ -2,43 +2,37 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Api.DataBase.DbEntities;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Z.EntityFramework.Plus;
-
 using static Api.UseCases.Abstractions.AbstractAnswer;
 
-namespace Api.DataBase.CommandHandlers
+namespace Api.DataBase.CommandHandlers.Bills
 {
-    public class UpdateBillCommandHandler: IRequestHandler<UpdateBillCommand, AbstractAnswer>
+    public class RemoveBillCommandHandler: IRequestHandler<RemoveBillCommand, AbstractAnswer>
     {
         private readonly MoneysContext _context;
 
-        public UpdateBillCommandHandler(MoneysContext context)
+        public RemoveBillCommandHandler(MoneysContext context)
         {
             _context = context;
         }
 
-        public async Task<AbstractAnswer> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer> Handle(RemoveBillCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var updatedCount = await _context.Bills
+                var deletedCount = await _context.Bills
                     .Where(x => x.Id == request.BillId && x.UserId == request.UserId)
-                    .UpdateAsync(x => new BillDB
-                    {
-                        Title = request.NewTitle,
-                    }, cancellationToken);
+                    .DeleteAsync(cancellationToken);
 
-                if (updatedCount > 0)
+                if (deletedCount > 0)
                 {
                     return CreateSuccess();
                 }
 
-                return CreateFailed(new[] {"Nothing updated"});
+                return CreateFailed(new[] {"Nothing deleted"});
             }
             catch (Exception e)
             {

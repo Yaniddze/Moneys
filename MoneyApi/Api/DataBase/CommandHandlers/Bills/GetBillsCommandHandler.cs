@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
 using Api.Domain;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
 using static Api.UseCases.Abstractions.AbstractAnswer<System.Collections.Generic.IEnumerable<Api.Domain.Bill>>;
 
-namespace Api.DataBase.CommandHandlers
+namespace Api.DataBase.CommandHandlers.Bills
 {
     public class GetBillsCommandHandler: IRequestHandler<GetBillsCommand, AbstractAnswer<IEnumerable<Bill>>>
     {
