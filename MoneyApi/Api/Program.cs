@@ -1,4 +1,8 @@
+using System;
+using System.Linq;
+using Api.Controllers;
 using Api.DataBase;
+using Api.DataBase.DbEntities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +16,29 @@ namespace Api
         {
             var application = CreateHostBuilder(args).Build();
 
+            var development = (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "")
+                .Equals("Development");
+            
             using (var scope = application.Services.CreateScope())
             {
-                scope.ServiceProvider.GetService<MoneysContext>().Database.Migrate();
+                var context = scope.ServiceProvider.GetService<MoneysContext>();
+                context.Database.Migrate();
+
+                if (development)
+                {
+                    var testableUser = context.Users.FirstOrDefault(x => x.Id == TestController.TestableUserGuid);
+
+                    if (testableUser is null)
+                    {
+                        context.Users.Add(new UserDB
+                        {
+                            Id = TestController.TestableUserGuid,
+                            Username = "TestUser",
+                        });
+
+                        context.SaveChanges();
+                    }
+                }
             }
             
             application.Run();

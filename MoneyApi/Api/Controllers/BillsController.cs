@@ -49,7 +49,7 @@ namespace Api.Controllers
         [HttpPatch("update")]
         public async Task<IActionResult> UpdateBillAsync([FromBody] UpdateBillRequest request)
         {
-            if (!ModelState.IsValid) return Ok(AbstractAnswer.CreateFailed(new[] {"Bad request params"}));
+            if (!ModelState.IsValid) return Ok(AbstractAnswer.CreateFailed(new[] {"Bad request"}));
 
             var response = await _mediator.Send(request);
             return Ok(response);
