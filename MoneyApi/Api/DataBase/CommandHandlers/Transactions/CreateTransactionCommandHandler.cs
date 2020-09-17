@@ -28,6 +28,7 @@ namespace Api.DataBase.CommandHandlers.Transactions
                 {
                     Id = tempId,
                     BillId = request.BillId,
+                    TypeId = request.TypeId,
                     Date = request.Date,
                     Description = request.Description,
                     Value = request.Value,

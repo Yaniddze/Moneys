@@ -25,6 +25,7 @@ namespace Api.UseCases.ManualCases.NewTransaction
             var response = await _mediator.Send(new CreateTransactionCommand
             {
                 BillId = request.BillId,
+                TypeId = request.TypeId,
                 Date = request.Date,
                 Description = request.Description,
                 UserId = request.UserId,
