@@ -1,7 +1,7 @@
 ﻿using System;
 using Api.EventBus.Abstractions;
 
-namespace Api.EventBus.Events
+namespace Api.EventBus.Events.BillEvents
 {
     public class NewBillEvent: IIntegrationEvent
     {
