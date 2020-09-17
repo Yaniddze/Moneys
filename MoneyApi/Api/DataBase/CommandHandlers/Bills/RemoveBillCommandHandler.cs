@@ -24,7 +24,7 @@ namespace Api.DataBase.CommandHandlers.Bills
             try
             {
                 var deletedCount = await _context.Bills
-                    .Where(x => x.Id == request.BillId && x.UserId == request.UserId)
+                    .Where(x => x.Id == request.BillId)
                     .DeleteAsync(cancellationToken);
 
                 if (deletedCount > 0)
@@ -32,7 +32,7 @@ namespace Api.DataBase.CommandHandlers.Bills
                     return CreateSuccess();
                 }
 
-                return CreateFailed(new[] {"Nothing deleted"});
+                return CreateFailed(new[] {"Bad bill id"});
             }
             catch (Exception e)
             {

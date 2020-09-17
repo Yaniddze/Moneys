@@ -25,7 +25,6 @@ namespace Api.UseCases.ManualCases.RemoveBill
         {
             var removingAnswer = await _mediator.Send(new RemoveBillCommand
             {
-                UserId = request.UserId,
                 BillId = request.BillId,
             }, cancellationToken);
 
