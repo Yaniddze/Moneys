@@ -29,6 +29,10 @@ namespace Api.AutoMappers
                 .ForMember(x => x.BillId,
                     map => map.MapFrom(
                         dest => dest.Bill.Id
+                    ))
+                .ForMember(x => x.TypeId,
+                    map => map.MapFrom(
+                        dest => dest.Type.Id
                     ));
 
             options.CreateMap<TransactionDB, Transaction>()
@@ -48,6 +52,10 @@ namespace Api.AutoMappers
                 .ForMember(x => x.Bill,
                     map => map.MapFrom(
                         dest => dest.Bill
+                    ))
+                .ForMember(x => x.Type,
+                    map => map.MapFrom(
+                        dest => dest.Type
                     ));
         }
     }
