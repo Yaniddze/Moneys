@@ -25,13 +25,13 @@ namespace Api.UseCases.Abstractions
         public IEnumerable<string> Errors { get; set; }
         public TData Data { get; set; }
         
-        public static AbstractAnswer<T> CreateSuccess<T>(T data) => new AbstractAnswer<T>
+        public static AbstractAnswer<TData> CreateSuccess(TData data) => new AbstractAnswer<TData>
         {
             Success = true,
             Data = data,
         };
         
-        public static AbstractAnswer<T> CreateFailed<T>(IEnumerable<string> errors) => new AbstractAnswer<T>
+        public static AbstractAnswer<TData> CreateFailed(IEnumerable<string> errors) => new AbstractAnswer<TData>
         {
             Success = true,
             Errors = errors,
