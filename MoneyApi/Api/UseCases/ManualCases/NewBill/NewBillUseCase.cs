@@ -1,11 +1,12 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Api.EventBus.Abstractions;
 using Api.EventBus.Events;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
 using MediatR;
+
+using static Api.UseCases.Abstractions.AbstractAnswer;
 
 namespace Api.UseCases.ManualCases.NewBill
 {
@@ -36,18 +37,11 @@ namespace Api.UseCases.ManualCases.NewBill
                     Title = request.Title,
                     UserId = request.UserId,
                 }, nameof(NewBillEvent));
-                
-                return new AbstractAnswer
-                {
-                    Success = true,
-                };
+
+                return CreateSuccess();
             }
-            
-            return new AbstractAnswer
-            {
-                Success = false,
-                Errors = creationResponse.Errors,
-            };
+
+            return CreateFailed(creationResponse.Errors);
         }
     }
 }

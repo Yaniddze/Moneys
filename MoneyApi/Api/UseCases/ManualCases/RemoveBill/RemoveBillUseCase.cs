@@ -33,11 +33,6 @@ namespace Api.UseCases.ManualCases.RemoveBill
                 {
                     BillId = request.BillId,
                 }, nameof(BillDeletedEvent));
-                
-                return new AbstractAnswer
-                {
-                    Success = true,
-                };
             }
 
             return removingAnswer;

@@ -35,11 +35,6 @@ namespace Api.UseCases.ManualCases.UpdateBill
                     BillId = request.BillId,
                     NewTitle = request.NewTitle,
                 }, nameof(BillUpdatedEvent));
-                
-                return new AbstractAnswer
-                {
-                    Success = true,
-                };
             }
 
             return updateAnswer;
