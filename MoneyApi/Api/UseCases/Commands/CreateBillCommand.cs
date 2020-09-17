@@ -2,7 +2,7 @@
 using Api.UseCases.Abstractions;
 using MediatR;
 
-namespace Api.UseCases.Requests
+namespace Api.UseCases.Commands
 {
     public class CreateBillRequest: IRequest<AbstractAnswer<Guid>>
     {
