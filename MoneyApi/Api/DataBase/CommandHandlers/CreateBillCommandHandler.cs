@@ -43,7 +43,7 @@ namespace Api.DataBase.CommandHandlers
                 return new AbstractAnswer<Guid>
                 {
                     Success = false,
-                    Errors = new[] { ex.Message }
+                    Errors = new[] { "Database error" }
                 };
             }
         }
