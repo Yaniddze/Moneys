@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.DataBase.CommandHandlers
 {
@@ -23,6 +25,18 @@ namespace Api.DataBase.CommandHandlers
             {
                 var tempId = Guid.NewGuid();
 
+                var foundedUser = await _context.Users
+                    .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
+
+                if (foundedUser is null)
+                {
+                    return new AbstractAnswer<Guid>
+                    {
+                        Success = false,
+                        Errors = new []{ "User doesn't exists" }
+                    };
+                }
+                
                 _context.Bills.Add(new BillDB
                 {
                     Id = tempId,
@@ -38,7 +52,7 @@ namespace Api.DataBase.CommandHandlers
                     Data = tempId,
                 };
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 return new AbstractAnswer<Guid>
                 {
