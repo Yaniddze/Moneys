@@ -33,7 +33,7 @@ namespace Api.DataBase.CommandHandlers
                     return CreateSuccess();
                 }
 
-                return CreateFailed(new[] {"Bad request params"});
+                return CreateFailed(new[] {"Nothing deleted"});
             }
             catch (Exception e)
             {
