@@ -3,15 +3,17 @@ using System;
 using Api.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Api.DataBase.Migrations.MoneysContextMigrations
 {
     [DbContext(typeof(MoneysContext))]
-    partial class MoneysContextModelSnapshot : ModelSnapshot
+    [Migration("20200917150506_AddTransactionTypes")]
+    partial class AddTransactionTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

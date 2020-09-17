@@ -6,5 +6,6 @@ namespace Api.Domain
     {
         public Bill Bill { get; set; }
         public TransactionInfo Info { get; set; }
+        public TransactionType Type { get; set; }
     }
 }

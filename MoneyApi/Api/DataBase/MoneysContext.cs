@@ -7,6 +7,7 @@ namespace Api.DataBase
     {
         public virtual DbSet<UserDB> Users { get; set; }
         public virtual DbSet<TransactionDB> Transactions { get; set; }
+        public virtual DbSet<TransactionTypeDB> TransactionTypes { get; set; }
         public virtual DbSet<BillDB> Bills { get; set; }
         
         public MoneysContext(DbContextOptions<MoneysContext> options)
@@ -80,6 +81,22 @@ namespace Api.DataBase
             modelBuilder.Entity<TransactionDB>()
                 .Property(x => x.BillId)
                 .HasColumnName("bill_id");
+            
+            modelBuilder.Entity<TransactionDB>()
+                .Property(x => x.TypeId)
+                .HasColumnName("type_id");
+
+            #endregion
+
+            #region Transaction Type
+            
+            modelBuilder.Entity<TransactionTypeDB>()
+                .Property(x => x.Id)
+                .HasColumnName("id");
+            
+            modelBuilder.Entity<TransactionTypeDB>()
+                .Property(x => x.Title)
+                .HasColumnName("title");
 
             #endregion
 
@@ -96,6 +113,11 @@ namespace Api.DataBase
                 .HasOne(transaction => transaction.Bill)
                 .WithMany(bill => bill.Transactions)
                 .HasForeignKey(transaction => transaction.BillId);
+
+            modelBuilder.Entity<TransactionDB>()
+                .HasOne(tran => tran.Type)
+                .WithMany(type => type.Transactions)
+                .HasForeignKey(tran => tran.TypeId);
 
             #endregion
         }
