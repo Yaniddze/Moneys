@@ -7,7 +7,6 @@ namespace Api.UseCases.Commands.BillsCommands
     public class UpdateBillCommand: IRequest<AbstractAnswer>
     {
         public Guid BillId { get; set; }
-        public Guid UserId { get; set; }
         public string NewTitle { get; set; }
     }
 }

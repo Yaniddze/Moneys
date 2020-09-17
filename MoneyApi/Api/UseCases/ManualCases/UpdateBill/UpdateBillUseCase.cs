@@ -25,7 +25,6 @@ namespace Api.UseCases.ManualCases.UpdateBill
         {
             var updateAnswer = await _mediator.Send(new UpdateBillCommand
             {
-                UserId = request.UserId,
                 BillId = request.BillId,
                 NewTitle = request.NewTitle,
             }, cancellationToken);

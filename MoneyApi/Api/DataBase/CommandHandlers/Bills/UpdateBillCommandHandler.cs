@@ -25,7 +25,7 @@ namespace Api.DataBase.CommandHandlers.Bills
             try
             {
                 var updatedCount = await _context.Bills
-                    .Where(x => x.Id == request.BillId && x.UserId == request.UserId)
+                    .Where(x => x.Id == request.BillId)
                     .UpdateAsync(x => new BillDB
                     {
                         Title = request.NewTitle,
@@ -36,7 +36,7 @@ namespace Api.DataBase.CommandHandlers.Bills
                     return CreateSuccess();
                 }
 
-                return CreateFailed(new[] {"Nothing updated"});
+                return CreateFailed(new[] {"Bad bill id"});
             }
             catch (Exception e)
             {
