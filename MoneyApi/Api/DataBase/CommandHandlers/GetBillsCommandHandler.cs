@@ -7,6 +7,7 @@ using Api.DataBase.DbEntities;
 using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
+using Api.UseCases.Commands.BillsCommands;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

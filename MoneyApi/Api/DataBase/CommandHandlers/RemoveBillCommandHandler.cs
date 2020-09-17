@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
+using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Z.EntityFramework.Plus;
 

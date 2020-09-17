@@ -4,6 +4,7 @@ using Api.EventBus.Abstractions;
 using Api.EventBus.Events;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
+using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 
 namespace Api.UseCases.ManualCases.RemoveBill

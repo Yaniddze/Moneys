@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
+using Api.UseCases.Commands.BillsCommands;
 using Api.UseCases.ManualCases.NewBill;
 using Api.UseCases.ManualCases.RemoveBill;
 using Api.UseCases.ManualCases.UpdateBill;

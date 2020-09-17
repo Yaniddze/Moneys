@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
+using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

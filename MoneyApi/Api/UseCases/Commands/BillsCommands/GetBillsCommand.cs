@@ -4,7 +4,7 @@ using Api.Domain;
 using Api.UseCases.Abstractions;
 using MediatR;
 
-namespace Api.UseCases.Commands
+namespace Api.UseCases.Commands.BillsCommands
 {
     public class GetBillsCommand: IRequest<AbstractAnswer<IEnumerable<Bill>>>
     {
