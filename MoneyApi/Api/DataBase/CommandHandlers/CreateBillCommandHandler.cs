@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
@@ -7,6 +6,8 @@ using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+
+using static Api.UseCases.Abstractions.AbstractAnswer<System.Guid>;
 
 namespace Api.DataBase.CommandHandlers
 {
@@ -30,11 +31,7 @@ namespace Api.DataBase.CommandHandlers
 
                 if (foundedUser is null)
                 {
-                    return new AbstractAnswer<Guid>
-                    {
-                        Success = false,
-                        Errors = new []{ "User doesn't exists" }
-                    };
+                    return CreateFailed(new[] {"User doesn't exists"});
                 }
                 
                 _context.Bills.Add(new BillDB
@@ -45,20 +42,12 @@ namespace Api.DataBase.CommandHandlers
                 });
 
                 await _context.SaveChangesAsync(cancellationToken);
-                
-                return new AbstractAnswer<Guid>
-                {
-                    Success = true,
-                    Data = tempId,
-                };
+
+                return CreateSuccess(tempId);
             }
             catch (Exception e)
             {
-                return new AbstractAnswer<Guid>
-                {
-                    Success = false,
-                    Errors = new[] { "Database error" }
-                };
+                return CreateFailed(new[] {"Database error"});
             }
         }
     }

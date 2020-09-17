@@ -7,6 +7,8 @@ using Api.UseCases.Commands;
 using MediatR;
 using Z.EntityFramework.Plus;
 
+using static Api.UseCases.Abstractions.AbstractAnswer;
+
 namespace Api.DataBase.CommandHandlers
 {
     public class RemoveBillCommandHandler: IRequestHandler<RemoveBillCommand, AbstractAnswer>
@@ -28,25 +30,14 @@ namespace Api.DataBase.CommandHandlers
 
                 if (deletedCount > 0)
                 {
-                    return new AbstractAnswer
-                    {
-                        Success = true
-                    };
+                    return CreateSuccess();
                 }
-                
-                return new AbstractAnswer
-                {
-                    Success = false,
-                    Errors = new []{ "Bad user_id or bill_id" }
-                };
+
+                return CreateFailed(new[] {"Bad request params"});
             }
             catch (Exception e)
             {
-                return new AbstractAnswer
-                {
-                    Success = false,
-                    Errors = new []{ "Database error" }
-                };
+                return CreateFailed(new[] {"Database error"});
             }
         }
     }
