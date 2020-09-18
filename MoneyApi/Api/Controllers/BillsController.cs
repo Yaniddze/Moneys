@@ -23,7 +23,7 @@ namespace Api.Controllers
         [HttpGet("get")]
         public async Task<IActionResult> GetBillsAsync([FromQuery] GetBillsCommand request)
         {
-            if (!ModelState.IsValid) return Ok(AbstractAnswer.CreateFailed(new[] {"Bad request"}));
+            if (!ModelState.IsValid) return BadRequest();
             
             var response = await _mediator.Send(request);
             return Ok(response);
@@ -32,7 +32,7 @@ namespace Api.Controllers
         [HttpPut("create")]
         public async Task<IActionResult> CreateBillAsync([FromBody] NewBillRequest request)
         {
-            if (!ModelState.IsValid) return Ok(AbstractAnswer.CreateFailed(new[] {"Bad request"}));
+            if (!ModelState.IsValid) return BadRequest();
 
             var response = await _mediator.Send(request);
             return Ok(response);
@@ -41,7 +41,7 @@ namespace Api.Controllers
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteBillAsync([FromQuery] RemoveBillRequest request)
         {
-            if (!ModelState.IsValid) return Ok(AbstractAnswer.CreateFailed(new[] {"Bad request"}));
+            if (!ModelState.IsValid) return BadRequest();
 
             var response = await _mediator.Send(request);
             return Ok(response);
@@ -50,7 +50,7 @@ namespace Api.Controllers
         [HttpPatch("update")]
         public async Task<IActionResult> UpdateBillAsync([FromBody] UpdateBillRequest request)
         {
-            if (!ModelState.IsValid) return Ok(AbstractAnswer.CreateFailed(new[] {"Bad request"}));
+            if (!ModelState.IsValid) return BadRequest();
 
             var response = await _mediator.Send(request);
             return Ok(response);
