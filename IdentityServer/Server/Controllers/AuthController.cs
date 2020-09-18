@@ -1,58 +1,102 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MediatR;
+﻿using System.Threading.Tasks;
+using IdentityServer4.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using Server.UseCases.Login;
-using Server.UseCases.Register;
+using Server.Controllers.ViewModels;
+using Server.Options;
 
 namespace Server.Controllers
 {
-    [Route("api/v1/auth")]
+    [Route("Account")]
     public class AuthController: Controller
     {
-        private readonly IMediator _mediator;
-        
-        public AuthController(IMediator mediator)
+        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly IIdentityServerInteractionService interactionService;
+        private readonly ApplicationUrls urls;
+
+        public AuthController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            IIdentityServerInteractionService interactionService, 
+            ApplicationUrls urls)
         {
-            _mediator = mediator;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
+            this.interactionService = interactionService;
+            this.urls = urls;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginRequest request)
+        [HttpGet]
+        public async Task<IActionResult> Logout(string logoutId)
+        {
+            await signInManager.SignOutAsync();
+
+            var logoutRequest = await interactionService.GetLogoutContextAsync(logoutId);
+
+            if (string.IsNullOrEmpty(logoutRequest.PostLogoutRedirectUri))
+            {
+                return Redirect(urls.DefaultRedirect);
+            }
+
+            return Redirect(logoutRequest.PostLogoutRedirectUri);
+        }
+
+        [HttpGet("Login")]
+        public async Task<IActionResult> Login(string returnUrl)
+        {
+            var externalProviders = await signInManager.GetExternalAuthenticationSchemesAsync();
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalProviders = externalProviders
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel vm)
+        {
+            // check if the model is valid
+
+            var result = await signInManager.PasswordSignInAsync(vm.Username, vm.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return Redirect(vm.ReturnUrl);
+            }
+            else if (result.IsLockedOut)
+            {
+
+            }
+
+            return View();
+        }
+
+        [HttpGet("Register")]
+        public IActionResult Register(string returnUrl)
+        {
+            return View(new RegisterViewModel { ReturnUrl = returnUrl });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                return Ok(new LoginResponse
-                {
-                    Success = false,
-                    Errors = GetModelStateErrors()
-                });
+                return View(vm);
             }
 
-            var response = await _mediator.Send(request);
+            var user = new IdentityUser(vm.Username);
+            var result = await userManager.CreateAsync(user, vm.Password);
 
-            return Ok(response);
-        }
-        
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody]RegisterRequest request)
-        {
-            if (!ModelState.IsValid)
+            if (result.Succeeded)
             {
-                return Ok(new RegisterResponse
-                {
-                    Success = false,
-                    Errors = GetModelStateErrors()
-                });
+                await signInManager.SignInAsync(user, false);
+
+                return Redirect(vm.ReturnUrl);
             }
 
-            var response = await _mediator.Send(request);
-
-            return Ok(response);
+            return View();
         }
-        private IEnumerable<string> GetModelStateErrors() => ModelState.Values.Select(x =>
-            Strings.Join(x.Errors.Select(error => error.ErrorMessage).ToArray()));
     }
 }
