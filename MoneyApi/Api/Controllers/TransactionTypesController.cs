@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Api.UseCases.Commands.TransactionCommands;
+using Api.UseCases.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +16,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> GetTransactionTypesAsync([FromQuery] GetTransactionsCommand request)
+        public async Task<IActionResult> GetTransactionTypesAsync([FromQuery] GetTransactionTypesCommand request)
         {
             if (!ModelState.IsValid) return BadRequest();
 
