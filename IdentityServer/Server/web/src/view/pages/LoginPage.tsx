@@ -91,7 +91,7 @@ export const LoginPage: FC<PropTypes> = ({
       <Wrapper>
         <LoginForm
           handleGoogleClick={handleGoogleClick}
-          registerFormPath={`/auth/register${searchParams}`}
+          registerFormPath={`/Account/Register${searchParams}`}
           error={loginError}
           handleSubmit={handleSubmit}
         />

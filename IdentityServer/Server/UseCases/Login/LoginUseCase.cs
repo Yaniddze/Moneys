@@ -16,7 +16,7 @@ namespace Server.UseCases.Login
 
         public async Task<LoginResponse> Handle(LoginRequest request, CancellationToken cancellationToken)
         {
-            var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, false);
+            var signInResult = await _signInManager.PasswordSignInAsync(request.Username, request.Password, true, false);
 
             if (signInResult.Succeeded)
             {

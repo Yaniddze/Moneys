@@ -28,7 +28,7 @@ namespace Server
                     
                     AllowedGrantTypes = GrantTypes.Code,
                     
-                    AllowedCorsOrigins = { "*" },
+                    AllowedCorsOrigins = { "http://localhost:8080" },
                     
                     AllowedScopes =
                     {
@@ -36,6 +36,11 @@ namespace Server
                         IdentityServer4.IdentityServerConstants.StandardScopes.Profile,
                         IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServer4.IdentityServerConstants.StandardScopes.Email,
+                    },
+                    
+                    RedirectUris = new List<string>
+                    {
+                        "http://localhost:8080/callback.html"
                     },
                     
                     AllowAccessTokensViaBrowser = true,

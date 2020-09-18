@@ -10,7 +10,7 @@ namespace Server.Installers
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Moneys.Identity";
-                config.LoginPath = "/Auth/Login";
+                config.LoginPath = "/Account/Login";
             });
         }
     }

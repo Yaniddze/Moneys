@@ -45,7 +45,7 @@ export const App: FC = () => {
           <Switch>
 
             <Route
-              path="/auth/login"
+              path="/Account/Login"
               render={
                 (props): ReactElement => (
                   <LoginDependencies>
@@ -59,7 +59,7 @@ export const App: FC = () => {
             />
 
             <Route
-              path="/auth/register"
+              path="/Account/Register"
               render={
                 (props): ReactElement => (
                   <RegisterDependencies>
@@ -71,8 +71,6 @@ export const App: FC = () => {
                 )
               }
             />
-
-            <Redirect to="/auth/login" />
 
           </Switch>
         </div>

@@ -49,7 +49,7 @@ namespace Server.UseCases.Register
                 Id = user.Id,
             }, nameof(NewUserEvent));
             
-            await _signInManager.SignInAsync(user, false);
+            await _signInManager.SignInAsync(user, true);
 
             return new RegisterResponse
             {

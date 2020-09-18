@@ -50,7 +50,7 @@ namespace Server.Controllers
             }
 
             var result = await _signInManager
-                .ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+                .ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
 
             if (result.Succeeded)
             {
@@ -109,7 +109,7 @@ namespace Server.Controllers
                 Id = user.Id,
             }, nameof(NewUserEvent));
 
-            await _signInManager.SignInAsync(user, false);
+            await _signInManager.SignInAsync(user, true);
 
             return Redirect(vm.ReturnUrl ?? _urls.DefaultRedirect);
         }

@@ -31,6 +31,7 @@ namespace Server
             
             app.UseCors(x => x
                 .AllowCredentials()
+                .WithOrigins("http://localhost:8080")
                 .AllowAnyHeader()
                 .AllowAnyHeader()
             );

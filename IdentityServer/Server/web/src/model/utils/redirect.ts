@@ -1,3 +1,3 @@
 export function redirect(returnUrl: string): void {
-  window.location.href = returnUrl;
+  window.location.replace(returnUrl);
 }
