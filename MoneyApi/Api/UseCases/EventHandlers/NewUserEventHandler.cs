@@ -1,22 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Api.EventBus.Abstractions;
 using Api.EventBus.Events;
-using Microsoft.Extensions.Logging;
+using Api.UseCases.Commands;
+using MediatR;
 
 namespace Api.UseCases.EventHandlers
 {
     public class NewUserEventHandler: IIntegrationEventHandler<NewUserEvent>
     {
-        private readonly ILogger<NewUserEventHandler> _logger;
+        private readonly IMediator _mediator;
 
-        public NewUserEventHandler(ILogger<NewUserEventHandler> logger)
+        public NewUserEventHandler(IMediator mediator)
         {
-            _logger = logger;
+            _mediator = mediator;
         }
 
         public async Task HandleAsync(NewUserEvent @event)
         {
-            _logger.LogInformation($"New user\n\t name: {@event.Username}, id: {@event.Id}");
+            await _mediator.Send(new CreateUserCommand
+            {
+                Id = Guid.Parse(@event.Id),
+                Username = @event.Username,
+            });
         }
     }
 }
