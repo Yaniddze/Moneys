@@ -20,11 +20,13 @@ services:
 
   certbot:
     image: certbot/certbot:latest
+    restart: unless-stopped
     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email yanrus09@gmail.com --agree-tos --no-eff-email -d yaniddze.com
     volumes:
       - ./nginx/certbot/conf:/etc/letsencrypt
       - ./nginx/certbot/logs:/var/log/letsencrypt
       - ./nginx/certbot/data:/usr/share/nginx/html/letsencrypt
+    entrypoint: “/bin/sh -c ‘trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;’”
 
   # rabbit:
   #   image: 'rabbitmq:3.6-management-alpine'
