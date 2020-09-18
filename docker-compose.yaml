@@ -2,7 +2,7 @@ version: "3.7"
 
 services: 
 
-server:
+  server:
     image: nginx:1.14.2-alpine
     restart: always
     volumes:
