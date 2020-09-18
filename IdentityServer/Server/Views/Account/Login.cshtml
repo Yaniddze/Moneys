@@ -4,8 +4,8 @@
     Layout = "../_Layout";
     ViewData["Title"] = "Login";
 }
-
 <h1>Sign In With</h1>
+
     <form asp-controller="External" asp-action="ExternalLogin" 
           asp-route-returnUrl="@Model.ReturnUrl" method="post">
         @foreach (var provider in Model.ExternalProviders)
@@ -17,8 +17,15 @@
             </button>
         }
     </form>
-
-    <form asp-controller="Account" asp-action="LoginPost" method="post">
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <p>
+            @foreach (var error in Model.Errors)
+            {
+                <div>
+                    @error
+                </div>
+            }
+        </p>
         <input type="hidden" asp-for="ReturnUrl" />
         <div>
             <label>Username</label>

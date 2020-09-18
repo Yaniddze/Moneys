@@ -32,7 +32,7 @@ namespace Server
                 .AllowCredentials()
                 .WithOrigins("http://localhost:8080")
                 .AllowAnyHeader()
-                .AllowAnyHeader()
+                .AllowAnyMethod()
             );
 
             app.UseRouting();

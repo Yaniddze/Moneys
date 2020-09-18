@@ -1,12 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Server.Controllers.ViewModels;
 using Server.Options;
 
 namespace Server.Controllers
 {
+    [Route("Account")]
     public class AccountController: Controller
     {
         private readonly SignInManager<IdentityUser> signInManager;
@@ -26,7 +30,7 @@ namespace Server.Controllers
             this.urls = urls;
         }
 
-        [HttpGet]
+        [HttpGet("Logout")]
         public async Task<IActionResult> Logout(string logoutId)
         {
             await signInManager.SignOutAsync();
@@ -41,22 +45,32 @@ namespace Server.Controllers
             return Redirect(logoutRequest.PostLogoutRedirectUri);
         }
 
-        [HttpGet]
+        [HttpGet("Login")]
         public async Task<IActionResult> Login(string returnUrl)
         {
             var externalProviders = await signInManager.GetExternalAuthenticationSchemesAsync();
-            return View(new LoginViewModel
+            return View("Login", new LoginViewModel
             {
+                Errors = new []{ "" },
                 ReturnUrl = returnUrl,
                 ExternalProviders = externalProviders
             });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> LoginPost(LoginViewModel vm)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginViewModel vm)
         {
-            // check if the model is valid
-
+            if (!ModelState.IsValid)
+            {
+                return View("Login", new LoginViewModel
+                {
+                    ExternalProviders = await signInManager.GetExternalAuthenticationSchemesAsync(),
+                    ReturnUrl = vm.ReturnUrl,
+                    Username = vm.Username,
+                    Errors = GetModelStateErrors(),
+                });
+            }
+            
             var result = await signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
 
             if (result.Succeeded)
@@ -64,24 +78,44 @@ namespace Server.Controllers
                 return Redirect(vm.ReturnUrl);
             }
 
-            return View();
+            return View("Login", new LoginViewModel
+            {
+                ExternalProviders = await signInManager.GetExternalAuthenticationSchemesAsync(),
+                ReturnUrl = vm.ReturnUrl,
+                Username = vm.Username,
+                Errors = new []{ "User not found" },
+            });
         }
 
-        [HttpGet]
+        [HttpGet("Register")]
         public IActionResult Register(string returnUrl)
         {
-            return View("Register", new RegisterViewModel { ReturnUrl = returnUrl });
+            return View("Register", new RegisterViewModel
+            {
+                Errors = new []{ "" },
+                ReturnUrl = returnUrl
+            });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RegisterPost(RegisterViewModel vm)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                return View("Register", vm);
+                return View("Register", new RegisterViewModel
+                {
+                    Email = vm.Email,
+                    Errors = GetModelStateErrors(),
+                    ReturnUrl = vm.ReturnUrl,
+                    Username = vm.Username,
+                });
             }
 
-            var user = new IdentityUser(vm.Username);
+            var user = new IdentityUser(vm.Username)
+            {
+                Email = vm.Email,
+                EmailConfirmed = true,
+            };
             var result = await userManager.CreateAsync(user, vm.Password);
 
             if (result.Succeeded)
@@ -91,7 +125,16 @@ namespace Server.Controllers
                 return Redirect(vm.ReturnUrl);
             }
 
-            return View();
+            return View("Register", new RegisterViewModel
+            {
+                Email = vm.Email,
+                Errors = result.Errors.Select(x => x.Description),
+                ReturnUrl = vm.ReturnUrl,
+                Username = vm.Username,
+            });
         }
+        
+        private IEnumerable<string> GetModelStateErrors() => ModelState.Values.Select(x =>
+            Strings.Join(x.Errors.Select(error => error.ErrorMessage).ToArray()));
     }
 }
