@@ -12,18 +12,18 @@ namespace Api.UseCases.ManualCases.UpdateBill
 {
     public class UpdateBillUseCase: IRequestHandler<UpdateBillRequest, AbstractAnswer>
     {
-        private readonly IMediator _mediator;
-        private readonly IEventBus _eventBus;
+        private readonly IMediator mediator;
+        private readonly IEventBus eventBus;
 
         public UpdateBillUseCase(IMediator mediator, IEventBus eventBus)
         {
-            _mediator = mediator;
-            _eventBus = eventBus;
+            this.mediator = mediator;
+            this.eventBus = eventBus;
         }
 
         public async Task<AbstractAnswer> Handle(UpdateBillRequest request, CancellationToken cancellationToken)
         {
-            var updateAnswer = await _mediator.Send(new UpdateBillCommand
+            var updateAnswer = await mediator.Send(new UpdateBillCommand
             {
                 BillId = request.BillId,
                 NewTitle = request.NewTitle,
@@ -31,7 +31,7 @@ namespace Api.UseCases.ManualCases.UpdateBill
 
             if (updateAnswer.Success)
             {
-                _eventBus.Publish(new BillUpdatedEvent
+                eventBus.Publish(new BillUpdatedEvent
                 {
                     BillId = request.BillId,
                     NewTitle = request.NewTitle,

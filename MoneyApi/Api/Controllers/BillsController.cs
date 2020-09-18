@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using Api.UseCases.ManualCases.NewBill;
 using Api.UseCases.ManualCases.RemoveBill;
@@ -13,11 +11,11 @@ namespace Api.Controllers
     [Route("api/v1/bills")]
     public class BillsController: Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator;
 
         public BillsController(IMediator mediator)
         {
-            _mediator = mediator;
+            this.mediator = mediator;
         }
 
         [HttpGet("get")]
@@ -25,7 +23,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
             
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -34,7 +32,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -43,7 +41,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -52,7 +50,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
     }

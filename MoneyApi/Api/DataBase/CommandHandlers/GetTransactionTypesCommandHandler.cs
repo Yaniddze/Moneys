@@ -16,21 +16,21 @@ namespace Api.DataBase.CommandHandlers
 {
     public class GetTransactionTypesCommandHandler: IRequestHandler<GetTransactionTypesCommand, AbstractAnswer<IEnumerable<TransactionType>>>
     {
-        private readonly IMapper _mapper;
-        private readonly MoneysContext _context;
+        private readonly IMapper mapper;
+        private readonly MoneysContext context;
 
         public GetTransactionTypesCommandHandler(MoneysContext context, IMapper mapper)
         {
-            _context = context;
-            _mapper = mapper;
+            this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<AbstractAnswer<IEnumerable<TransactionType>>> Handle(GetTransactionTypesCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var founded = await _context.TransactionTypes
-                    .Select(x => _mapper.Map<TransactionTypeDB, TransactionType>(x))
+                var founded = await context.TransactionTypes
+                    .Select(x => mapper.Map<TransactionTypeDB, TransactionType>(x))
                     .ToListAsync(cancellationToken);
                 
                 return CreateSuccess(founded);

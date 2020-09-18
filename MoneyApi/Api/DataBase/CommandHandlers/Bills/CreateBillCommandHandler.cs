@@ -12,11 +12,11 @@ namespace Api.DataBase.CommandHandlers.Bills
 {
     public class CreateBillCommandHandler: IRequestHandler<CreateBillCommand, AbstractAnswer<Guid>>
     {
-        private readonly MoneysContext _context;
+        private readonly MoneysContext context;
 
         public CreateBillCommandHandler(MoneysContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<AbstractAnswer<Guid>> Handle(CreateBillCommand request, CancellationToken cancellationToken)
@@ -25,7 +25,7 @@ namespace Api.DataBase.CommandHandlers.Bills
             {
                 var tempId = Guid.NewGuid();
 
-                var foundedUser = await _context.Users
+                var foundedUser = await context.Users
                     .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken);
 
                 if (foundedUser is null)
@@ -33,14 +33,14 @@ namespace Api.DataBase.CommandHandlers.Bills
                     return CreateFailed(new[] {"User doesn't exists"});
                 }
                 
-                _context.Bills.Add(new BillDB
+                context.Bills.Add(new BillDB
                 {
                     Id = tempId,
                     Title = request.Title,
                     UserId = request.UserId,
                 });
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await context.SaveChangesAsync(cancellationToken);
 
                 return CreateSuccess(tempId);
             }

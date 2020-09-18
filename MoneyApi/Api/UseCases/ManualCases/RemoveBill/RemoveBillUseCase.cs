@@ -12,25 +12,25 @@ namespace Api.UseCases.ManualCases.RemoveBill
 {
     public class RemoveBillUseCase: IRequestHandler<RemoveBillRequest, AbstractAnswer>
     {
-        private readonly IMediator _mediator;
-        private readonly IEventBus _eventBus;
+        private readonly IMediator mediator;
+        private readonly IEventBus eventBus;
 
         public RemoveBillUseCase(IMediator mediator, IEventBus eventBus)
         {
-            _mediator = mediator;
-            _eventBus = eventBus;
+            this.mediator = mediator;
+            this.eventBus = eventBus;
         }
 
         public async Task<AbstractAnswer> Handle(RemoveBillRequest request, CancellationToken cancellationToken)
         {
-            var removingAnswer = await _mediator.Send(new RemoveBillCommand
+            var removingAnswer = await mediator.Send(new RemoveBillCommand
             {
                 BillId = request.BillId,
             }, cancellationToken);
 
             if (removingAnswer.Success)
             {
-                _eventBus.Publish(new BillDeletedEvent
+                eventBus.Publish(new BillDeletedEvent
                 {
                     BillId = request.BillId,
                 }, nameof(BillDeletedEvent));

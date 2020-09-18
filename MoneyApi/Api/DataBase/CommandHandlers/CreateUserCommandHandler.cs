@@ -8,22 +8,22 @@ namespace Api.DataBase.CommandHandlers
 {
     public class CreateUserCommandHandler: IRequestHandler<CreateUserCommand>
     {
-        private readonly MoneysContext _context;
+        private readonly MoneysContext context;
 
         public CreateUserCommandHandler(MoneysContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            _context.Users.Add(new UserDB
+            context.Users.Add(new UserDB
             {
                 Id = request.Id,
                 Username = request.Username,
             });
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await context.SaveChangesAsync(cancellationToken);
             
             return Unit.Value;
         }

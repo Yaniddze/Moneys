@@ -9,16 +9,16 @@ namespace Api.UseCases.EventHandlers
 {
     public class NewUserEventHandler: IIntegrationEventHandler<NewUserEvent>
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator;
 
         public NewUserEventHandler(IMediator mediator)
         {
-            _mediator = mediator;
+            this.mediator = mediator;
         }
 
         public async Task HandleAsync(NewUserEvent @event)
         {
-            await _mediator.Send(new CreateUserCommand
+            await mediator.Send(new CreateUserCommand
             {
                 Id = Guid.Parse(@event.Id),
                 Username = @event.Username,

@@ -10,18 +10,18 @@ namespace Api.UseCases.ManualCases.UpdateTransaction
 {
     public class UpdateTransactionUseCase: IRequestHandler<UpdateTransactionRequest, AbstractAnswer>
     {
-        private readonly IEventBus _eventBus;
-        private readonly IMediator _mediator;
+        private readonly IEventBus eventBus;
+        private readonly IMediator mediator;
 
         public UpdateTransactionUseCase(IEventBus eventBus, IMediator mediator)
         {
-            _eventBus = eventBus;
-            _mediator = mediator;
+            this.eventBus = eventBus;
+            this.mediator = mediator;
         }
 
         public async Task<AbstractAnswer> Handle(UpdateTransactionRequest request, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new UpdateTransactionCommand
+            var response = await mediator.Send(new UpdateTransactionCommand
             {
                 TransactionId = request.TransactionId,
                 Date = request.Date,
@@ -32,7 +32,7 @@ namespace Api.UseCases.ManualCases.UpdateTransaction
 
             if (response.Success)
             {
-                _eventBus.Publish(new UpdateTransactionEvent
+                eventBus.Publish(new UpdateTransactionEvent
                 {
                     TransactionId = request.TransactionId,
                     Date = request.Date,

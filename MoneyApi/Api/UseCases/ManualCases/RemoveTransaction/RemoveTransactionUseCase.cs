@@ -9,22 +9,22 @@ namespace Api.UseCases.ManualCases.RemoveTransaction
 {
     public class RemoveTransactionUseCase: IRequestHandler<RemoveTransactionRequest, AbstractAnswer>
     {
-        private readonly IMediator _mediator;
-        private readonly IEventBus _eventBus;
+        private readonly IMediator mediator;
+        private readonly IEventBus eventBus;
 
         public RemoveTransactionUseCase(IMediator mediator, IEventBus eventBus)
         {
-            _mediator = mediator;
-            _eventBus = eventBus;
+            this.mediator = mediator;
+            this.eventBus = eventBus;
         }
 
         public async Task<AbstractAnswer> Handle(RemoveTransactionRequest request, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(request, cancellationToken);
+            var response = await mediator.Send(request, cancellationToken);
 
             if (response.Success)
             {
-                _eventBus.Publish(new RemoveTransactionEvent
+                eventBus.Publish(new RemoveTransactionEvent
                 {
                     TransactionId = request.TransactionId,
                 }, nameof(RemoveTransactionEvent));

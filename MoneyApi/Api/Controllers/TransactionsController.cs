@@ -11,11 +11,11 @@ namespace Api.Controllers
     [Route("api/v1/transactions")]
     public class TransactionsController: Controller
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator;
 
         public TransactionsController(IMediator mediator)
         {
-            _mediator = mediator;
+            this.mediator = mediator;
         }
 
         [HttpGet("get")]
@@ -23,7 +23,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -32,7 +32,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -41,7 +41,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
 
@@ -50,7 +50,7 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            var response = await _mediator.Send(request);
+            var response = await mediator.Send(request);
             return Ok(response);
         }
     }

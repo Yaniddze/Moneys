@@ -16,23 +16,23 @@ namespace Api.DataBase.CommandHandlers.Bills
 {
     public class GetBillsCommandHandler: IRequestHandler<GetBillsCommand, AbstractAnswer<IEnumerable<Bill>>>
     {
-        private readonly MoneysContext _context;
-        private readonly IMapper _mapper;
+        private readonly MoneysContext context;
+        private readonly IMapper mapper;
 
         public GetBillsCommandHandler(IMapper mapper, MoneysContext context)
         {
-            _mapper = mapper;
-            _context = context;
+            this.mapper = mapper;
+            this.context = context;
         }
 
         public async Task<AbstractAnswer<IEnumerable<Bill>>> Handle(GetBillsCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var founded = await _context.Bills
+                var founded = await context.Bills
                     .Where(x => x.UserId == request.UserId)
                         .Include(x => x.User)
-                    .Select(x => _mapper.Map<BillDB, Bill>(x))
+                    .Select(x => mapper.Map<BillDB, Bill>(x))
                     .ToListAsync(cancellationToken);
                 
                 return CreateSuccess(founded);

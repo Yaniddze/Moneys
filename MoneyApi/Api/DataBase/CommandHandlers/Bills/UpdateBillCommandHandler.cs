@@ -13,18 +13,18 @@ namespace Api.DataBase.CommandHandlers.Bills
 {
     public class UpdateBillCommandHandler: IRequestHandler<UpdateBillCommand, AbstractAnswer>
     {
-        private readonly MoneysContext _context;
+        private readonly MoneysContext context;
 
         public UpdateBillCommandHandler(MoneysContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<AbstractAnswer> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var updatedCount = await _context.Bills
+                var updatedCount = await context.Bills
                     .Where(x => x.Id == request.BillId)
                     .UpdateAsync(x => new BillDB
                     {

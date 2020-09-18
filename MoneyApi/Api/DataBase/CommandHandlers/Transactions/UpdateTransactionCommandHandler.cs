@@ -13,18 +13,18 @@ namespace Api.DataBase.CommandHandlers.Transactions
 {
     public class UpdateTransactionCommandHandler: IRequestHandler<UpdateTransactionCommand, AbstractAnswer>
     {
-        private readonly MoneysContext _context;
+        private readonly MoneysContext context;
 
         public UpdateTransactionCommandHandler(MoneysContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<AbstractAnswer> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var updated = await _context.Transactions
+                var updated = await context.Transactions
                     .Where(x => x.Id == request.TransactionId)
                     .UpdateAsync(x => new TransactionDB
                     {

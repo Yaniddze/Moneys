@@ -11,18 +11,18 @@ namespace Api.UseCases.ManualCases.NewTransaction
 {
     public class NewTransactionUseCase: IRequestHandler<NewTransactionRequest, AbstractAnswer<Guid>>
     {
-        private readonly IMediator _mediator;
-        private readonly IEventBus _eventBus;
+        private readonly IMediator mediator;
+        private readonly IEventBus eventBus;
         
         public NewTransactionUseCase(IMediator mediator, IEventBus eventBus)
         {
-            _mediator = mediator;
-            _eventBus = eventBus;
+            this.mediator = mediator;
+            this.eventBus = eventBus;
         }
 
         public async Task<AbstractAnswer<Guid>> Handle(NewTransactionRequest request, CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(new CreateTransactionCommand
+            var response = await mediator.Send(new CreateTransactionCommand
             {
                 BillId = request.BillId,
                 TypeId = request.TypeId,
@@ -34,7 +34,7 @@ namespace Api.UseCases.ManualCases.NewTransaction
 
             if (response.Success)
             {
-                _eventBus.Publish(new NewTransactionEvent
+                eventBus.Publish(new NewTransactionEvent
                 {
                     Id = response.Data,
                     BillId = request.BillId,

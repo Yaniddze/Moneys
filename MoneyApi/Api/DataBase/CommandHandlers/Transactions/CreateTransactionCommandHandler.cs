@@ -11,11 +11,11 @@ namespace Api.DataBase.CommandHandlers.Transactions
 {
     public class CreateTransactionCommandHandler: IRequestHandler<CreateTransactionCommand, AbstractAnswer<Guid>>
     {
-        private readonly MoneysContext _context;
+        private readonly MoneysContext context;
 
         public CreateTransactionCommandHandler(MoneysContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<AbstractAnswer<Guid>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
@@ -24,7 +24,7 @@ namespace Api.DataBase.CommandHandlers.Transactions
             {
                 var tempId = Guid.NewGuid();
 
-                _context.Transactions.Add(new TransactionDB
+                context.Transactions.Add(new TransactionDB
                 {
                     Id = tempId,
                     BillId = request.BillId,
@@ -34,7 +34,7 @@ namespace Api.DataBase.CommandHandlers.Transactions
                     Value = request.Value,
                 });
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await context.SaveChangesAsync(cancellationToken);
                 
                 return CreateSuccess(tempId);
             }

@@ -12,18 +12,18 @@ namespace Api.DataBase.CommandHandlers.Transactions
 {
     public class RemoveTransactionCommandHandler: IRequestHandler<RemoveTransactionCommand, AbstractAnswer>
     {
-        private readonly MoneysContext _context;
+        private readonly MoneysContext context;
 
         public RemoveTransactionCommandHandler(MoneysContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<AbstractAnswer> Handle(RemoveTransactionCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var removed = await _context.Transactions
+                var removed = await context.Transactions
                     .Where(x => x.Id == request.TransactionId)
                     .DeleteAsync(cancellationToken);
 
