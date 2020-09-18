@@ -5,7 +5,7 @@
     ViewData["Title"] = "Registration";
 }
 
-<form asp-controller="Auth" asp-action="Register" method="post">
+<form asp-controller="Account" asp-action="RegisterPost" method="post">
     <input type="hidden" asp-for="ReturnUrl" />
     <div>
         <label>Username</label>
@@ -27,5 +27,5 @@
     </div>
 </form>
 
-<a asp-controller="Auth" asp-action="Login"
+<a asp-controller="Account" asp-action="Login"
    asp-route-returnUrl="@Model.ReturnUrl">Back to Login</a>

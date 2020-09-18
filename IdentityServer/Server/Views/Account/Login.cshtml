@@ -18,7 +18,7 @@
         }
     </form>
 
-    <form asp-controller="Auth" asp-action="Login" method="post">
+    <form asp-controller="Account" asp-action="LoginPost" method="post">
         <input type="hidden" asp-for="ReturnUrl" />
         <div>
             <label>Username</label>
@@ -33,6 +33,6 @@
         </div>
     </form> 
     <div>
-        <a asp-controller="Auth" asp-action="Register" 
+        <a asp-controller="Account" asp-action="Register" 
            asp-route-returnUrl="@Model.ReturnUrl">Register</a>
     </div>

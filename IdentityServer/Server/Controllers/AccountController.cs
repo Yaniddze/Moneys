@@ -7,15 +7,14 @@ using Server.Options;
 
 namespace Server.Controllers
 {
-    [Route("Account")]
-    public class AuthController: Controller
+    public class AccountController: Controller
     {
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly UserManager<IdentityUser> userManager;
         private readonly IIdentityServerInteractionService interactionService;
         private readonly ApplicationUrls urls;
 
-        public AuthController(
+        public AccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             IIdentityServerInteractionService interactionService, 
@@ -42,7 +41,7 @@ namespace Server.Controllers
             return Redirect(logoutRequest.PostLogoutRedirectUri);
         }
 
-        [HttpGet("Login")]
+        [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
             var externalProviders = await signInManager.GetExternalAuthenticationSchemesAsync();
@@ -54,36 +53,32 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel vm)
+        public async Task<IActionResult> LoginPost(LoginViewModel vm)
         {
             // check if the model is valid
 
-            var result = await signInManager.PasswordSignInAsync(vm.Username, vm.Password, false, false);
+            var result = await signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
 
             if (result.Succeeded)
             {
                 return Redirect(vm.ReturnUrl);
             }
-            else if (result.IsLockedOut)
-            {
-
-            }
 
             return View();
         }
 
-        [HttpGet("Register")]
+        [HttpGet]
         public IActionResult Register(string returnUrl)
         {
-            return View(new RegisterViewModel { ReturnUrl = returnUrl });
+            return View("Register", new RegisterViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel vm)
+        public async Task<IActionResult> RegisterPost(RegisterViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                return View(vm);
+                return View("Register", vm);
             }
 
             var user = new IdentityUser(vm.Username);
@@ -91,7 +86,7 @@ namespace Server.Controllers
 
             if (result.Succeeded)
             {
-                await signInManager.SignInAsync(user, false);
+                await signInManager.SignInAsync(user, true);
 
                 return Redirect(vm.ReturnUrl);
             }
