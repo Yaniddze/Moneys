@@ -8,8 +8,7 @@ namespace Server
     {
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope>
-            {
-            };
+            { };
 
         public static IEnumerable<IdentityResource> GetIdentityResources() =>
             new List<IdentityResource>
@@ -24,7 +23,7 @@ namespace Server
             {
                 new Client
                 {
-                    ClientId = "client_id_react",
+                    ClientId = "vue_application",
                     ClientSecrets = { new Secret("secret_key".ToSha256()) },
                     
                     AllowedGrantTypes = GrantTypes.Code,
