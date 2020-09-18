@@ -36,7 +36,7 @@ services:
   identity-server:
     build: ./IdentityServer/Server
     restart: always
-    ports: 
+    # ports: 
       # - "8081:80"
     depends_on:
       - identity-postgres
@@ -53,7 +53,7 @@ services:
   moneys-api:
     build: ./MoneyApi/Api
     restart: always
-    ports: 
+    # ports: 
       # - "8082:80"
     depends_on:
       - identity-server
