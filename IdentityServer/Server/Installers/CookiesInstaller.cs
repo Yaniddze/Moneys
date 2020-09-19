@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Server.Installers
@@ -11,6 +12,9 @@ namespace Server.Installers
             {
                 config.Cookie.Name = "Moneys.Identity";
                 config.LoginPath = "/Account/Login";
+
+                config.Cookie.SameSite = SameSiteMode.None;
+                config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
         }
     }
