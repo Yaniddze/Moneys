@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Services;
+﻿using System.Collections.Generic;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +23,10 @@ namespace Server.Installers
                 var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
                 return new DefaultCorsPolicyService(logger)
                 {
-                    AllowAll = true
+                    AllowedOrigins = new List<string>
+                    {
+                        "http://localhost:8080"
+                    }
                 };
             });
             
