@@ -5,16 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Server.Installers
 {
-    public class ExternalAuthInstaller: IInstaller
+    public class ExternalAuthInstaller : IInstaller
     {
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication()
-                .AddCookie(IdentityServerConstants.DefaultCookieAuthenticationScheme, config =>
-                    {
-                        config.Cookie.SameSite = SameSiteMode.None;
-                        config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                    })
+                .AddCookie("CookiePolicy", config =>
+                {
+                    config.LoginPath = "/Account/Login";
+
+                    config.Cookie.SameSite = SameSiteMode.None;
+                    config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                })
                 .AddGoogle(options =>
                 {
                     options.ClientId =
