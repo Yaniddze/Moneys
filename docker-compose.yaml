@@ -5,11 +5,11 @@ services:
   server:
     image: nginx:latest
     restart: always
-    # volumes:
-      # - ./nginx/public_html:/public_html
-      # - ./nginx/conf.d:/etc/nginx/conf.d
-      # - ./nginx/certbot/conf:/etc/nginx/ssl
-      # - ./nginx/certbot/data:/usr/share/nginx/html/letsencrypt
+    volumes:
+      - ./nginx/public_html:/public_html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certbot/conf:/etc/nginx/ssl
+      - ./nginx/certbot/data:/usr/share/nginx/html/letsencrypt
     ports:
       - 80:80
       - 443:443
