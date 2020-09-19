@@ -10,16 +10,16 @@
 
   var mgr = new Oidc.UserManager({
     response_mode: 'query',
-    userStore: new Oidc.WebStorageStateStore()
+    userStore: new Oidc.WebStorageStateStore({ store: window.localStorage })
   })
-    .signinRedirectCallback("https://yaniddze.com/connect/token")
-    .then(function (user) {
-      console.log('signin response success', user);
-      window.location.href = '../';
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+    .signinRedirectCallback()
+      .then(function (user) {
+        console.log('signin response success', user);
+        window.location.href = '../';
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
 
 </script>
 </body>
