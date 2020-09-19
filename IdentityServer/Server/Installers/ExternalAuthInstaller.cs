@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using IdentityServer4;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Server.Installers
@@ -8,6 +10,11 @@ namespace Server.Installers
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication()
+                .AddCookie(IdentityServerConstants.DefaultCookieAuthenticationScheme, config =>
+                    {
+                        config.Cookie.SameSite = SameSiteMode.None;
+                        config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    })
                 .AddGoogle(options =>
                 {
                     options.ClientId =

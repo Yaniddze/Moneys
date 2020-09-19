@@ -56,7 +56,6 @@ namespace Server.Installers
                         b.UseNpgsql(connectionString, sql =>
                             sql.MigrationsAssembly(assembly));
                 })
-                .AddCookieAuthentication()
                 .AddDeveloperSigningCredential();
         }
     }
