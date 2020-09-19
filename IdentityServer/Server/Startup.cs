@@ -28,16 +28,11 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
             
-            app.UseCors(x => x
-                .AllowCredentials()
-                .WithOrigins("http://localhost:8080")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-            );
-
-            app.UseRouting();
+            app.UseCors();
 
             app.UseIdentityServer();
+            
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
