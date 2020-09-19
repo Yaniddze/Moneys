@@ -28,6 +28,8 @@ namespace Server
                     
                     AllowedGrantTypes = GrantTypes.Code,
                     
+                    AllowedCorsOrigins = { "http://localhost:8080" },
+                    
                     AllowedScopes =
                     {
                         IdentityServer4.IdentityServerConstants.StandardScopes.OpenId,

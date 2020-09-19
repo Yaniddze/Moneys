@@ -12,7 +12,7 @@
     response_mode: 'query',
     userStore: new Oidc.WebStorageStateStore()
   })
-    .signinRedirectCallback()
+    .signinRedirectCallback("https://yaniddze.com/connect/token")
     .then(function (user) {
       console.log('signin response success', user);
       window.location.href = '../';

@@ -18,18 +18,6 @@ namespace Server.Installers
             services.AddDbContextPool<IdentityContext>(config => 
                 config.UseNpgsql(connectionString));
 
-            services.AddSingleton<ICorsPolicyService>((container) =>
-            {
-                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
-                return new DefaultCorsPolicyService(logger)
-                {
-                    AllowedOrigins = new List<string>
-                    {
-                        "http://localhost:8080"
-                    }
-                };
-            });
-            
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
                 config.Password.RequiredLength = 4;
@@ -47,13 +35,13 @@ namespace Server.Installers
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseNpgsql(connectionString, sql => 
+                        b.UseNpgsql(connectionString, sql =>
                             sql.MigrationsAssembly(assembly));
                 })
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = b =>
-                        b.UseNpgsql(connectionString, sql => 
+                        b.UseNpgsql(connectionString, sql =>
                             sql.MigrationsAssembly(assembly));
                 })
                 .AddDeveloperSigningCredential();
