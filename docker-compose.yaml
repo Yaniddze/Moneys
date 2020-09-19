@@ -14,9 +14,9 @@ services:
     ports:
       - 80:80
       - 443:443
-    # links:
-    #   - identity-server
-    #   - moneys-api
+    links:
+      - identity-server
+      - moneys-api
 
   certbot:
     image: certbot/certbot:latest
@@ -26,44 +26,44 @@ services:
       - ./nginx/certbot/logs:/var/log/letsencrypt
       - ./nginx/certbot/data:/usr/share/nginx/html/letsencrypt
 
-  # rabbit:
-  #   image: 'rabbitmq:3.6-management-alpine'
-  #   restart: always
-  #   # ports:
-  #   #   - "15672:15672"
-  #   #   - "5672:5672"
+  rabbit:
+    image: 'rabbitmq:3.6-management-alpine'
+    restart: always
+    # ports:
+    #   - "15672:15672"
+    #   - "5672:5672"
 
-  # identity-server:
-  #   build: ./IdentityServer/Server
-  #   restart: always
-  #   # ports: 
-  #     # - "8081:80"
-  #   depends_on:
-  #     - identity-postgres
-  #     - rabbit
+  identity-server:
+    build: ./IdentityServer/Server
+    restart: always
+    # ports: 
+      # - "8081:80"
+    depends_on:
+      - identity-postgres
+      - rabbit
     
-  # identity-postgres:
-  #   image: postgres
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #   volumes:
-  #     - ./VolumeData/IdentityServer:/var/lib/postgresql/data
+  identity-postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./VolumeData/IdentityServer:/var/lib/postgresql/data
 
-  # moneys-api:
-  #   build: ./MoneyApi/Api
-  #   restart: always
-  #   # ports: 
-  #     # - "8082:80"
-  #   depends_on:
-  #     - identity-server
-  #     - rabbit
-  #     - moneys-postgres
+  moneys-api:
+    build: ./MoneyApi/Api
+    restart: always
+    # ports: 
+      # - "8082:80"
+    depends_on:
+      - identity-server
+      - rabbit
+      - moneys-postgres
 
-  # moneys-postgres:
-  #   image: postgres
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #   volumes:
-  #     - ./VolumeData/Moneys:/var/lib/postgresql/data
+  moneys-postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./VolumeData/Moneys:/var/lib/postgresql/data
