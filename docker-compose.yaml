@@ -14,9 +14,9 @@ services:
     ports:
       - 80:80
       - 443:443
-    links:
-      - identity-server
-      - moneys-api
+    # links:
+    #   - identity-server
+    #   - moneys-api
 
   certbot:
     image: certbot/certbot:latest
