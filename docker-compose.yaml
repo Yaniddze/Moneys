@@ -3,7 +3,7 @@ version: "3.7"
 services: 
 
   server:
-    image: nginx:1.14.2-alpine
+    image: nginx:latest
     restart: always
     volumes:
       - ./nginx/public_html:/public_html
