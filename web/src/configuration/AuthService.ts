@@ -9,7 +9,7 @@ export default class AuthService {
   private userManager: UserManager;
 
   constructor() {
-    const domain = 'http://localhost:8081';
+    const domain = 'https://yaniddze.com';
 
     const settings: UserManagerSettings = {
       userStore: new WebStorageStateStore({ store: window.localStorage }),
