@@ -30,6 +30,10 @@ namespace Server
             
             app.UseCors();
 
+            app.UseCookiePolicy();
+
+            app.UseAuthentication();
+
             app.UseIdentityServer();
             
             app.UseRouting();
