@@ -68,11 +68,11 @@ namespace Server.Installers
 
             services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IConfigureOptions<CookieAuthenticationOptions>)));
 
-            services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, myClass>();
+            services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, MyCookieConfiguration>();
         }
     }
     
-    class myClass : IConfigureNamedOptions<CookieAuthenticationOptions> {
+    class MyCookieConfiguration : IConfigureNamedOptions<CookieAuthenticationOptions> {
         public void Configure(CookieAuthenticationOptions options)
         { }
 
