@@ -63,7 +63,7 @@ namespace Server.Installers
                 })
                 .AddDeveloperSigningCredential();
             
-            services.AddAuthentication(IdentityServerConstants.DefaultCookieAuthenticationScheme)
+            services.AddAuthentication()
                 .AddCookie(IdentityServerConstants.DefaultCookieAuthenticationScheme, config =>
                 {
                     config.SlidingExpiration = false;
