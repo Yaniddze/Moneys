@@ -1,18 +1,33 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div
+    v-if="oidcIsAuthenticated"
+    class="protected"
+  >
+    <h1>This route requires authentication</h1>
+    <h1>{{ oidcUser.preferred_username }}</h1>
+    <button @click="signOutOidc">Выйти</button>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+<script>
+  import { mapGetters, mapActions } from 'vuex';
+  import jsonMarkup from 'json-markup';
+  import SignedInUser from '@/components/SignedInUser.vue';
 
-export default Vue.extend({
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-});
+  export default {
+    name: 'Protected',
+    components: { SignedInUser },
+    computed: {
+      ...mapGetters([
+        'oidcIsAuthenticated',
+        'oidcUser',
+      ]),
+      userDisplay() {
+        return jsonMarkup(this.oidcUser);
+      },
+    },
+    methods: {
+      ...mapActions(['signOutOidc']),
+    },
+  };
 </script>

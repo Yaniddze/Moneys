@@ -5,6 +5,7 @@ export const oidcSettings: VuexOidcClientSettings = {
   clientId: 'vue_application',
   // eslint-disable-next-line @typescript-eslint/camelcase
   client_secret: 'secret_key',
+  automaticSilentRenew: true,
   redirectUri: 'http://localhost:8080/callback',
   responseType: 'code',
   scope: 'openid profile email offline_access',
