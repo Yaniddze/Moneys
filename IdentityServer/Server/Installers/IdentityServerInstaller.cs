@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -47,7 +48,7 @@ namespace Server.Installers
 
             services.AddIdentityServer(options =>
                 {
-                    options.Authentication.CookieAuthenticationScheme = "CookiePolicy";
+                    options.Authentication.CookieSameSiteMode = SameSiteMode.Unspecified;
                 })
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
