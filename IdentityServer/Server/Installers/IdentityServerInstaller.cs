@@ -25,18 +25,6 @@ namespace Server.Installers
             services.AddDbContextPool<IdentityContext>(config => 
                 config.UseNpgsql(connectionString));
 
-            services.AddSingleton<ICorsPolicyService>((container) =>
-            {
-                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
-                return new DefaultCorsPolicyService(logger)
-                {
-                    AllowedOrigins = new List<string>
-                    {
-                        "http://localhost:8080"
-                    }
-                };
-            });
-            
             services.AddIdentity<IdentityUser, IdentityRole>(config =>
             {
                 config.Password.RequiredLength = 4;
@@ -67,9 +55,6 @@ namespace Server.Installers
 
             services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IConfigureOptions<CookieAuthenticationOptions>)));
             services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, MyCookieConfiguration>();
-
-            services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(ICorsPolicyService)));
-            services.AddSingleton<ICorsPolicyService, MyCorsConfiguration>();
 
             services.AddCors(config =>
             {
