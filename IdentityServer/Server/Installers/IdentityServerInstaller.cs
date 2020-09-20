@@ -4,6 +4,7 @@ using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -63,8 +64,8 @@ namespace Server.Installers
                 })
                 .AddDeveloperSigningCredential();
             
-            services.AddAuthentication()
-                .AddCookie(IdentityServerConstants.DefaultCookieAuthenticationScheme, config =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
                 {
                     config.SlidingExpiration = false;
                     config.Cookie.IsEssential = true;
