@@ -28,7 +28,12 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
             
-            app.UseCors();
+            app.UseCors(x => x
+                .AllowCredentials()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithOrigins("http://localhost:8080")
+            );
 
             app.UseCookiePolicy();
 
