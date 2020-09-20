@@ -50,7 +50,13 @@ namespace Server.Installers
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options =>
+                {
+                    options.Cors.CorsPaths = new List<PathString>
+                    {
+                        new PathString("http://localhost:8080")
+                    };
+                })
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
                 {
