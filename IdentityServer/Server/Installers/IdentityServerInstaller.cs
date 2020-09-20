@@ -48,7 +48,7 @@ namespace Server.Installers
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer(options => { options.Cors.CorsPolicyName = "default"; })
+            services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
                 {
@@ -65,9 +65,18 @@ namespace Server.Installers
                 .AddDeveloperSigningCredential();
 
             services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IConfigureOptions<CookieAuthenticationOptions>)));
-
             services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, MyCookieConfiguration>();
 
+            services.AddSingleton<ICorsPolicyService>(container =>
+            {
+                var logger = container.GetService<ILogger<DefaultCorsPolicyService>>();
+
+                return new DefaultCorsPolicyService(logger)
+                {
+                    AllowedOrigins = { "http://localhost:8080" }
+                };
+            });
+            
             services.AddCors(config =>
             {
                 config.AddDefaultPolicy(policy => 
