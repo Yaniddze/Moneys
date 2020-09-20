@@ -47,7 +47,7 @@ namespace Server.Installers
 
             services.AddIdentityServer(options =>
                 {
-                    options.Authentication.CookieSameSiteMode = SameSiteMode.None;
+                    options.Authentication.CookieSameSiteMode = SameSiteMode.Strict;
                 })
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
