@@ -48,7 +48,7 @@ namespace Server.Installers
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options => { options.Cors.CorsPolicyName = "default"; })
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
                 {
