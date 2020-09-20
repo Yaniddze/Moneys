@@ -50,13 +50,7 @@ namespace Server.Installers
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer(options =>
-                {
-                    options.Cors.CorsPaths = new List<PathString>
-                    {
-                        new PathString("http://localhost:8080")
-                    };
-                })
+            services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
                 {
@@ -75,6 +69,17 @@ namespace Server.Installers
             services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IConfigureOptions<CookieAuthenticationOptions>)));
 
             services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, MyCookieConfiguration>();
+
+            services.AddCors(config =>
+            {
+                config.AddDefaultPolicy(policy => 
+                    policy
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:8080")
+                );
+            });
         }
     }
     
