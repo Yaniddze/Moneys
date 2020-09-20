@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using IdentityServer4;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -67,16 +68,9 @@ namespace Server.Installers
             services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IConfigureOptions<CookieAuthenticationOptions>)));
             services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, MyCookieConfiguration>();
 
-            services.AddSingleton<ICorsPolicyService>(container =>
-            {
-                var logger = container.GetService<ILogger<DefaultCorsPolicyService>>();
+            services.Remove(services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(ICorsPolicyService)));
+            services.AddSingleton<ICorsPolicyService, MyCorsConfiguration>();
 
-                return new DefaultCorsPolicyService(logger)
-                {
-                    AllowedOrigins = { "http://localhost:8080" }
-                };
-            });
-            
             services.AddCors(config =>
             {
                 config.AddDefaultPolicy(policy => 
@@ -120,6 +114,13 @@ namespace Server.Installers
                 // see: https://brockallen.com/2019/01/11/same-site-cookies-asp-net-core-and-external-authentication-providers/
                 options.Cookie.SameSite = SameSiteMode.None;
             }
+        }
+    }
+    
+    class MyCorsConfiguration: ICorsPolicyService {
+        public Task<bool> IsOriginAllowedAsync(string origin)
+        {
+            return Task.FromResult(origin.Equals("http://localhost:8080"));
         }
     }
 }
