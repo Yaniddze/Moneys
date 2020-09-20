@@ -31,6 +31,12 @@ namespace Server
             
             app.UseCors();
 
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.None,
+                Secure = CookieSecurePolicy.Always,
+            });
+
             app.UseAuthentication();
 
             app.UseIdentityServer();
