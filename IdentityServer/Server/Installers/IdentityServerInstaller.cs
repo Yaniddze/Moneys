@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using IdentityServer4;
-using IdentityServer4.Configuration;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
