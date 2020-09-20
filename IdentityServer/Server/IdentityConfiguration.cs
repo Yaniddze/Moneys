@@ -40,7 +40,7 @@ namespace Server
                     
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:8080/callback.html"
+                        "http://localhost:8080/callback"
                     },
                     
                     AllowAccessTokensViaBrowser = true,
