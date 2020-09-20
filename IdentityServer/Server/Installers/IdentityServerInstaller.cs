@@ -73,9 +73,8 @@ namespace Server.Installers
                 config.AddDefaultPolicy(policy => 
                     policy
                         .AllowAnyHeader()
-                        .AllowCredentials()
+                        .AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .WithOrigins("http://localhost:8080")
                 );
             });
         }
