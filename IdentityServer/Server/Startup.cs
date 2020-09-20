@@ -35,8 +35,6 @@ namespace Server
                 .WithOrigins("http://localhost:8080")
             );
 
-            app.UseCookiePolicy();
-
             app.UseAuthentication();
 
             app.UseIdentityServer();
