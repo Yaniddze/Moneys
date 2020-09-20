@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Models;
@@ -46,10 +47,7 @@ namespace Server.Installers
                 .AddEntityFrameworkStores<IdentityContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddIdentityServer(options =>
-                {
-                    options.Authentication.CookieSameSiteMode = SameSiteMode.Unspecified;
-                })
+            services.AddIdentityServer()
                 .AddAspNetIdentity<IdentityUser>()
                 .AddConfigurationStore(options =>
                 {
@@ -64,6 +62,22 @@ namespace Server.Installers
                             sql.MigrationsAssembly(assembly));
                 })
                 .AddDeveloperSigningCredential();
+            
+            services.AddAuthentication(IdentityServerConstants.DefaultCookieAuthenticationScheme)
+                .AddCookie(config =>
+                {
+                    config.SlidingExpiration = false;
+                    config.Cookie.IsEssential = true;
+                    config.ExpireTimeSpan = TimeSpan.FromHours(10);
+
+                    config.LoginPath = "/Account/Login";
+                    config.LogoutPath = "/Account/Logout";
+                    
+                    config.Cookie.Name = IdentityServerConstants.DefaultCookieAuthenticationScheme;
+
+                    config.Cookie.SameSite = SameSiteMode.None;
+                    config.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                });
         }
     }
 }
