@@ -42,7 +42,13 @@ namespace Server
                 Secure = CookieSecurePolicy.Always,
             });
 
-            app.UseForwardedHeaders();
+            var options = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All,
+            };
+            options.KnownProxies.Add(IPAddress.Any);
+
+            app.UseForwardedHeaders(options);
 
             app.UseAuthentication();
 
