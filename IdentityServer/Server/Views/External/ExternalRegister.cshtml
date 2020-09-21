@@ -4,25 +4,25 @@
     ViewData["Title"] = "Registration";
 }
 
-<div class="external-register">
-    <div class="external-register__header-holder">
+<div>
+    <div class="header-holder">
         <h2>
             Продолжение регистрации
         </h2>
     </div>
     
-    <form class="external-register__form" asp-controller="External" asp-action="ExternalRegister" method="post">
+    <form class="form" asp-controller="External" asp-action="ExternalRegister" method="post">
         <input type="hidden" asp-for="ReturnUrl"/>
-        <p class="external-register__form__errors">
+        <p class="form__errors">
             @Model.Errors
         </p>
-        <div class="external-register__form__input-label">
+        <div class="form__input-label">
             Username
         </div>
-        <div class="external-register__form__input-holder">
+        <div class="form__input-holder">
             <input asp-for="Username"/>
         </div>
-        <div class="external-register__form__button-holder">
+        <div class="form__button-holder">
             <button type="submit">Sign Up</button>
         </div>
     </form>

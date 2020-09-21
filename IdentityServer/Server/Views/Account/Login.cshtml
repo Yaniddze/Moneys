@@ -4,42 +4,53 @@
     Layout = "../_Layout";
     ViewData["Title"] = "Login";
 }
-<h1>Sign In With</h1>
+<div class="header-holder">
+    <h1>Sign In</h1>
+</div>
+
+<div class="form">
+    <form asp-controller="Account" asp-action="Login" method="post">
+            
+        @foreach (var error in Model.Errors)
+        {
+            <div class="form__errors">
+                @error
+            </div>
+        }
+        <input type="hidden" asp-for="ReturnUrl" />
+            
+        <div class="form__input-label">
+            Username
+        </div>
+        <div class="form__input-holder">
+            <input asp-for="Username" />
+        </div>
+            
+        <div class="form__input-label">
+            Password
+        </div>
+        <div class="form__input-holder">
+            <input type="password" asp-for="Password" />
+        </div>
+        <div class="form__button-holder">
+            <button type="submit">Sign In</button>
+        </div>
+        <div>
+            <a asp-controller="Account" asp-action="Register" 
+               asp-route-returnUrl="@Model.ReturnUrl">Register</a>
+        </div>
+    </form>
 
     <form asp-controller="External" asp-action="ExternalLogin" 
-          asp-route-returnUrl="@Model.ReturnUrl" method="post">
+              asp-route-returnUrl="@Model.ReturnUrl" method="post">
         @foreach (var provider in Model.ExternalProviders)
         {
             <button name="provider"
                     type="submit"
-                    value="@provider.Name">
+                    value="@provider.Name"
+                    class="external @provider.Name">
                 @provider.Name
             </button>
         }
     </form>
-    <form asp-controller="Account" asp-action="Login" method="post">
-        <p>
-            @foreach (var error in Model.Errors)
-            {
-                <div>
-                    @error
-                </div>
-            }
-        </p>
-        <input type="hidden" asp-for="ReturnUrl" />
-        <div>
-            <label>Username</label>
-            <input asp-for="Username" />
-        </div>
-        <div>
-            <label>Password</label>
-            <input asp-for="Password" />
-        </div>
-        <div>
-            <button type="submit">Sign In</button>
-        </div>
-    </form> 
-    <div>
-        <a asp-controller="Account" asp-action="Register" 
-           asp-route-returnUrl="@Model.ReturnUrl">Register</a>
-    </div>
+</div>

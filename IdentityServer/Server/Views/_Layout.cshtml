@@ -2,8 +2,92 @@
 <html lang="en">
 <head>
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+        }
+        
+        @@media (min-width:450px) {
+            .form {
+                position: absolute;
+                padding: 10px;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+        }
+        
+        .header-holder {
+            display: flex;
+        }
+        
+        .header-holder > * {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .form {
+            margin: 10px;
+            border-radius: 10px;
+            color: black;
+        }
+        
+        .form__errors {
+            color: red;
+        }
+        
+        .form__input-holder {
+            display: flex;
+            margin: 10px;
+        }
+        
+        .form__input-holder input {
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1em;
+            width: 100%;
+            border: none;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .form__button-holder {
+            display: flex;
+        }
+        
+        .form__button-holder button {
+            margin: 10px 10px 10px auto;
+            padding: 10px;
+            border: none;
+            background: black;
+            color: white;
+            border-radius: 10px;
+            transition: .4s box-shadow ease;
+        }
+        
+        .form__button-holder button:hover {
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .external {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background: white;
+            transition: .4s box-shadow ease;
+        }
+        
+        .external:hover {
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
 </head>
 <body>
     <div>
