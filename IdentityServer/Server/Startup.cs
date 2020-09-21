@@ -44,8 +44,6 @@ namespace Server
 
             app.UseAuthentication();
 
-            app.UseIdentityServer();
-
             if (!env.IsDevelopment())
             {
                 app.Use(async (ctx, next) =>
@@ -54,6 +52,8 @@ namespace Server
                     await next();
                 });
             }
+            
+            app.UseIdentityServer();
 
             app.UseRouting();
 
