@@ -5,36 +5,50 @@
     ViewData["Title"] = "Registration";
 }
 
-<form asp-controller="Account" asp-action="Register" method="post">
+<div class="header-holder">
+    <h1>Sign Up</h1>
+</div>
+
+<form class="form" asp-controller="Account" asp-action="Register" method="post">
     <input type="hidden" asp-for="ReturnUrl" />
-    <p>
-        @foreach (var error in Model.Errors)
-        {
-            <div>
-                @error
-            </div>
-        }
-    </p>
-    <div>
-        <label>Username</label>
+    
+    @foreach (var error in Model.Errors)
+    {
+        <div class="form__errors">
+            @error
+        </div>
+    }
+    
+    <div class="form__input-label">
+        Username
+    </div>
+    <div class="form__input-holder">
         <input asp-for="Username" />
     </div>
-    <div>
-        <label>Email</label>
-        <input asp-for="Email" />
+    <div class="form__input-label">
+        Email
     </div>
-    <div>
-        <label>Password</label>
-        <input asp-for="Password" />
+    <div class="form__input-holder">
+        <input type="email" asp-for="Email" />
     </div>
-    <div>
-        <label>Password</label>
-        <input asp-for="ConfirmPassword" />
+    <div class="form__input-label">
+        Password
     </div>
-    <div>
+    <div class="form__input-holder">
+        <input type="password" asp-for="Password" />
+    </div>
+    <div class="form__input-label">
+        Confirm password
+    </div>
+    <div class="form__input-holder">
+        <input type="password" asp-for="ConfirmPassword" />
+    </div>
+    <div class="form__button-holder">
         <button type="submit">Sign Up</button>
+    </div>
+    <div>
+        <a asp-controller="Account" asp-action="Login"
+           asp-route-returnUrl="@Model.ReturnUrl">Sign in</a>
     </div>
 </form>
 
-<a asp-controller="Account" asp-action="Login"
-   asp-route-returnUrl="@Model.ReturnUrl">Back to Login</a>
