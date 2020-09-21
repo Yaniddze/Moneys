@@ -42,20 +42,13 @@ namespace Server
                 Secure = CookieSecurePolicy.Always,
             });
 
-            var options = new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.All,
-            };
-            options.KnownProxies.Add(IPAddress.Any);
-
-            app.UseForwardedHeaders(options);
-
             app.UseAuthentication();
 
             if (!env.IsDevelopment())
             {
                 app.Use(async (ctx, next) =>
                 {
+                    ctx.Request.Scheme = "https";
                     ctx.SetIdentityServerOrigin("https://yaniddze.com");
                     await next();
                 });
