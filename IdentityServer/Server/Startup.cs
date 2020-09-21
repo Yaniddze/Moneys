@@ -34,6 +34,9 @@ namespace Server
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseForwardedHeaders();
+            
             app.UseCors();
 
             app.UseCookiePolicy(new CookiePolicyOptions
