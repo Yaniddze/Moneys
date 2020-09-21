@@ -41,6 +41,14 @@ namespace Server
                 MinimumSameSitePolicy = SameSiteMode.None,
                 Secure = CookieSecurePolicy.Always,
             });
+            
+            var options = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All,
+            };
+            options.KnownProxies.Add(IPAddress.Any);
+
+            app.UseForwardedHeaders(options);
 
             app.UseAuthentication();
 
