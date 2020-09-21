@@ -42,6 +42,8 @@ namespace Server
                 Secure = CookieSecurePolicy.Always,
             });
 
+            app.UseForwardedHeaders();
+
             app.UseAuthentication();
 
             if (!env.IsDevelopment())
