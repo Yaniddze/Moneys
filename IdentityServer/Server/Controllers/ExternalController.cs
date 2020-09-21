@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
 using Server.Controllers.ViewModels;
 using Server.EventBus.Abstractions;
@@ -18,25 +19,29 @@ namespace Server.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationUrls _urls;
         private readonly IEventBus _eventBus;
+        private readonly ILogger<ExternalController> logger;
 
         public ExternalController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager, 
             ApplicationUrls urls, 
-            IEventBus eventBus)
+            IEventBus eventBus, 
+            ILogger<ExternalController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _urls = urls;
             _eventBus = eventBus;
+            this.logger = logger;
         }
         
         public IActionResult ExternalLogin(string provider, string returnUrl)
         {
             var redirectUri = Url.Action(nameof(ExternalLoginCallback), "External", new
             {
-                returnUrl = returnUrl ?? _urls.DefaultRedirect
+                returnUrl
             });
+            logger.LogInformation(returnUrl);
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUri);
             return Challenge(properties, provider);
         }
