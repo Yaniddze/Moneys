@@ -34,15 +34,6 @@ namespace Server
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.Use(async (ctx, next) =>
-                {
-                    ctx.SetIdentityServerOrigin("https://yaniddze.com");
-                    await next();
-                });
-            }
-            
             app.UseCors();
 
             app.UseCookiePolicy(new CookiePolicyOptions
@@ -54,6 +45,15 @@ namespace Server
             app.UseAuthentication();
 
             app.UseIdentityServer();
+
+            if (!env.IsDevelopment())
+            {
+                app.Use(async (ctx, next) =>
+                {
+                    ctx.SetIdentityServerOrigin("https://yaniddze.com");
+                    await next();
+                });
+            }
 
             app.UseRouting();
 

@@ -12,6 +12,7 @@ namespace Server.Installers
                 config.AddDefaultPolicy(policy => 
                     policy
                         .AllowAnyHeader()
+                        .AllowCredentials()
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
                 );
