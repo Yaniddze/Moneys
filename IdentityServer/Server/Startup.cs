@@ -1,3 +1,4 @@
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,12 @@ namespace Server
             app.UseAuthentication();
 
             app.UseIdentityServer();
+            
+            app.Use(async (ctx, next) =>
+            {
+                ctx.SetIdentityServerOrigin("https://yaniddze.com");
+                await next();
+            });
             
             app.UseRouting();
 
