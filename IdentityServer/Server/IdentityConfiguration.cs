@@ -33,12 +33,12 @@ namespace Server
             {
                 new Client
                 {
-                    ClientId = "vue_application",
-                    ClientSecrets = { new Secret("secret_key".ToSha256()) },
+                    ClientId = "client_id_react",
+                    ClientSecrets = { new Secret("client_secret_react".ToSha256()) },
                     
                     AllowedGrantTypes = GrantTypes.Code,
                     
-                    AllowedCorsOrigins = { "http://localhost:8080" },
+                    AllowedCorsOrigins = { "http://localhost:3000" },
                     
                     AllowedScopes =
                     {
@@ -52,7 +52,12 @@ namespace Server
                     
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:8080/callback"
+                        "http://localhost:3000/authentication/callback"
+                    },
+                    
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        "http://localhost:3000/"  
                     },
                     
                     AllowAccessTokensViaBrowser = true,
