@@ -1,23 +1,21 @@
 import React, { FC } from 'react';
+import {
+  AuthenticationProvider,
+  InMemoryWebStorage,
+  OidcSecure,
+} from '@axa-fr/react-oidc-context/dist';
+import { oidcConfig } from './configuration/oidcConfig';
 
 export const App: FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <p>
-        Edit
-        <code>
-          src/App.tsx
-        </code>
-        and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+  <AuthenticationProvider
+    isEnabled
+    configuration={oidcConfig}
+    UserStore={InMemoryWebStorage}
+  >
+    <OidcSecure>
+      <div>
+        Hello!
+      </div>
+    </OidcSecure>
+  </AuthenticationProvider>
 );
