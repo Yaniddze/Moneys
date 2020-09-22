@@ -13,7 +13,7 @@ namespace Server.Installers
                     policy
                         .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:8080")
+                        .WithOrigins("http://localhost:3000")
                         .AllowAnyMethod()
                 );
             });
