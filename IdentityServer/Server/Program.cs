@@ -32,6 +32,15 @@ namespace Server
                     context.SaveChanges();
                 }
 
+                if (!context.ApiScopes.Any())
+                {
+                    IdentityConfiguration.GetApiScopes()
+                        .ToList()
+                        .ForEach(x => context.ApiScopes.Add(x.ToEntity()));
+
+                    context.SaveChanges();
+                }
+
                 if (!context.IdentityResources.Any())
                 {
                     IdentityConfiguration.GetIdentityResources()
