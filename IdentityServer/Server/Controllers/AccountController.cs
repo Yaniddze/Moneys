@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Server.Controllers.ViewModels;
+using Server.EventBus.Abstractions;
+using Server.EventBus.Events;
 using Server.Options;
 
 namespace Server.Controllers
@@ -17,17 +21,20 @@ namespace Server.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly IIdentityServerInteractionService interactionService;
         private readonly ApplicationUrls urls;
+        private readonly IEventBus eventBus;
 
         public AccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             IIdentityServerInteractionService interactionService, 
-            ApplicationUrls urls)
+            ApplicationUrls urls, 
+            IEventBus eventBus)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.interactionService = interactionService;
             this.urls = urls;
+            this.eventBus = eventBus;
         }
 
         [HttpGet("Logout")]
@@ -111,8 +118,11 @@ namespace Server.Controllers
                 });
             }
 
+            var tempId = Guid.NewGuid().ToString();
+
             var user = new IdentityUser(vm.Username)
             {
+                Id = tempId,
                 Email = vm.Email,
                 EmailConfirmed = true,
             };
@@ -120,6 +130,14 @@ namespace Server.Controllers
 
             if (result.Succeeded)
             {
+                eventBus.Publish(new NewUserEvent
+                {
+                    Id = tempId,
+                    Username = vm.Username,
+                }, nameof(NewUserEvent));
+
+                await userManager.AddClaimAsync(user, new Claim("usr.id", tempId));
+                
                 await signInManager.SignInAsync(user, true);
 
                 return Redirect(vm.ReturnUrl);

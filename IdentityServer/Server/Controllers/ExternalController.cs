@@ -15,10 +15,10 @@ namespace Server.Controllers
 {
     public class ExternalController: Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ApplicationUrls _urls;
-        private readonly IEventBus _eventBus;
+        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly ApplicationUrls urls;
+        private readonly IEventBus eventBus;
         private readonly ILogger<ExternalController> logger;
 
         public ExternalController(
@@ -28,10 +28,10 @@ namespace Server.Controllers
             IEventBus eventBus, 
             ILogger<ExternalController> logger)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _urls = urls;
-            _eventBus = eventBus;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.urls = urls;
+            this.eventBus = eventBus;
             this.logger = logger;
         }
         
@@ -42,24 +42,24 @@ namespace Server.Controllers
                 returnUrl
             });
             logger.LogInformation(returnUrl);
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUri);
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUri);
             return Challenge(properties, provider);
         }
 
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+            var info = await signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                return Redirect(_urls.LoginPage);
+                return Redirect(urls.LoginPage);
             }
 
-            var result = await _signInManager
+            var result = await signInManager
                 .ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
 
             if (result.Succeeded)
             {
-                return Redirect(returnUrl ?? _urls.DefaultRedirect);
+                return Redirect(returnUrl ?? urls.DefaultRedirect);
             }
 
             var username = info.Principal.FindFirst(ClaimTypes.Name).Value.Replace(" ", "_");
@@ -72,10 +72,10 @@ namespace Server.Controllers
 
         public async Task<IActionResult> ExternalRegister(ExternalRegisterViewModel vm)
         {
-            var info = await _signInManager.GetExternalLoginInfoAsync();
+            var info = await signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                return Redirect(_urls.LoginPage);
+                return Redirect(urls.LoginPage);
             }
 
             var user = new IdentityUser(vm.Username)
@@ -84,7 +84,7 @@ namespace Server.Controllers
                 Email = info.Principal.Claims.First(x => x.Type == ClaimTypes.Email).Value, 
                 EmailConfirmed = true,
             };
-            var registerResult = await _userManager.CreateAsync(user);
+            var registerResult = await userManager.CreateAsync(user);
 
             if (!registerResult.Succeeded)
             {
@@ -96,7 +96,7 @@ namespace Server.Controllers
                 });
             }
 
-            var loginResult = await _userManager.AddLoginAsync(user, info);
+            var loginResult = await userManager.AddLoginAsync(user, info);
 
             if (!loginResult.Succeeded)
             {
@@ -108,15 +108,17 @@ namespace Server.Controllers
                 });
             }
             
-            _eventBus.Publish(new NewUserEvent
+            eventBus.Publish(new NewUserEvent
             {
                 Username = vm.Username,
                 Id = user.Id,
             }, nameof(NewUserEvent));
+            
+            await userManager.AddClaimAsync(user, new Claim("usr.id", user.Id));
+            
+            await signInManager.SignInAsync(user, true);
 
-            await _signInManager.SignInAsync(user, true);
-
-            return Redirect(vm.ReturnUrl ?? _urls.DefaultRedirect);
+            return Redirect(vm.ReturnUrl ?? urls.DefaultRedirect);
         }
     }
 }
