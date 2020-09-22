@@ -114,7 +114,7 @@ namespace Server.Controllers
                 Id = user.Id,
             }, nameof(NewUserEvent));
             
-            await userManager.AddClaimAsync(user, new Claim("usr.id", user.Id));
+            await userManager.AddClaimAsync(user, new Claim("user.id", user.Id));
             
             await signInManager.SignInAsync(user, true);
 

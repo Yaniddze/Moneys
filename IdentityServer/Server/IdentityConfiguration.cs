@@ -18,6 +18,14 @@ namespace Server
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResources.Email(),
+                new IdentityResource
+                {
+                    Name = "user.scope",
+                    UserClaims =
+                    {
+                        "user.id",
+                    }
+                }
             };
         
         public static IEnumerable<Client> GetClients() => 
@@ -39,6 +47,7 @@ namespace Server
                         IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServer4.IdentityServerConstants.StandardScopes.Email,
                         "money_api",
+                        "user.scope",
                     },
                     
                     RedirectUris = new List<string>

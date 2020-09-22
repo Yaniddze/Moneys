@@ -136,7 +136,7 @@ namespace Server.Controllers
                     Username = vm.Username,
                 }, nameof(NewUserEvent));
 
-                await userManager.AddClaimAsync(user, new Claim("usr.id", tempId));
+                await userManager.AddClaimAsync(user, new Claim("user.id", tempId));
                 
                 await signInManager.SignInAsync(user, true);
 
