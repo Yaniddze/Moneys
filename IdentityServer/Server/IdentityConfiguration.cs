@@ -8,7 +8,9 @@ namespace Server
     {
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope>
-            { };
+            {
+                new ApiScope("money_api", "Moneys api access"),
+            };
 
         public static IEnumerable<IdentityResource> GetIdentityResources() =>
             new List<IdentityResource>
@@ -36,6 +38,7 @@ namespace Server
                         IdentityServer4.IdentityServerConstants.StandardScopes.Profile,
                         IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServer4.IdentityServerConstants.StandardScopes.Email,
+                        "money_api",
                     },
                     
                     RedirectUris = new List<string>
