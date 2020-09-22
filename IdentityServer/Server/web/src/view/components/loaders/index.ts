@@ -1,1 +1,0 @@
-export { FourColorsLoader } from './FourColorsLoader';

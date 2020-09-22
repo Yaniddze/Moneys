@@ -25,6 +25,10 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="wwwroot\css\styles.css" />
+      <_ContentIncludedByDefault Remove="web\package-lock.json" />
+      <_ContentIncludedByDefault Remove="web\package.json" />
+      <_ContentIncludedByDefault Remove="web\public\manifest.json" />
+      <_ContentIncludedByDefault Remove="web\tsconfig.json" />
     </ItemGroup>
 
 </Project>

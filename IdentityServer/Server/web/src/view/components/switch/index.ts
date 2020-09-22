@@ -1,1 +1,0 @@
-export { ToogleSwitch } from './ToogleSwitch';
