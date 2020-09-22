@@ -11,6 +11,7 @@ services:
       - ./nginx/dhparam:/etc/nginx/dhparam
       - ./nginx/certbot/conf:/etc/nginx/ssl
       - ./nginx/certbot/data:/usr/share/nginx/html/letsencrypt
+      - ./nginx/favicons:/var/www/path/to/favicons
     ports:
       - 80:80
       - 443:443
