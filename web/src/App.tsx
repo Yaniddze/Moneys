@@ -6,25 +6,32 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import { GlobalStyles } from './app/GlobalStyles';
 import { Secure } from './app/Secure';
 import { Themed } from './app/Themed';
 
 export const App: FC = () => (
   <Themed>
-    <Secure>
+    <div>
 
-      <BrowserRouter>
-        <Switch>
+      <GlobalStyles />
 
-          <Route path="/app">
-            <div>
-              Hello!
-            </div>
-          </Route>
+      <Secure>
 
-        </Switch>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Switch>
 
-    </Secure>
+            <Route path="/app">
+              <div>
+                Hello!
+              </div>
+            </Route>
+
+          </Switch>
+        </BrowserRouter>
+
+      </Secure>
+
+    </div>
   </Themed>
 );
