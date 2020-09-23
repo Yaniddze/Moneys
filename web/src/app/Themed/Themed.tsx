@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
 // Components
-import { ToggleSwitch } from '../views/components/switches';
+import { ToggleSwitch } from '../../views/components/switches';
 
 // Themes
 import { lightTheme } from './themes/lightTheme';
@@ -25,7 +25,7 @@ const darkValue = 'dark';
 const cookedTheme = Cookies.get(themeCookieName);
 const lightCooked = cookedTheme === lightValue;
 
-export const ThemedApp: FC<PropType> = ({
+export const Themed: FC<PropType> = ({
   children,
 }: PropType) => {
   const [currentTheme, setCurrentTheme] = useState<DefaultTheme>(

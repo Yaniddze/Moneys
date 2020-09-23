@@ -7,7 +7,7 @@ import {
 } from '@axa-fr/react-oidc-context/dist';
 
 // Config
-import { oidcConfig } from '../configuration/oidcConfig';
+import { oidcConfig } from '../../configuration/oidcConfig';
 
 // Pages
 import { Authenticating } from './Authenticating';
@@ -19,7 +19,7 @@ type PropTypes = {
   children: ReactElement;
 }
 
-export const SecureApp: FC<PropTypes> = (
+export const Secure: FC<PropTypes> = (
   { children }: PropTypes,
 ) => (
   <AuthenticationProvider

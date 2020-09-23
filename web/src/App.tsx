@@ -6,10 +6,10 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { SecureApp } from './SecureApp';
+import { Secure } from './app/Secure';
 
 export const App: FC = () => (
-  <SecureApp>
+  <Secure>
     <BrowserRouter>
       <Switch>
 
@@ -21,5 +21,5 @@ export const App: FC = () => (
 
       </Switch>
     </BrowserRouter>
-  </SecureApp>
+  </Secure>
 );
