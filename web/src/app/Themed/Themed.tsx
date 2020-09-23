@@ -32,13 +32,13 @@ export const Themed: FC<PropType> = ({
     lightCooked ? lightTheme : darkTheme,
   );
 
-  const handleChange = (value: boolean): void => {
-    if (value) {
+  const handleChange = (): void => {
+    if (currentTheme === lightTheme) {
       Cookies.set(themeCookieName, darkValue);
       setCurrentTheme(darkTheme);
     } else {
       Cookies.set(themeCookieName, lightValue);
-      setCurrentTheme(darkTheme);
+      setCurrentTheme(lightTheme);
     }
   };
 

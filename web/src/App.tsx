@@ -7,19 +7,24 @@ import {
 } from 'react-router-dom';
 
 import { Secure } from './app/Secure';
+import { Themed } from './app/Themed';
 
 export const App: FC = () => (
-  <Secure>
-    <BrowserRouter>
-      <Switch>
+  <Themed>
+    <Secure>
 
-        <Route path="/app">
-          <div>
-            Hello!
-          </div>
-        </Route>
+      <BrowserRouter>
+        <Switch>
 
-      </Switch>
-    </BrowserRouter>
-  </Secure>
+          <Route path="/app">
+            <div>
+              Hello!
+            </div>
+          </Route>
+
+        </Switch>
+      </BrowserRouter>
+
+    </Secure>
+  </Themed>
 );

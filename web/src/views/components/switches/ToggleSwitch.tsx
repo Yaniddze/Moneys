@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 type PropTypes = {
   children?: never;
   initValue: boolean;
-  handleChange: (value: boolean) => void;
+  handleChange: () => void;
 }
 
 export const ToggleSwitch: FC<PropTypes> = ({
@@ -46,7 +46,7 @@ export const ToggleSwitch: FC<PropTypes> = ({
 
   const handleClick = (): void => {
     setChecked((old) => !old);
-    handleChange(checked);
+    handleChange();
   };
 
   return (
