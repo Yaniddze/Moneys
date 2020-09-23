@@ -1,21 +1,25 @@
+// Core
 import React, { FC } from 'react';
 import {
-  AuthenticationProvider,
-  InMemoryWebStorage,
-  OidcSecure,
-} from '@axa-fr/react-oidc-context/dist';
-import { oidcConfig } from './configuration/oidcConfig';
+  Route,
+  BrowserRouter,
+  Switch,
+} from 'react-router-dom';
+
+import { SecureApp } from './SecureApp';
 
 export const App: FC = () => (
-  <AuthenticationProvider
-    isEnabled
-    configuration={oidcConfig}
-    UserStore={InMemoryWebStorage}
-  >
-    <OidcSecure>
-      <div>
-        Hello!
-      </div>
-    </OidcSecure>
-  </AuthenticationProvider>
+  <SecureApp>
+    <BrowserRouter>
+      <Switch>
+
+        <Route path="/app">
+          <div>
+            Hello!
+          </div>
+        </Route>
+
+      </Switch>
+    </BrowserRouter>
+  </SecureApp>
 );
