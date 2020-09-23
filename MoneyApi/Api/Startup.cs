@@ -40,15 +40,10 @@ namespace Api
                 app.UseSwaggerUI(x => { x.SwaggerEndpoint(swaggerOptions.Endpoint, swaggerOptions.Description); });
             }
 
+            app.UseCors();
+            
             app.UseRouting();
             
-            app.UseCors(x =>
-            {
-                x.AllowAnyOrigin();
-                x.AllowAnyMethod();
-                x.AllowAnyHeader();
-            });
-
             app.UseAuthentication();
             app.UseAuthorization();
             
