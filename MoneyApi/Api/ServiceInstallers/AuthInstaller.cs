@@ -16,8 +16,8 @@ namespace Api.ServiceInstallers
                     
             optionsFromConfig.Bind(identityOptions);
 
-            // var devVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "";
-            // if (devVariable.Equals("Development")) return;
+            var devVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "";
+            if (devVariable.Equals("Development")) return;
             
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", config =>
