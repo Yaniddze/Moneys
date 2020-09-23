@@ -7,7 +7,13 @@ import {
 } from '@axa-fr/react-oidc-context/dist';
 
 // Config
-import { oidcConfig } from './configuration/oidcConfig';
+import { oidcConfig } from '../configuration/oidcConfig';
+
+// Pages
+import { Authenticating } from './Authenticating';
+import { NotAuthenticated } from './NotAuthenticated';
+import { NotAuthorized } from './NotAuthorized';
+import { Callback } from './Callback';
 
 type PropTypes = {
   children: ReactElement;
@@ -20,6 +26,10 @@ export const SecureApp: FC<PropTypes> = (
     isEnabled
     configuration={oidcConfig}
     UserStore={InMemoryWebStorage}
+    authenticating={Authenticating}
+    notAuthenticated={NotAuthenticated}
+    notAuthorized={NotAuthorized}
+    callbackComponentOverride={Callback}
   >
     <OidcSecure>
       {children}
