@@ -5,12 +5,14 @@ using Api.DataBase;
 using Api.DataBase.DbEntities;
 using Api.Domain;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
     [Route("api/v1/test")]
+    [Authorize]
     public class TestController: Controller
     {
         private readonly bool development;

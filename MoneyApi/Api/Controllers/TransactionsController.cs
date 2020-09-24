@@ -4,11 +4,13 @@ using Api.UseCases.ManualCases.NewTransaction;
 using Api.UseCases.ManualCases.RemoveTransaction;
 using Api.UseCases.ManualCases.UpdateTransaction;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/v1/transactions")]
+    [Authorize]
     public class TransactionsController: Controller
     {
         private readonly IMediator mediator;

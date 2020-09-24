@@ -4,11 +4,13 @@ using Api.UseCases.ManualCases.NewBill;
 using Api.UseCases.ManualCases.RemoveBill;
 using Api.UseCases.ManualCases.UpdateBill;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/v1/bills")]
+    [Authorize]
     public class BillsController: Controller
     {
         private readonly IMediator mediator;

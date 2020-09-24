@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Api.UseCases.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [Route("api/v1/transaction_types")]
+    [Authorize]
     public class TransactionTypesController: Controller
     {
         private readonly IMediator mediator;
