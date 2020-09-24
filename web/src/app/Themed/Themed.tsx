@@ -40,12 +40,8 @@ export const Themed: FC<PropType> = ({
   };
 
   return (
-    <div>
-      <ThemeProvider theme={currentTheme}>
-        <div>
-          {children}
-        </div>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={currentTheme}>
+      {children}
+    </ThemeProvider>
   );
 };

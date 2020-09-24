@@ -8,14 +8,11 @@ import { Routes } from './app/Routes';
 
 export const App: FC = () => (
   <Themed>
-    <div>
+    <>
       <GlobalStyles />
-
       <Secure>
-
         <Routes />
-
       </Secure>
-    </div>
+    </>
   </Themed>
 );
