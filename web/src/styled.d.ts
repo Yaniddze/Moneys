@@ -3,21 +3,24 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      main: string;
-      secondary: string;
-      dim: string;
-      dark: string;
-      calcDarkInRgba: (opacity: number) => string;
-      error: string;
-      linkColor: string;
+      primary: ColorWithContrast;
+
+      secondary: ColorWithContrast;
+
+      background: ColorWithContrast;
+
+      error: ColorWithContrast;
     };
 
     font: {
       normalSize: string;
       smallerSize: string;
       btnFontSize: string;
-
-      btnFontColor: string;
     };
   }
 }
+
+type ColorWithContrast = {
+  color: string;
+  contrast: string;
+};
