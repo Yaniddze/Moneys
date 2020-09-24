@@ -3,41 +3,32 @@ import React, {
   FC,
   ReactElement,
   useState,
+  useEffect,
 } from 'react';
-import Cookies from 'js-cookie';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
 // Themes
 import { lightTheme } from './themes/lightTheme';
 import { darkTheme } from './themes/darkTheme';
 
+import { useThemeStorage } from '../../hooks/storage/useThemeStorage';
+
 type PropType = {
   children: ReactElement;
 };
 
-const themeCookieName = 'Moneys.Theme';
-const lightValue = 'light';
-const darkValue = 'dark';
-
-const cookedTheme = Cookies.get(themeCookieName);
-const lightCooked = cookedTheme === lightValue;
-
 export const Themed: FC<PropType> = ({
   children,
 }: PropType) => {
+  const { light } = useThemeStorage();
+
   const [currentTheme, setCurrentTheme] = useState<DefaultTheme>(
-    lightCooked ? lightTheme : darkTheme,
+    light ? lightTheme : darkTheme,
   );
 
-  const handleChange = (): void => {
-    if (currentTheme === lightTheme) {
-      Cookies.set(themeCookieName, darkValue);
-      setCurrentTheme(darkTheme);
-    } else {
-      Cookies.set(themeCookieName, lightValue);
-      setCurrentTheme(lightTheme);
-    }
-  };
+  useEffect(() => {
+    setCurrentTheme(light ? lightTheme : darkTheme);
+  }, [light]);
 
   return (
     <ThemeProvider theme={currentTheme}>
