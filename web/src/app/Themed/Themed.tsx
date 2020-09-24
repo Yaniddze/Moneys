@@ -7,9 +7,6 @@ import React, {
 import Cookies from 'js-cookie';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 
-// Components
-import { ToggleSwitch } from '../../views/components/switches';
-
 // Themes
 import { lightTheme } from './themes/lightTheme';
 import { darkTheme } from './themes/darkTheme';
@@ -45,10 +42,6 @@ export const Themed: FC<PropType> = ({
   return (
     <div>
       <ThemeProvider theme={currentTheme}>
-        <ToggleSwitch
-          initValue={!lightCooked}
-          handleChange={handleChange}
-        />
         <div>
           {children}
         </div>
