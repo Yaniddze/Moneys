@@ -1,6 +1,7 @@
 // Core
 import React, { FC } from 'react';
 
+// Components
 import { StyledHeader } from './StyledHeader';
 
 type PropTypes = {
@@ -10,7 +11,9 @@ type PropTypes = {
 export const Header: FC<PropTypes> = () => {
   return (
     <StyledHeader>
-      hello!
+      <div>
+        hello!
+      </div>
     </StyledHeader>
   );
 };
