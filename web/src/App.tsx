@@ -2,6 +2,7 @@
 import React, { FC } from 'react';
 
 import { GlobalStyles } from './app/GlobalStyles';
+import { StructureWrapper } from './app/StructureWrapper';
 import { Secure } from './app/secure';
 import { Themed } from './app/themed';
 import { Routes } from './app/routes';
@@ -14,11 +15,13 @@ export const App: FC = () => (
     <>
       <GlobalStyles />
       <Secure>
-        <>
+        <StructureWrapper>
           <Header />
-          <Routes />
+          <main>
+            <Routes />
+          </main>
           <Footer />
-        </>
+        </StructureWrapper>
       </Secure>
     </>
   </Themed>
