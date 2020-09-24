@@ -7,6 +7,7 @@ import { Themed } from './app/themed';
 import { Routes } from './app/routes';
 
 import { Header } from './views/components/header';
+import { Footer } from './views/components/footer';
 
 export const App: FC = () => (
   <Themed>
@@ -16,6 +17,7 @@ export const App: FC = () => (
         <>
           <Header />
           <Routes />
+          <Footer />
         </>
       </Secure>
     </>
