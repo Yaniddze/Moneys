@@ -21,6 +21,11 @@ export const lightTheme: DefaultTheme = {
       color: '#B00020',
       contrast: '#FFFFFF',
     },
+
+    footer: {
+      color: '#1B5E20',
+      contrast: '#FFF',
+    },
   },
 
   font: {

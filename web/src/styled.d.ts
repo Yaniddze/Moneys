@@ -10,6 +10,8 @@ declare module 'styled-components' {
       background: ColorWithContrast;
 
       error: ColorWithContrast;
+
+      footer: ColorWithContrast;
     };
 
     font: {

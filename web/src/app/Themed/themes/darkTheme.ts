@@ -21,6 +21,11 @@ export const darkTheme: DefaultTheme = {
       color: '#B00020',
       contrast: '#FFFFFF',
     },
+
+    footer: {
+      color: '#000',
+      contrast: '#FFF',
+    },
   },
 
   font: {
