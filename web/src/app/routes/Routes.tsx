@@ -7,8 +7,13 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+// Nav config
+import { navs } from './navbarConfig';
+
 // Pages
 import { HomePage } from '../../views/pages/HomePage';
+
+import { Navbar } from '../../views/components/navbar';
 
 type PropType = {
   children?: never;
@@ -16,6 +21,7 @@ type PropType = {
 
 export const Routes: FC<PropType> = () => (
   <BrowserRouter>
+    <Navbar navs={navs} />
     <Switch>
 
       <Route path="/home">
