@@ -4,10 +4,11 @@ import {
   Route,
   BrowserRouter,
   Switch,
+  Redirect,
 } from 'react-router-dom';
 
 // Pages
-import { SomePage } from '../../views/pages/SomePage';
+import { HomePage } from '../../views/pages/HomePage';
 
 type PropType = {
   children?: never;
@@ -17,9 +18,11 @@ export const Routes: FC<PropType> = () => (
   <BrowserRouter>
     <Switch>
 
-      <Route path="/app">
-        <SomePage />
+      <Route path="/home">
+        <HomePage />
       </Route>
+
+      <Redirect to="/home" />
 
     </Switch>
   </BrowserRouter>
