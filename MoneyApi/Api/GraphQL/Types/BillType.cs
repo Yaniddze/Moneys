@@ -1,4 +1,5 @@
-﻿using Api.Domain;
+﻿using System;
+using Api.Domain;
 using HotChocolate.Types;
 
 namespace Api.GraphQL.Types
@@ -8,11 +9,15 @@ namespace Api.GraphQL.Types
         protected override void Configure(IObjectTypeDescriptor<Bill> descriptor)
         {
             descriptor.Field(x => x.Id)
-                .Type<NonNullType<IdType>>();
+                .Type<NonNullType<UuidType>>()
+                .Name("id");
 
             descriptor.Field(x => x.Title)
                 .Type<StringType>()
                 .Name("title");
+
+            descriptor.Field(x => x.Owner)
+                .Deprecated();
         }
     }
 }
