@@ -4,7 +4,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5000",
-      "launchUrl": "swagger",
+      "launchUrl": "playground",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

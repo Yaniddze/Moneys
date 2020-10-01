@@ -1,8 +1,8 @@
-using Api.ApplicationInstallers;
 using Api.ApplicationInstallers.Extensions;
 using Api.Options;
-using Api.ServiceInstallers;
 using Api.ServiceInstallers.Extensions;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -41,12 +41,19 @@ namespace Api
             }
 
             app.UseCors();
-            
+
             app.UseRouting();
+            
+            app.UseGraphQL();
+
+            if (env.IsDevelopment())
+            {
+                app.UsePlayground();
+                app.UseVoyager();
+            }
             
             app.UseAuthentication();
             app.UseAuthorization();
-            
             
             // ApplicationInstallers folder
             app.InstallFromAssembly(env);
