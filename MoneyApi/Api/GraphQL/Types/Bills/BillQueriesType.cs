@@ -2,7 +2,7 @@
 using Api.GraphQL.Models.Bills;
 using HotChocolate.Types;
 
-namespace Api.GraphQL.Types
+namespace Api.GraphQL.Types.Bills
 {
     public class BillQueriesType: ObjectType<BillQueries>
     {

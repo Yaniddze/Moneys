@@ -1,4 +1,5 @@
 ﻿using Api.GraphQL.Types;
+using Api.GraphQL.Types.Bills;
 using Api.ServiceInstallers.Abstractions;
 using HotChocolate;
 using Microsoft.Extensions.Configuration;

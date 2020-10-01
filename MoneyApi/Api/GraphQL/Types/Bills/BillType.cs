@@ -1,8 +1,7 @@
-﻿using System;
-using Api.Domain;
+﻿using Api.Domain;
 using HotChocolate.Types;
 
-namespace Api.GraphQL.Types
+namespace Api.GraphQL.Types.Bills
 {
     public class BillType: ObjectType<Bill>
     {
