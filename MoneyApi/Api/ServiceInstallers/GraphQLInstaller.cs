@@ -17,6 +17,7 @@ namespace Api.ServiceInstallers
                 .AddAuthorizeDirectiveType()
                 
                 .AddQueryType<BillQueriesType>()
+                .AddMutationType<BillMutationsType>()
             
                 .AddType<BillType>()
                 .Create()
