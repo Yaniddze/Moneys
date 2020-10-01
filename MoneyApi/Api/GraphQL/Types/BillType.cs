@@ -17,7 +17,7 @@ namespace Api.GraphQL.Types
                 .Name("title");
 
             descriptor.Field(x => x.Owner)
-                .Deprecated();
+                .Ignore();
         }
     }
 }
