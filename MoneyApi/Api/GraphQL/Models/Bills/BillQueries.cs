@@ -6,7 +6,7 @@ using Api.UseCases.Commands.BillsCommands;
 using HotChocolate.Resolvers;
 using MediatR;
 
-namespace Api.GraphQL.Model
+namespace Api.GraphQL.Models.Bills
 {
     public class BillQueries
     {

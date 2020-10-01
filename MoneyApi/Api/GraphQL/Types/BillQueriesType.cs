@@ -1,5 +1,5 @@
 ﻿using System;
-using Api.GraphQL.Model;
+using Api.GraphQL.Models.Bills;
 using HotChocolate.Types;
 
 namespace Api.GraphQL.Types
@@ -10,7 +10,10 @@ namespace Api.GraphQL.Types
         {
             descriptor.Field(x => x.GetBills(default, default))
                 .Type<ListType<BillType>>()
-                .Argument("userId", a => a.DefaultValue(Guid.Empty));
+                .Argument("userId", a => a
+                    .DefaultValue(Guid.Empty)
+                    .Type<NonNullType<UuidType>>()
+                );
         }
     }
 }
