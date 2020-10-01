@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain;
 using Api.UseCases.Commands.BillsCommands;
@@ -16,7 +17,7 @@ namespace Api.GraphQL.Model
             this.mediator = mediator;
         }
 
-        public async Task<IEnumerable<Bill>> GetBills(IResolverContext context)
+        public async Task<IEnumerable<Bill>> GetBills(Guid userId,IResolverContext context)
         {
             return (await mediator.Send(new GetBillsCommand())).Data;
         }

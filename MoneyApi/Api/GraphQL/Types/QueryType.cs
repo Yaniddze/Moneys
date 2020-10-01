@@ -1,4 +1,5 @@
-﻿using Api.GraphQL.Model;
+﻿using System;
+using Api.GraphQL.Model;
 using HotChocolate.Types;
 
 namespace Api.GraphQL.Types
@@ -7,8 +8,9 @@ namespace Api.GraphQL.Types
     {
         protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
         {
-            descriptor.Field(x => x.GetBills(default))
-                .Type<ListType<BillType>>();
+            descriptor.Field(x => x.GetBills(default, default))
+                .Type<ListType<BillType>>()
+                .Argument("userId", a => a.DefaultValue(Guid.Empty));
         }
     }
 }
