@@ -19,7 +19,10 @@ namespace Api.GraphQL.Models.Bills
 
         public async Task<IEnumerable<Bill>> GetBills(Guid userId,IResolverContext context)
         {
-            return (await mediator.Send(new GetBillsCommand())).Data;
+            return (await mediator.Send(new GetBillsCommand
+            {
+                UserId = userId
+            })).Data;
         }
     }
 }
