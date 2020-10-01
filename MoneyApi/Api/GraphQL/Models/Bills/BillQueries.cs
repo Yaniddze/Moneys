@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Domain;
+using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.BillsCommands;
 using HotChocolate.Resolvers;
 using MediatR;
@@ -17,12 +18,12 @@ namespace Api.GraphQL.Models.Bills
             this.mediator = mediator;
         }
 
-        public async Task<IEnumerable<Bill>> GetBills(Guid userId,IResolverContext context)
+        public async Task<AbstractAnswer<IEnumerable<Bill>>> GetBills(Guid userId, IResolverContext context)
         {
-            return (await mediator.Send(new GetBillsCommand
+            return await mediator.Send(new GetBillsCommand
             {
                 UserId = userId
-            })).Data;
+            });
         }
     }
 }
