@@ -1,5 +1,5 @@
-﻿using Api.GraphQL.Types;
-using Api.GraphQL.Types.Bills;
+﻿using Api.GraphQL.Types.Bills;
+using Api.GraphQL.Types.TransactionTypes;
 using Api.ServiceInstallers.Abstractions;
 using HotChocolate;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +18,10 @@ namespace Api.ServiceInstallers
                 
                 .AddQueryType<BillQueriesType>()
                 .AddMutationType<BillMutationsType>()
-            
-                .AddType<BillType>()
+                
+                .AddType<BillQueriesType>()
+                .AddType<TransactionTypeQueriesType>()
+                
                 .Create()
             );
         }

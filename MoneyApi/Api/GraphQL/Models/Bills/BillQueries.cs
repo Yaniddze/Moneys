@@ -5,6 +5,7 @@ using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.BillsCommands;
 using HotChocolate.Resolvers;
+using HotChocolate.Types;
 using MediatR;
 
 namespace Api.GraphQL.Models.Bills
