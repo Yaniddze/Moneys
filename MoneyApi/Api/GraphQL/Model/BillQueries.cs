@@ -8,11 +8,11 @@ using MediatR;
 
 namespace Api.GraphQL.Model
 {
-    public class Query
+    public class BillQueries
     {
         private readonly IMediator mediator;
 
-        public Query(IMediator mediator)
+        public BillQueries(IMediator mediator)
         {
             this.mediator = mediator;
         }

@@ -4,9 +4,9 @@ using HotChocolate.Types;
 
 namespace Api.GraphQL.Types
 {
-    public class QueryType: ObjectType<Query>
+    public class BillQueriesType: ObjectType<BillQueries>
     {
-        protected override void Configure(IObjectTypeDescriptor<Query> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<BillQueries> descriptor)
         {
             descriptor.Field(x => x.GetBills(default, default))
                 .Type<ListType<BillType>>()
