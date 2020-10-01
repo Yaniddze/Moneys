@@ -33,7 +33,7 @@ namespace Api.UseCases.Abstractions
         
         public static AbstractAnswer<TData> CreateFailed(IEnumerable<string> errors) => new AbstractAnswer<TData>
         {
-            Success = true,
+            Success = false,
             Errors = errors,
         };
     }
