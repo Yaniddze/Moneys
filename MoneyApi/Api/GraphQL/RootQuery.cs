@@ -19,12 +19,9 @@ namespace Api.GraphQL
             this.mediator = mediator;
         }
         
-        public async Task<AbstractAnswer<IEnumerable<Bill>>> GetBillsAsync(Guid userId)
+        public async Task<AbstractAnswer<IEnumerable<Bill>>> GetBillsAsync(GetBillsCommand command)
         {
-            return await mediator.Send(new GetBillsCommand
-            {
-                UserId = userId
-            });
+            return await mediator.Send(command);
         }
         
         public async Task<AbstractAnswer<IEnumerable<TransactionType>>> GetTransactionTypesAsync()
@@ -32,12 +29,9 @@ namespace Api.GraphQL
             return await mediator.Send(new GetTransactionTypesCommand());
         }
 
-        public async Task<AbstractAnswer<IEnumerable<Transaction>>> GetTransactionsAsync(Guid userId)
+        public async Task<AbstractAnswer<IEnumerable<Transaction>>> GetTransactionsAsync(GetTransactionsCommand command)
         {
-            return await mediator.Send(new GetTransactionsCommand
-            {
-                UserId = userId,
-            });
+            return await mediator.Send(command);
         }
     }
 }
