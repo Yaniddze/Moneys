@@ -45,7 +45,7 @@ namespace Api
             }
             else
             {
-                app.UseVoyager("https://yaniddze.com/api/moneys", "/voyager");
+                app.UseVoyager("/api/moneys", "/voyager");
             }
 
             app.UseAuthentication();
