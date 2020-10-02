@@ -5,7 +5,7 @@ using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
-using HotChocolate.Resolvers;
+using Api.UseCases.Commands.TransactionCommands;
 using MediatR;
 
 namespace Api.GraphQL
@@ -19,7 +19,7 @@ namespace Api.GraphQL
             this.mediator = mediator;
         }
         
-        public async Task<AbstractAnswer<IEnumerable<Bill>>> GetBills(Guid userId, IResolverContext context)
+        public async Task<AbstractAnswer<IEnumerable<Bill>>> GetBillsAsync(Guid userId)
         {
             return await mediator.Send(new GetBillsCommand
             {
@@ -27,9 +27,17 @@ namespace Api.GraphQL
             });
         }
         
-        public async Task<AbstractAnswer<IEnumerable<TransactionType>>> GetTransactionTypesAsync(IResolverContext context)
+        public async Task<AbstractAnswer<IEnumerable<TransactionType>>> GetTransactionTypesAsync()
         {
             return await mediator.Send(new GetTransactionTypesCommand());
+        }
+
+        public async Task<AbstractAnswer<IEnumerable<Transaction>>> GetTransactionsAsync(Guid userId)
+        {
+            return await mediator.Send(new GetTransactionsCommand
+            {
+                UserId = userId,
+            });
         }
     }
 }
