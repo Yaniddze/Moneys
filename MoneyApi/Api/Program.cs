@@ -40,13 +40,13 @@ namespace Api
 
                 if (development)
                 {
-                    var testableUser = context.Users.FirstOrDefault(x => x.Id == TestController.TestableUserGuid);
+                    var testableUser = context.Users.FirstOrDefault(x => x.Id == TestableUserGuid);
 
                     if (testableUser is null)
                     {
                         context.Users.Add(new UserDB
                         {
-                            Id = TestController.TestableUserGuid,
+                            Id = TestableUserGuid,
                             Username = "TestUser",
                         });
 
@@ -57,6 +57,8 @@ namespace Api
             
             application.Run();
         }
+        
+        public static Guid TestableUserGuid = Guid.Parse("8f1b09a8-e850-4a3b-b2a7-352f72c036dd");
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
