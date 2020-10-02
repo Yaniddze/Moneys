@@ -1,5 +1,4 @@
-﻿using Api.GraphQL.Types.Bills;
-using Api.GraphQL.Types.TransactionTypes;
+﻿using Api.GraphQL;
 using Api.ServiceInstallers.Abstractions;
 using HotChocolate;
 using Microsoft.Extensions.Configuration;
@@ -16,11 +15,8 @@ namespace Api.ServiceInstallers
                 
                 .AddAuthorizeDirectiveType()
                 
-                .AddQueryType<BillQueriesType>()
-                .AddMutationType<BillMutationsType>()
-                
-                .AddType<BillQueriesType>()
-                .AddType<TransactionTypeQueriesType>()
+                .AddQueryType<RootQuery>()
+                .AddMutationType<RootMutations>()
                 
                 .Create()
             );

@@ -3,21 +3,20 @@ using System.Threading.Tasks;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.BillsCommands;
 using Api.UseCases.ManualCases.NewBill;
-using HotChocolate.Resolvers;
 using MediatR;
 
-namespace Api.GraphQL.Models.Bills
+namespace Api.GraphQL
 {
-    public class BillMutations
+    public class RootMutations
     {
         private readonly IMediator mediator;
 
-        public BillMutations(IMediator mediator)
+        public RootMutations(IMediator mediator)
         {
             this.mediator = mediator;
         }
-
-        public async Task<AbstractAnswer<Guid>> CreateBillAsync(Guid userId, string title, IResolverContext context)
+        
+        public async Task<AbstractAnswer<Guid>> CreateBillAsync(Guid userId, string title)
         {
             return await mediator.Send(new NewBillRequest
             {
@@ -26,7 +25,7 @@ namespace Api.GraphQL.Models.Bills
             });
         }
 
-        public async Task<AbstractAnswer> DeleteBillAsync(Guid billId, IResolverContext context)
+        public async Task<AbstractAnswer> DeleteBillAsync(Guid billId)
         {
             return await mediator.Send(new RemoveBillCommand
             {
@@ -34,7 +33,7 @@ namespace Api.GraphQL.Models.Bills
             });
         }
 
-        public async Task<AbstractAnswer> UpdateBillAsync(Guid billId, string newTitle, IResolverContext context)
+        public async Task<AbstractAnswer> UpdateBillAsync(Guid billId, string newTitle)
         {
             return await mediator.Send(new UpdateBillCommand
             {
