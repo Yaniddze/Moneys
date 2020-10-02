@@ -38,8 +38,16 @@ namespace Api
             
             app.UseGraphQL();
             app.UsePlayground();
-            app.UseVoyager();
-            
+
+            if (env.IsDevelopment())
+            {
+                app.UseVoyager();
+            }
+            else
+            {
+                app.UseVoyager("https://yaniddze.com/api/moneys", "/voyager");
+            }
+
             app.UseAuthentication();
             app.UseAuthorization();
             
