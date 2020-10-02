@@ -45,12 +45,8 @@ namespace Api
             app.UseRouting();
             
             app.UseGraphQL();
-
-            if (env.IsDevelopment())
-            {
-                app.UsePlayground();
-                app.UseVoyager();
-            }
+            app.UsePlayground();
+            app.UseVoyager();
             
             app.UseAuthentication();
             app.UseAuthorization();
