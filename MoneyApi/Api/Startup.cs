@@ -1,5 +1,4 @@
 using Api.ApplicationInstallers.Extensions;
-using Api.Options;
 using Api.ServiceInstallers.Extensions;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
@@ -45,6 +44,11 @@ namespace Api
             }
             else
             {
+                app.Use(async (ctx, next) =>
+                {
+                    ctx.Request.Scheme = "https";
+                    await next();
+                });
                 app.UseVoyager("/api/moneys/", "/api/moneys/voyager");
                 app.UsePlayground("/api/moneys/", "/api/moneys/playground");
             }
