@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands.BillsCommands;
 using Api.UseCases.ManualCases.NewBill;
+using Api.UseCases.ManualCases.NewTransaction;
+using Api.UseCases.ManualCases.RemoveBill;
+using Api.UseCases.ManualCases.RemoveTransaction;
+using Api.UseCases.ManualCases.UpdateBill;
+using Api.UseCases.ManualCases.UpdateTransaction;
 using MediatR;
 
 namespace Api.GraphQL
@@ -18,34 +22,40 @@ namespace Api.GraphQL
 
         #region Bill
 
-        public async Task<AbstractAnswer<Guid>> CreateBillAsync(Guid userId, string title)
+        public async Task<AbstractAnswer<Guid>> CreateBillAsync(NewBillRequest request)
         {
-            return await mediator.Send(new NewBillRequest
-            {
-                Title = title,
-                UserId = userId,
-            });
+            return await mediator.Send(request);
         }
 
-        public async Task<AbstractAnswer> DeleteBillAsync(Guid billId)
+        public async Task<AbstractAnswer> DeleteBillAsync(RemoveBillRequest request)
         {
-            return await mediator.Send(new RemoveBillCommand
-            {
-                BillId = billId,
-            });
+            return await mediator.Send(request);
         }
 
-        public async Task<AbstractAnswer> UpdateBillAsync(Guid billId, string newTitle)
+        public async Task<AbstractAnswer> UpdateBillAsync(UpdateBillRequest request)
         {
-            return await mediator.Send(new UpdateBillCommand
-            {
-                BillId = billId,
-                NewTitle = newTitle,
-            });
+            return await mediator.Send(request);
         }
 
         #endregion
-        
-        
+
+        #region Transactions
+
+        public async Task<AbstractAnswer<Guid>> AddTransactionAsync(NewTransactionRequest request)
+        {
+            return await mediator.Send(request);
+        }
+
+        public async Task<AbstractAnswer> UpdateTransactionAsync(UpdateTransactionRequest request)
+        {
+            return await mediator.Send(request);
+        }
+
+        public async Task<AbstractAnswer> RemoveTransactionAsync(RemoveTransactionRequest request)
+        {
+            return await mediator.Send(request);
+        }
+
+        #endregion
     }
 }
