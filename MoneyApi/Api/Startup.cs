@@ -37,15 +37,16 @@ namespace Api
             app.UseRouting();
             
             app.UseGraphQL();
-            app.UsePlayground();
 
             if (env.IsDevelopment())
             {
                 app.UseVoyager();
+                app.UsePlayground();
             }
             else
             {
-                app.UseVoyager("/api/moneys", "/voyager");
+                app.UseVoyager("/api/moneys/", "/api/moneys/voyager");
+                app.UsePlayground("/api/moneys/", "/api/moneys/playground");
             }
 
             app.UseAuthentication();
