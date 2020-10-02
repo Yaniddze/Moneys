@@ -36,28 +36,17 @@ namespace Api
             app.UseRouting();
             
             app.UseGraphQL();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-            if (env.IsDevelopment())
-            {
-                app.UseVoyager();
-                app.UsePlayground();
-            }
-            else
+            if (!env.IsDevelopment())
             {
                 app.UsePlayground("/api/moneys/", "/api/moneys/playground");
             }
-
-            app.UseAuthentication();
-            app.UseAuthorization();
             
             // ApplicationInstallers folder
             app.InstallFromAssembly(env);
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute()
-                    .RequireAuthorization("ApiScope");
-            });
         }
     }
 }

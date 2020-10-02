@@ -8,10 +8,12 @@ using Api.UseCases.ManualCases.RemoveTransaction;
 using Api.UseCases.ManualCases.UpdateBill;
 using Api.UseCases.ManualCases.UpdateTransaction;
 using HotChocolate;
+using HotChocolate.AspNetCore.Authorization;
 using MediatR;
 
 namespace Api.GraphQL
 {
+    [Authorize(Policy = "ApiScope")]
     public class RootMutations
     {
         private readonly IMediator mediator;

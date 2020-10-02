@@ -1,5 +1,4 @@
-﻿using System;
-using Api.Options;
+﻿using Api.Options;
 using Api.ServiceInstallers.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,9 +14,6 @@ namespace Api.ServiceInstallers
             var optionsFromConfig = configuration.GetSection(nameof(IdentityOptions));
                     
             optionsFromConfig.Bind(identityOptions);
-
-            var devVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "";
-            if (devVariable.Equals("Development")) return;
             
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", config =>
