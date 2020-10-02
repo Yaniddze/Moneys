@@ -44,12 +44,6 @@ namespace Api
             }
             else
             {
-                app.Use(async (ctx, next) =>
-                {
-                    ctx.Request.Scheme = "https";
-                    await next();
-                });
-                app.UseVoyager("/api/moneys/", "/api/moneys/voyager");
                 app.UsePlayground("/api/moneys/", "/api/moneys/playground");
             }
 
