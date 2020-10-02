@@ -15,7 +15,9 @@ namespace Api.GraphQL
         {
             this.mediator = mediator;
         }
-        
+
+        #region Bill
+
         public async Task<AbstractAnswer<Guid>> CreateBillAsync(Guid userId, string title)
         {
             return await mediator.Send(new NewBillRequest
@@ -41,5 +43,9 @@ namespace Api.GraphQL
                 NewTitle = newTitle,
             });
         }
+
+        #endregion
+        
+        
     }
 }
