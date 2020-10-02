@@ -30,14 +30,6 @@ namespace Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
-                var swaggerOptions = new SwaggerOptions();
-                var optionsFromConfig = _configuration.GetSection(nameof(SwaggerOptions));
-            
-                optionsFromConfig.Bind(swaggerOptions);
-
-                app.UseSwagger(x => { x.RouteTemplate = swaggerOptions.RouteTemplate; });
-                app.UseSwaggerUI(x => { x.SwaggerEndpoint(swaggerOptions.Endpoint, swaggerOptions.Description); });
             }
 
             app.UseCors();
