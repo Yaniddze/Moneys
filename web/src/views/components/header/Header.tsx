@@ -10,7 +10,9 @@ import { ToggleSwitch } from '../switches';
 import { useHeaderVM } from '../../../hooks/viewModels/useHeaderVM';
 import { Navbar } from './navbar/Navbar';
 
+// Types
 import { Nav } from './navbar/types';
+import { Screens } from '../../../hooks/useScreens/types';
 
 type PropTypes = {
   children?: never;
@@ -29,6 +31,13 @@ const VerticalWrapper = styled.div`
 
 const NavsWrapper = styled(VerticalWrapper)`
   width: 100%;
+  
+  @media(min-width: ${Screens.PC}px) {
+    width: ${Screens.PC - 180}px;
+    margin-left: auto;
+    margin-right-auto;
+  }
+  
   & > div {
     display: flex;
   }
