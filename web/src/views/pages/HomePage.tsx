@@ -4,7 +4,7 @@ import { useBills } from '../../hooks/useBills';
 import { useScreens } from '../../hooks/useScreens';
 
 import { Screens } from '../../hooks/useScreens/types';
-import { PcWrapper } from '../components/wrappers';
+import { PcWrapper, TabletWrapper } from '../components/wrappers';
 import { WrapperProps } from '../components/wrappers/types';
 
 type PropTypes = {
@@ -23,6 +23,7 @@ export const HomePage: FC<PropTypes> = () => {
       break;
 
     case Screens.Tablet:
+      Wrapper = TabletWrapper;
       break;
 
     case Screens.Mobile:
