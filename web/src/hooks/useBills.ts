@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { gql } from '@apollo/client';
 import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 import { createClient } from '../configuration/apolloConfig';
@@ -17,8 +17,9 @@ export const useBills = (): ReturnType => {
   const { oidcUser } = useReactOidc();
   const client = createClient(oidcUser.access_token);
 
-  client.query({
-    query: gql`
+  useEffect(() => {
+    client.query({
+      query: gql`
       query {
         bills(command: {userId: "${oidcUser.profile['user.id']}"}) {
           data {
@@ -29,11 +30,12 @@ export const useBills = (): ReturnType => {
       }
     `,
 
-  })
-    .then((res) => {
-      console.log(res.data);
-      setBills(res.data.bills.data);
-    });
+    })
+      .then((res) => {
+        console.log(res.data);
+        setBills(res.data.bills.data);
+      });
+  }, []);
 
   return {
     bills,
