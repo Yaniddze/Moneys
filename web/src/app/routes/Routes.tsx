@@ -21,7 +21,6 @@ type PropType = {
 
 export const Routes: FC<PropType> = () => (
   <BrowserRouter>
-    <Navbar navs={navs} />
     <Switch>
 
       <Route path="/home">
