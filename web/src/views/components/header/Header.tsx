@@ -19,6 +19,7 @@ type PropTypes = {
 
 const Wrapper = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const VerticalWrapper = styled.div`
@@ -27,14 +28,19 @@ const VerticalWrapper = styled.div`
 `;
 
 const NavsWrapper = styled(VerticalWrapper)`
-  
+  width: 100%;
   & > div {
     display: flex;
   }
   
   & > div > div {
-    margin-left: 10px;
+    margin-left: auto;
+    margin-right: auto;
   }
+`;
+
+const ButtonWrapper = styled(VerticalWrapper)`
+  margin-left: auto;
 `;
 
 export const Header: FC<PropTypes> = (
@@ -51,13 +57,17 @@ export const Header: FC<PropTypes> = (
             handleChange={reverseLight}
           />
 
-          <VerticalWrapper>
-            {username}
-          </VerticalWrapper>
-
           <NavsWrapper>
             <Navbar navs={navs} />
           </NavsWrapper>
+
+          <ButtonWrapper>
+            {username}
+
+            <button type="button">
+              Sign out
+            </button>
+          </ButtonWrapper>
 
         </Wrapper>
       </StyledHeader>
