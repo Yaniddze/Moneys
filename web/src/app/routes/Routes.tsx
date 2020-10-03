@@ -7,13 +7,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-// Nav config
-import { navs } from './navbarConfig';
-
 // Pages
 import { HomePage } from '../../views/pages/HomePage';
-
-import { Navbar } from '../../views/components/navbar';
 
 type PropType = {
   children?: never;
