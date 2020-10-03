@@ -13,28 +13,33 @@ import { Header } from './views/components/header';
 import { Footer } from './views/components/footer';
 
 import { navs } from './configuration/navbarConfig';
+import { useResizeEventHolder } from './hooks/useScreens';
 
-export const App: FC = () => (
-  <Themed>
-    <>
-      <GlobalStyles />
-      <Secure>
+export const App: FC = () => {
+  useResizeEventHolder();
 
-        <Apollo>
+  return (
+    <Themed>
+      <>
+        <GlobalStyles />
+        <Secure>
 
-          <StructureWrapper>
-            <BrowserRouter>
-              <Header navs={navs} />
-              <main>
-                <Routes />
-              </main>
-              <Footer />
-            </BrowserRouter>
-          </StructureWrapper>
+          <Apollo>
 
-        </Apollo>
+            <StructureWrapper>
+              <BrowserRouter>
+                <Header navs={navs} />
+                <main>
+                  <Routes />
+                </main>
+                <Footer />
+              </BrowserRouter>
+            </StructureWrapper>
 
-      </Secure>
-    </>
-  </Themed>
-);
+          </Apollo>
+
+        </Secure>
+      </>
+    </Themed>
+  );
+};
