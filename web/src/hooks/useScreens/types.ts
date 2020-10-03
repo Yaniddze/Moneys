@@ -1,7 +1,7 @@
 export enum Screens {
   Mobile = 0,
   Tablet = 600,
-  PC = 800,
+  PC = 1200,
 }
 
 const keys = Object.keys(Screens)
