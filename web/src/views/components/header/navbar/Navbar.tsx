@@ -13,7 +13,10 @@ const Selected = styled.div`
 `;
 
 const NotSelected = styled.div`
-  color: ${(props): string => props.theme.colors.secondary.contrast};
+  & * {
+    text-decoration: none;
+    color: ${(props): string => props.theme.colors.secondary.contrast};
+  }
 `;
 
 export const Navbar: FC<PropTypes> = (

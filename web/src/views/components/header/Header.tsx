@@ -1,6 +1,5 @@
 // Core
 import React, { FC } from 'react';
-import { useObserver } from 'mobx-react';
 import styled from 'styled-components';
 
 // Components
@@ -10,6 +9,7 @@ import { ToggleSwitch } from '../switches';
 // ViewModel
 import { useHeaderVM } from '../../../hooks/viewModels/useHeaderVM';
 import { Navbar } from './navbar/Navbar';
+
 import { Nav } from './navbar/types';
 
 type PropTypes = {
@@ -21,23 +21,46 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
+const VerticalWrapper = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+const NavsWrapper = styled(VerticalWrapper)`
+  
+  & > div {
+    display: flex;
+  }
+  
+  & > div > div {
+    margin-left: 10px;
+  }
+`;
+
 export const Header: FC<PropTypes> = (
   { navs }: PropTypes,
 ) => {
   const { username, light, reverseLight } = useHeaderVM();
 
-  return useObserver(() => (
-    <StyledHeader>
-      <Wrapper>
-        <ToggleSwitch
-          initValue={!light}
-          handleChange={reverseLight}
-        />
-        {username}
-        <div style={{ display: 'flex' }}>
-          <Navbar navs={navs} />
-        </div>
-      </Wrapper>
-    </StyledHeader>
-  ));
+  return (
+    <div style={{ display: 'flex' }}>
+      <StyledHeader>
+        <Wrapper>
+          <ToggleSwitch
+            initValue={!light}
+            handleChange={reverseLight}
+          />
+
+          <VerticalWrapper>
+            {username}
+          </VerticalWrapper>
+
+          <NavsWrapper>
+            <Navbar navs={navs} />
+          </NavsWrapper>
+
+        </Wrapper>
+      </StyledHeader>
+    </div>
+  );
 };

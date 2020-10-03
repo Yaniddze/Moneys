@@ -5,7 +5,7 @@ export const StructureWrapper = styled.div`
   display: grid;
   grid-template-rows: 80px auto 80px;
   
-  & > header {
+  & > div {
     grid-row-start: 1;
   }
   
