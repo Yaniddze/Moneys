@@ -2,7 +2,6 @@
 import React, { FC } from 'react';
 import {
   Route,
-  BrowserRouter,
   Switch,
   Redirect,
 } from 'react-router-dom';
@@ -15,15 +14,13 @@ type PropType = {
 }
 
 export const Routes: FC<PropType> = () => (
-  <BrowserRouter>
-    <Switch>
+  <Switch>
 
-      <Route path="/home">
-        <HomePage />
-      </Route>
+    <Route path="/home">
+      <HomePage />
+    </Route>
 
-      <Redirect to="/home" />
+    <Redirect to="/home" />
 
-    </Switch>
-  </BrowserRouter>
+  </Switch>
 );

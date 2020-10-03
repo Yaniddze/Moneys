@@ -1,5 +1,6 @@
 // Core
 import React, { FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { GlobalStyles } from './app/GlobalStyles';
 import { StructureWrapper } from './app/StructureWrapper';
@@ -11,6 +12,8 @@ import { Apollo } from './app/apollo';
 import { Header } from './views/components/header';
 import { Footer } from './views/components/footer';
 
+import { navs } from './configuration/navbarConfig';
+
 export const App: FC = () => (
   <Themed>
     <>
@@ -20,11 +23,13 @@ export const App: FC = () => (
         <Apollo>
 
           <StructureWrapper>
-            <Header />
-            <main>
-              <Routes />
-            </main>
-            <Footer />
+            <BrowserRouter>
+              <Header navs={navs} />
+              <main>
+                <Routes />
+              </main>
+              <Footer />
+            </BrowserRouter>
           </StructureWrapper>
 
         </Apollo>
