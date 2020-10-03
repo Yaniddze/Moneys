@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StructureWrapper = styled.div`
   height: 100%;
   display: grid;
-  grid-template-rows: 80px auto 120px;
+  grid-template-rows: 80px auto 80px;
   
   & > header {
     grid-row-start: 1;
