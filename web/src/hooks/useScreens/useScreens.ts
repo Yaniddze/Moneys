@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 import { Screens, SortedScreensValues } from './types';
 
 export const useScreens = (): Screens => {
-  const [screenWidth, setScreenWidth] = useState(window.outerWidth);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const handleResize = debounce(() => {
     setScreenWidth(window.innerWidth);
