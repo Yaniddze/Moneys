@@ -34,11 +34,12 @@ namespace Api
             app.UseCors();
 
             app.UseRouting();
-            
-            app.UseGraphQL();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseWebSockets();
+            app.UseGraphQL();
 
             if (!env.IsDevelopment())
             {
@@ -49,7 +50,7 @@ namespace Api
                 app.UsePlayground();
                 app.UseVoyager();
             }
-            
+
             // ApplicationInstallers folder
             app.InstallFromAssembly(env);
         }
