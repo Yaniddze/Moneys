@@ -10,6 +10,11 @@ namespace Api.ServiceInstallers
     {
         public void Install(IServiceCollection services, IConfiguration configuration)
         {
+            if (Program.Development)
+            {
+                return;
+            }
+            
             var identityOptions = new IdentityOptions();
             var optionsFromConfig = configuration.GetSection(nameof(IdentityOptions));
                     

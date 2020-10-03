@@ -36,13 +36,18 @@ namespace Api
             app.UseRouting();
             
             app.UseGraphQL();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 
             if (!env.IsDevelopment())
             {
                 app.UsePlayground("/api/moneys/", "/api/moneys/playground");
+            }
+            else
+            {
+                app.UsePlayground();
+                app.UseVoyager();
             }
             
             // ApplicationInstallers folder
