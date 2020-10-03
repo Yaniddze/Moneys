@@ -6,11 +6,18 @@ type PropTypes = {
 }
 
 export const HomePage: FC<PropTypes> = () => {
-  const { bills } = useBills();
+  const { state } = useBills();
+
+  const loading = state.fetching && <div>Loading</div>;
+  const errors = !state.fetching && !state.data.success && state.data.errors.map((er) => (
+    <div>{er}</div>
+  ));
 
   return (
     <div>
       Home page
+      {loading}
+      {errors}
     </div>
   );
 };

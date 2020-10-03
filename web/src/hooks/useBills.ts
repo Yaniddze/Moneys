@@ -1,21 +1,43 @@
+import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 
-import { getBillsQuery } from '../requests/queries/getBillsQuery';
+import { getBillsQuery, Variables } from '../requests/queries/getBillsQuery';
 
 type Bill = {
   id: string;
   title: string;
 }
 
-type ReturnType = {
+type Answer = {
+  success: boolean;
+  errors: string[];
   bills: Bill[];
 }
 
+type FetchingBills = {
+  fetching: boolean;
+  data: Answer;
+}
+
+type ReturnType = {
+  state: FetchingBills;
+}
+
+const initState: FetchingBills = {
+  fetching: false,
+  data: {
+    success: false,
+    errors: [],
+    bills: [],
+  },
+};
+
 export const useBills = (): ReturnType => {
+  const [bills, setBills] = useState<FetchingBills>(initState);
   const { oidcUser } = useReactOidc();
 
-  const { loading, error, data } = useQuery(getBillsQuery, {
+  const { loading, data } = useQuery<Answer, Variables>(getBillsQuery, {
     variables: {
       command: {
         userId: oidcUser.profile['user.id'],
@@ -23,13 +45,18 @@ export const useBills = (): ReturnType => {
     },
   });
 
-  let bills: Bill[] = [];
-
-  if (!loading && error === undefined && data !== undefined) {
-    bills = data.bills.data;
-  }
+  useEffect(() => {
+    setBills({
+      fetching: loading,
+      data: {
+        success: data?.success || initState.data.success,
+        errors: data?.errors || initState.data.errors,
+        bills: data?.bills || initState.data.bills,
+      },
+    });
+  }, [loading, data]);
 
   return {
-    bills,
+    state: bills,
   };
 };
