@@ -31,5 +31,10 @@ namespace Api.GraphQL
         {
             return await mediator.Send(command);
         }
+
+        public async Task<AbstractAnswer<User>> GetTestableUserAsync()
+        {
+            return await mediator.Send(new GetTestableUserCommand());
+        }
     }
 }

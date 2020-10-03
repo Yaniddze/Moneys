@@ -20,6 +20,10 @@ namespace Api.GraphQL
             }
             else
             {
+                descriptor.Field(x => x.GetTestableUserAsync())
+                    .Name("testableUser")
+                    .Description("Return test user for e2e testing");
+                
                 descriptor.Field(x => x.GetBillsAsync(default))
                     .Name("bills")
                     .Description("Returns all user's bills by user id");

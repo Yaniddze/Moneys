@@ -33,6 +33,22 @@ namespace Api
 
                     context.SaveChanges();
                 }
+
+                if (Development)
+                {
+                    var founded = context.Users.FirstOrDefault(x => x.Id == TestableUserGuid);
+
+                    if (founded is null)
+                    {
+                        context.Users.Add(new UserDB
+                        {
+                            Id = TestableUserGuid,
+                            Username = "TestUser",
+                        });
+
+                        context.SaveChanges();
+                    }
+                }
             }
             
             application.Run();
@@ -43,6 +59,8 @@ namespace Api
         public static bool Development =>
             development ??= (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "")
                 .Equals("Development");
+
+        public static Guid TestableUserGuid = Guid.Parse("8f1b09a8-e850-4a3b-b2a7-352f72c036dd");
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
