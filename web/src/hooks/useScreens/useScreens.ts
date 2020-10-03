@@ -1,5 +1,5 @@
 // Core
-import { useScreenStorage } from './useScreenStorage';
+import { useScreenStorage } from '../storage/useScreenStorage';
 
 // Types
 import { Screens, SortedScreensValues } from './types';

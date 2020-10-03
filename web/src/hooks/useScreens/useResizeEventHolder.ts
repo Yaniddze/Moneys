@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import debounce from 'lodash.debounce';
 
-import { useScreenStorage } from './useScreenStorage';
+import { useScreenStorage } from '../storage/useScreenStorage';
 
 export const useResizeEventHolder = (): void => {
   const { setWidth } = useScreenStorage();
