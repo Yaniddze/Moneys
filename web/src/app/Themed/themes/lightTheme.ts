@@ -9,7 +9,7 @@ export const lightTheme: DefaultTheme = {
 
     secondary: {
       color: '#B9F6CA',
-      contrast: '#000000',
+      contrast: '#2a582d',
     },
 
     background: {
