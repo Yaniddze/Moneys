@@ -8,17 +8,27 @@ namespace Api.GraphQL
         {
             if (!Program.Development)
             {
-                descriptor.Authorize("ApiScope");
+                descriptor.Field(x => x.GetBillsAsync(default))
+                    .Name("bills")
+                    .Description("Returns all user's bills by user id")  
+                    .Authorize("ApiScope");
+
+                descriptor.Field(x => x.GetTransactionsAsync(default))
+                    .Name("transactions")
+                    .Description("Returns all user's transactions by user id")       
+                    .Authorize("ApiScope");
+            }
+            else
+            {
+                descriptor.Field(x => x.GetBillsAsync(default))
+                    .Name("bills")
+                    .Description("Returns all user's bills by user id");
+
+                descriptor.Field(x => x.GetTransactionsAsync(default))
+                    .Name("transactions")
+                    .Description("Returns all user's transactions by user id");
             }
             
-            descriptor.Field(x => x.GetBillsAsync(default))
-                .Name("bills")
-                .Description("Returns all user's bills by user id");
-
-            descriptor.Field(x => x.GetTransactionsAsync(default))
-                .Name("transactions")
-                .Description("Returns all user's transactions by user id");
-
             descriptor.Field(x => x.GetTransactionTypesAsync())
                 .Name("transactionTypes")
                 .Description("Returns all transaction types");

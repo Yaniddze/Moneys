@@ -14,7 +14,7 @@ namespace Api.ServiceInstallers
                 .AddServices(sp)
                 
                 .AddAuthorizeDirectiveType()
-
+                
                 .AddQueryType<RootQueryType>()
                 .AddMutationType<RootMutationType>()
                 
