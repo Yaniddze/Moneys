@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 
@@ -34,7 +33,6 @@ const initState: FetchingBills = {
 };
 
 export const useBills = (): ReturnType => {
-  const [bills, setBills] = useState<FetchingBills>(initState);
   const { oidcUser } = useReactOidc();
 
   const { loading, data } = useQuery<Answer, Variables>(getBillsQuery, {
@@ -45,16 +43,14 @@ export const useBills = (): ReturnType => {
     },
   });
 
-  useEffect(() => {
-    setBills({
-      fetching: loading,
-      data: {
-        success: data?.success || initState.data.success,
-        errors: data?.errors || initState.data.errors,
-        bills: data?.bills || initState.data.bills,
-      },
-    });
-  }, [loading, data]);
+  const bills = {
+    fetching: loading,
+    data: {
+      success: data?.success || initState.data.success,
+      errors: data?.errors || initState.data.errors,
+      bills: data?.bills || initState.data.bills,
+    },
+  };
 
   return {
     state: bills,
