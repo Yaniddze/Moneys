@@ -8,6 +8,7 @@ import {
 
 // Pages
 import { HomePage } from '../../views/pages/HomePage';
+import { BillsPage } from '../../views/pages/BillsPage';
 
 type PropType = {
   children?: never;
@@ -18,6 +19,10 @@ export const Routes: FC<PropType> = () => (
 
     <Route path="/home">
       <HomePage />
+    </Route>
+
+    <Route path="/bills">
+      <BillsPage />
     </Route>
 
     <Redirect to="/home" />
