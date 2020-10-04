@@ -4,6 +4,15 @@ import { useMutation } from '@apollo/client';
 
 // Queries
 import { addBillMutation, Variables } from '../../requests/mutations/addBillMutation';
+import {
+  getBillsQuery,
+  Variables as QueryVariables,
+} from '../../requests/queries/getBillsQuery';
+
+type Bill = {
+  id: string;
+  title: string;
+}
 
 type FetchingAnswer = {
   fetching: boolean;
@@ -13,7 +22,13 @@ type FetchingAnswer = {
 type Answer = {
   success: boolean;
   errors: string[];
-  data: string;
+  data: Bill;
+}
+
+type QueryAnswer = {
+  success: boolean;
+  errors: string[];
+  bills: Bill[];
 }
 
 type AnswerFromServer = {
@@ -30,17 +45,62 @@ const initialState: FetchingAnswer = {
   answer: {
     success: false,
     errors: [],
-    data: '',
+    data: {
+      id: '',
+      title: '',
+    },
   },
 };
 
 export const useBillAddition = (): ReturnType => {
   const { oidcUser } = useReactOidc();
-  const [addBill, { data, loading }] = useMutation<AnswerFromServer, Variables>(addBillMutation,
+  const [addBill, { loading }] = useMutation<AnswerFromServer, Variables>(addBillMutation,
     {
       update(cache, { data }) {
+        if (data !== undefined && data !== null) {
+          const newBill: Bill = {
+            id: data.createBill.data.id,
+            title: data.createBill.data.title,
+          };
+          const existingBills = cache.readQuery<QueryAnswer, QueryVariables>({
+            query: getBillsQuery,
+            variables: {
+              command: {
+                userId: oidcUser.profile['user.id'],
+              },
+            },
+          });
 
-      }
+          if (existingBills !== undefined && existingBills !== null) {
+            let bills: Bill[];
+
+            if (existingBills.bills.length > 0) {
+              bills = [
+                ...existingBills.bills,
+                newBill,
+              ];
+            } else {
+              bills = [
+                newBill,
+              ];
+            }
+
+            cache.writeQuery({
+              query: getBillsQuery,
+              variables: {
+                command: {
+                  userId: oidcUser.profile['user.id'],
+                },
+              },
+              data: {
+                bills,
+                errors: existingBills.errors,
+                success: existingBills.success,
+              },
+            });
+          }
+        }
+      },
     });
 
   const fetch = (title: string): void => {
@@ -57,9 +117,9 @@ export const useBillAddition = (): ReturnType => {
   const answer: FetchingAnswer = {
     fetching: loading,
     answer: {
-      success: data?.createBill.success || initialState.answer.success,
-      errors: data?.createBill.errors || initialState.answer.errors,
-      data: data?.createBill.data || initialState.answer.data,
+      success: initialState.answer.success,
+      errors: initialState.answer.errors,
+      data: initialState.answer.data,
     },
   };
 

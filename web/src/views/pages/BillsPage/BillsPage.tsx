@@ -8,7 +8,6 @@ import { SimpleLoader } from '../../components/loaders';
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
 import { useBills } from '../../../hooks/bills';
-import { useBillAddition } from '../../../hooks/bills/useBillAddition';
 
 type PropTypes = {
   children?: never;
@@ -16,13 +15,12 @@ type PropTypes = {
 
 export const BillsPage: FC<PropTypes> = () => {
   const { state } = useBills();
-  const addition = useBillAddition();
   const { Wrapper } = usePageWrapper();
 
   const loader = state.fetching && <SimpleLoader />;
   const items = !state.fetching
     && state.data.success
-    && state.data.bills.map((bill) => (
+    && state.data.data.map((bill) => (
       <div key={bill.id}>
         { bill.title }
       </div>

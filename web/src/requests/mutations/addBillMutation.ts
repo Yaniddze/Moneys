@@ -10,7 +10,10 @@ export type Variables = {
 export const addBillMutation = gql`
   mutation AddBill($request: NewBillRequestInput!) {
     createBill(request: $request) {
-      data,
+      data {
+        id,
+        title
+      },
       errors,
       success
     } 
