@@ -1,9 +1,19 @@
 // Core
 import React, { FC, ReactElement, useState } from 'react';
-import styled from 'styled-components';
+
+// Styles
+import { StyledHeader } from './StyledHeader';
+import {
+  HamburgerWrapper,
+  Wrapper,
+  VerticalWrapper,
+  NavsWrapper,
+  HorizontalWrapper,
+  ButtonWrapper,
+  MobileWrapper,
+} from './styles';
 
 // Components
-import { StyledHeader } from './StyledHeader';
 import { Navbar } from './navbar/Navbar';
 import { HamburgerSwitch, ToggleSwitch } from '../switches';
 import { SquareButtonWithShadow } from '../buttons';
@@ -20,92 +30,6 @@ type PropTypes = {
   children?: never;
   navs: Nav[];
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const VerticalWrapper = styled.div`
-  margin-top: auto;
-  margin-bottom: auto;
-`;
-
-const NavsWrapper = styled(VerticalWrapper)`
-  width: 100%;
-  
-  @media(min-width: ${Screens.PC}px) {
-    width: ${Screens.PC - 180}px;
-    margin-left: auto;
-    margin-right-auto;
-  }
-  
-  & > div {
-    display: flex;
-  }
-  
-  & > div > div {
-    margin-left: auto;
-    margin-right: auto;
-  }
-`;
-
-const ButtonWrapper = styled(VerticalWrapper)`
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-  margin-top: 5px;
-  margin-right: 10px;
-  
-  & button {
-    width: 80px;
-  }
-`;
-
-type MobileWrapperProps = {
-  offset: number;
-}
-
-const MobileWrapper = styled.div<MobileWrapperProps>`
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  background: ${(props): string => props.theme.colors.background.color};
-  z-index: 10;
-  transition: 0.2s all ease;
-  left: 0;
-  top: 0;
-  font-size: 42px;
-  margin-left: ${(props): string => `${props.offset}px`};
-  padding-top: 80px;
-  
-  & > div {
-    padding: 10px;
-  }
-  
-  & > div > div {
-    width: 100%;
-    height: 100%;
-    margin: 10px 0;
-  }
-  
-  & button {
-    font-size: 38px;
-  }
-`;
-
-const HamburgerWrapper = styled.div`
-  z-index: 11;
-  margin-left: 10px;
-`;
-
-const HorizontalWrapper = styled.div`
-  display: flex;
-  & > * {
-    margin-left: auto;
-    margin-right: auto;
-  }
-`;
 
 export const Header: FC<PropTypes> = (
   { navs }: PropTypes,
