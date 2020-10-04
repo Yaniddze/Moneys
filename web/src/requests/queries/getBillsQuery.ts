@@ -12,7 +12,9 @@ export const getBillsQuery = gql`
       data {
         id,
         title
-      }
+      },
+      errors,
+      success
     } 
   }
 `;
