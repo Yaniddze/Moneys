@@ -8,7 +8,7 @@ import { usePageWrapper } from '../hooks/usePageWrapper';
 // Styles
 import {
   Title,
-} from './styles';
+} from '../styles';
 
 type PropTypes = {
   children?: never;
