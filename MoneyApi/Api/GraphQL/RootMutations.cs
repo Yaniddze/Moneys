@@ -46,7 +46,7 @@ namespace Api.GraphQL
             return await mediator.Send(request);
         }
         
-        public async Task<AbstractAnswer> UpdateTransactionAsync(UpdateTransactionRequest request)
+        public async Task<AbstractAnswer<Transaction>> UpdateTransactionAsync(UpdateTransactionRequest request)
         {
             return await mediator.Send(request);
         }

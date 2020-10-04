@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
+using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.TransactionCommands;
 using MediatR;
 using Z.EntityFramework.Plus;
-using static Api.UseCases.Abstractions.AbstractAnswer;
+using static Api.UseCases.Abstractions.AbstractAnswer<Api.Domain.Transaction>;
 
 namespace Api.DataBase.CommandHandlers.Transactions
 {
-    public class UpdateTransactionCommandHandler: IRequestHandler<UpdateTransactionCommand, AbstractAnswer>
+    public class UpdateTransactionCommandHandler: IRequestHandler<UpdateTransactionCommand, AbstractAnswer<Transaction>>
     {
         private readonly MoneysContext context;
 
@@ -20,7 +20,7 @@ namespace Api.DataBase.CommandHandlers.Transactions
             this.context = context;
         }
 
-        public async Task<AbstractAnswer> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Transaction>> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -36,12 +36,25 @@ namespace Api.DataBase.CommandHandlers.Transactions
 
                 if (updated > 0)
                 {
-                    return CreateSuccess();
+                    return CreateSuccess(new Transaction
+                    {
+                        Id = request.TransactionId,
+                        Type = new TransactionType
+                        {
+                            Id = request.TypeId,
+                        },
+                        Info = new TransactionInfo
+                        {
+                            Date = request.Date,
+                            Description = request.Description,
+                            Value = request.Value,
+                        },
+                    });
                 }
 
                 return CreateFailed(new[] {"Bad transaction id"});
             }
-            catch (Exception e)
+            catch
             {
                 return CreateFailed(new[] {"Database error"});
             }
