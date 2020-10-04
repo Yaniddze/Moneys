@@ -1,6 +1,6 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Api.Domain;
 using Api.EventBus.Abstractions;
 using Api.EventBus.Events.TransactionEvents;
 using Api.UseCases.Abstractions;
@@ -9,7 +9,7 @@ using MediatR;
 
 namespace Api.UseCases.ManualCases.NewTransaction
 {
-    public class NewTransactionUseCase: IRequestHandler<NewTransactionRequest, AbstractAnswer<Guid>>
+    public class NewTransactionUseCase: IRequestHandler<NewTransactionRequest, AbstractAnswer<Transaction>>
     {
         private readonly IMediator mediator;
         private readonly IEventBus eventBus;
@@ -20,7 +20,7 @@ namespace Api.UseCases.ManualCases.NewTransaction
             this.eventBus = eventBus;
         }
 
-        public async Task<AbstractAnswer<Guid>> Handle(NewTransactionRequest request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Transaction>> Handle(NewTransactionRequest request, CancellationToken cancellationToken)
         {
             var response = await mediator.Send(new CreateTransactionCommand
             {
@@ -36,7 +36,7 @@ namespace Api.UseCases.ManualCases.NewTransaction
             {
                 eventBus.Publish(new NewTransactionEvent
                 {
-                    Id = response.Data,
+                    Id = response.Data.Id,
                     BillId = request.BillId,
                     Date = request.Date,
                     Description = request.Description,

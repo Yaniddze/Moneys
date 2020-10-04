@@ -1,10 +1,11 @@
 ﻿using System;
+using Api.Domain;
 using Api.UseCases.Abstractions;
 using MediatR;
 
 namespace Api.UseCases.ManualCases.NewTransaction
 {
-    public class NewTransactionRequest: IRequest<AbstractAnswer<Guid>>
+    public class NewTransactionRequest: IRequest<AbstractAnswer<Transaction>>
     {
         public Guid UserId { get; set; }
         public Guid TypeId { get; set; }
