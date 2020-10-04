@@ -35,15 +35,24 @@ type PropTypes = {
 export const useHeaderWrappers = (props: PropTypes): ReturnType => {
   const width = useScreens();
   const [navOffset, setNavOffset] = useState(-Screens.PC);
+  const [hamburgerClicked, setHamburgerClicked] = useState(false);
   const { username, navs } = props;
 
-  const handleHamburgerClick = (): void => {
+  const handleHamburgerClick = (value: boolean): void => {
+    setHamburgerClicked(value);
     setNavOffset((old) => (old !== 0 ? 0 : -Screens.PC));
+  };
+
+  const handleMobileWrapperClick = (): void => {
+    handleHamburgerClick(false);
   };
 
   const menuSwitch = width === Screens.Mobile && (
     <HamburgerWrapper>
-      <HamburgerSwitch handleClick={handleHamburgerClick} />
+      <HamburgerSwitch
+        clicked={hamburgerClicked}
+        handleClick={handleHamburgerClick}
+      />
     </HamburgerWrapper>
   );
 
@@ -51,7 +60,10 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
 
   if (width === Screens.Mobile) {
     navBar = (
-      <MobileWrapper offset={navOffset}>
+      <MobileWrapper
+        onClick={handleMobileWrapperClick}
+        offset={navOffset}
+      >
         <Navbar navs={navs} />
         <HorizontalWrapper>
           <span>

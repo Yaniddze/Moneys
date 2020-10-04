@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 const Wrapper = createGlobalStyle`
@@ -72,23 +72,21 @@ const Wrapper = createGlobalStyle`
 
 type PropTypes = {
   children?: never;
-  handleClick: () => void;
+  handleClick: (value: boolean) => void;
+  clicked: boolean;
 }
 
 export const HamburgerSwitch: FC<PropTypes> = (
-  { handleClick }: PropTypes,
+  { handleClick, clicked }: PropTypes,
 ) => {
-  const [active, setActive] = useState(false);
-
   const onClick = (): void => {
-    handleClick();
-    setActive((old) => !old);
+    handleClick(!clicked);
   };
 
   return (
     <div
       onClick={onClick}
-      className={`burger ${active && 'active'}`}
+      className={`burger ${clicked && 'active'}`}
     >
       <Wrapper />
       <span />
