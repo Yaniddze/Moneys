@@ -1,6 +1,9 @@
 // Core
 import React, { FC } from 'react';
 
+// Components
+import { Title } from '../styles';
+
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
 
@@ -13,9 +16,9 @@ export const BillsPage: FC<PropTypes> = () => {
 
   return (
     <Wrapper>
-      <div>
+      <Title>
         124
-      </div>
+      </Title>
     </Wrapper>
   );
 };
