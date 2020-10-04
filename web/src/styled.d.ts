@@ -12,6 +12,8 @@ declare module 'styled-components' {
       error: ColorWithContrast;
 
       footer: ColorWithContrast;
+
+      button: ColorWithContrast;
     };
 
     font: {

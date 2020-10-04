@@ -26,6 +26,11 @@ export const darkTheme: DefaultTheme = {
       color: '#000',
       contrast: '#FFF',
     },
+
+    button: {
+      color: '#2d2d2d',
+      contrast: 'white',
+    },
   },
 
   font: {

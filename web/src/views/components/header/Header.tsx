@@ -70,6 +70,7 @@ const MobileWrapper = styled.div<MobileWrapperProps>`
   transition: 0.2s all ease;
   left: 0;
   top: 0;
+  font-size: 42px;
   margin-left: ${(props): string => `${props.offset}px`};
   padding-top: 80px;
   
@@ -80,7 +81,6 @@ const MobileWrapper = styled.div<MobileWrapperProps>`
   & > div > div {
     width: 100%;
     height: 100%;
-    font-size: 42px;
     margin: 10px 0;
   }
 `;
@@ -120,6 +120,17 @@ export const Header: FC<PropTypes> = (
     navBar = (
       <MobileWrapper offset={navOffset}>
         <Navbar navs={navs} />
+        <HorizontalWrapper>
+          <span>
+            {username}
+          </span>
+        </HorizontalWrapper>
+
+        <HorizontalWrapper>
+          <SquareButtonWithShadow>
+            Sign out
+          </SquareButtonWithShadow>
+        </HorizontalWrapper>
       </MobileWrapper>
     );
   } else {

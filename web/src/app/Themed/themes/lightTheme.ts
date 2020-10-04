@@ -9,7 +9,7 @@ export const lightTheme: DefaultTheme = {
 
     secondary: {
       color: '#B9F6CA',
-      contrast: '#2a582d',
+      contrast: '#3a7d3d',
     },
 
     background: {
@@ -25,6 +25,11 @@ export const lightTheme: DefaultTheme = {
     footer: {
       color: '#1B5E20',
       contrast: '#FFF',
+    },
+
+    button: {
+      color: '#245830',
+      contrast: 'white',
     },
   },
 
