@@ -16,6 +16,10 @@ type Answer = {
   data: string;
 }
 
+type AnswerFromServer = {
+  createBill: Answer;
+}
+
 type ReturnType = {
   state: FetchingAnswer;
   fetch: (title: string) => void;
@@ -32,7 +36,12 @@ const initialState: FetchingAnswer = {
 
 export const useBillAddition = (): ReturnType => {
   const { oidcUser } = useReactOidc();
-  const [addBill, { data, loading }] = useMutation<Answer, Variables>(addBillMutation);
+  const [addBill, { data, loading }] = useMutation<AnswerFromServer, Variables>(addBillMutation,
+    {
+      update(cache, { data }) {
+
+      }
+    });
 
   const fetch = (title: string): void => {
     addBill({
@@ -48,9 +57,9 @@ export const useBillAddition = (): ReturnType => {
   const answer: FetchingAnswer = {
     fetching: loading,
     answer: {
-      success: data?.success || initialState.answer.success,
-      errors: data?.errors || initialState.answer.errors,
-      data: data?.data || initialState.answer.data,
+      success: data?.createBill.success || initialState.answer.success,
+      errors: data?.createBill.errors || initialState.answer.errors,
+      data: data?.createBill.data || initialState.answer.data,
     },
   };
 
