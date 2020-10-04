@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export type Variables = {
-  command: {
+  request: {
     userId: string;
     title: string;
   };
