@@ -9,7 +9,7 @@ type ReturnType = {
   Wrapper: FC<WrapperProps>;
 }
 
-export const useHomePageWrapper = (): ReturnType => {
+export const usePageWrapper = (): ReturnType => {
   const screen = useScreens();
 
   let Wrapper: FC<WrapperProps> = () => <div />;
