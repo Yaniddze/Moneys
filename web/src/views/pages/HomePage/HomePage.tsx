@@ -1,7 +1,14 @@
+// Core
 import React, { FC } from 'react';
 
+// Hooks
 import { useBills } from '../../../hooks/useBills';
 import { useHomePageWrapper } from './useHomePageWrapper';
+
+// Styles
+import {
+  Title,
+} from './styles';
 
 type PropTypes = {
   children?: never;
@@ -19,7 +26,9 @@ export const HomePage: FC<PropTypes> = () => {
   return (
     <Wrapper>
       <div>
-        Home page
+        <Title>
+          Home page
+        </Title>
         {loading}
         {errors}
       </div>
