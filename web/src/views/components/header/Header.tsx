@@ -2,7 +2,6 @@
 import React, { FC, ReactElement, useState } from 'react';
 
 // Styles
-import { StyledHeader } from './StyledHeader';
 import {
   HamburgerWrapper,
   Wrapper,
@@ -11,6 +10,7 @@ import {
   HorizontalWrapper,
   ButtonWrapper,
   MobileWrapper,
+  StyledHeader,
 } from './styles';
 
 // Components
