@@ -54,7 +54,12 @@ const ButtonWrapper = styled(VerticalWrapper)`
   margin-left: auto;
   display: flex;
   flex-direction: column;
-  width: 150px;
+  margin-top: 5px;
+  margin-right: 10px;
+  
+  & button {
+    width: 80px;
+  }
 `;
 
 type MobileWrapperProps = {
@@ -83,10 +88,15 @@ const MobileWrapper = styled.div<MobileWrapperProps>`
     height: 100%;
     margin: 10px 0;
   }
+  
+  & button {
+    font-size: 38px;
+  }
 `;
 
 const HamburgerWrapper = styled.div`
   z-index: 11;
+  margin-left: 10px;
 `;
 
 const HorizontalWrapper = styled.div`
@@ -102,10 +112,10 @@ export const Header: FC<PropTypes> = (
 ) => {
   const { username, light, reverseLight } = useHeaderVM();
   const width = useScreens();
-  const [navOffset, setNavOffset] = useState(-Screens.Tablet);
+  const [navOffset, setNavOffset] = useState(-Screens.PC);
 
   const handleHamburgerClick = (): void => {
-    setNavOffset((old) => (old !== 0 ? 0 : -Screens.Tablet));
+    setNavOffset((old) => (old !== 0 ? 0 : -Screens.PC));
   };
 
   const menuSwitch = width === Screens.Mobile && (
@@ -162,10 +172,12 @@ export const Header: FC<PropTypes> = (
       <StyledHeader>
         {menuSwitch}
         <Wrapper>
-          <ToggleSwitch
-            initValue={!light}
-            handleChange={reverseLight}
-          />
+          <VerticalWrapper>
+            <ToggleSwitch
+              initValue={!light}
+              handleChange={reverseLight}
+            />
+          </VerticalWrapper>
 
           {navBar}
 
