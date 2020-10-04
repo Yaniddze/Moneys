@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.ManualCases.NewBill;
 using Api.UseCases.ManualCases.NewTransaction;
@@ -21,7 +22,7 @@ namespace Api.GraphQL
         }
 
         #region Bill
-        public async Task<AbstractAnswer<Guid>> CreateBillAsync(NewBillRequest request)
+        public async Task<AbstractAnswer<Bill>> CreateBillAsync(NewBillRequest request)
         {
             return await mediator.Send(request);
         }

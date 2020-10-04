@@ -2,15 +2,16 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
+using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static Api.UseCases.Abstractions.AbstractAnswer<System.Guid>;
+using static Api.UseCases.Abstractions.AbstractAnswer<Api.Domain.Bill>;
 
 namespace Api.DataBase.CommandHandlers.Bills
 {
-    public class CreateBillCommandHandler: IRequestHandler<CreateBillCommand, AbstractAnswer<Guid>>
+    public class CreateBillCommandHandler: IRequestHandler<CreateBillCommand, AbstractAnswer<Bill>>
     {
         private readonly MoneysContext context;
 
@@ -19,7 +20,7 @@ namespace Api.DataBase.CommandHandlers.Bills
             this.context = context;
         }
 
-        public async Task<AbstractAnswer<Guid>> Handle(CreateBillCommand request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Bill>> Handle(CreateBillCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -42,9 +43,13 @@ namespace Api.DataBase.CommandHandlers.Bills
 
                 await context.SaveChangesAsync(cancellationToken);
 
-                return CreateSuccess(tempId);
+                return CreateSuccess(new Bill
+                {
+                    Id = tempId,
+                    Title = request.Title,
+                });
             }
-            catch (Exception e)
+            catch
             {
                 return CreateFailed(new[] {"Database error"});
             }
