@@ -11,7 +11,11 @@ type Bill = {
 type Answer = {
   success: boolean;
   errors: string[];
-  bills: Bill[];
+  data: Bill[];
+}
+
+type AnswerFromServer = {
+  bills: Answer;
 }
 
 type FetchingBills = {
@@ -28,14 +32,14 @@ const initState: FetchingBills = {
   data: {
     success: false,
     errors: [],
-    bills: [],
+    data: [],
   },
 };
 
 export const useBills = (): ReturnType => {
   const { oidcUser } = useReactOidc();
 
-  const { loading, data } = useQuery<Answer, Variables>(getBillsQuery, {
+  const { loading, data } = useQuery<AnswerFromServer, Variables>(getBillsQuery, {
     variables: {
       command: {
         userId: oidcUser.profile['user.id'],
@@ -46,9 +50,9 @@ export const useBills = (): ReturnType => {
   const bills = {
     fetching: loading,
     data: {
-      success: data?.success || initState.data.success,
-      errors: data?.errors || initState.data.errors,
-      bills: data?.bills || initState.data.bills,
+      success: data?.bills.success || initState.data.success,
+      errors: data?.bills.errors || initState.data.errors,
+      data: data?.bills.data || initState.data.data,
     },
   };
 
