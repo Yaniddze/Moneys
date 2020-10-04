@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Api.UseCases.Commands.TransactionCommands
 {
-    public class RemoveTransactionCommand: IRequest<AbstractAnswer>
+    public class RemoveTransactionCommand: IRequest<AbstractAnswer<Guid>>
     {
         public Guid TransactionId { get; set; }
     }

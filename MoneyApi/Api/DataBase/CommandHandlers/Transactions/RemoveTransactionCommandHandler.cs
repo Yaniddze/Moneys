@@ -6,11 +6,11 @@ using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.TransactionCommands;
 using MediatR;
 using Z.EntityFramework.Plus;
-using static Api.UseCases.Abstractions.AbstractAnswer;
+using static Api.UseCases.Abstractions.AbstractAnswer<System.Guid>;
 
 namespace Api.DataBase.CommandHandlers.Transactions
 {
-    public class RemoveTransactionCommandHandler: IRequestHandler<RemoveTransactionCommand, AbstractAnswer>
+    public class RemoveTransactionCommandHandler: IRequestHandler<RemoveTransactionCommand, AbstractAnswer<Guid>>
     {
         private readonly MoneysContext context;
 
@@ -19,7 +19,7 @@ namespace Api.DataBase.CommandHandlers.Transactions
             this.context = context;
         }
 
-        public async Task<AbstractAnswer> Handle(RemoveTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Guid>> Handle(RemoveTransactionCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -29,12 +29,12 @@ namespace Api.DataBase.CommandHandlers.Transactions
 
                 if (removed > 0)
                 {
-                    return CreateSuccess();
+                    return CreateSuccess(request.TransactionId);
                 }
 
                 return CreateFailed(new[] {"Bad transaction id"});
             }
-            catch (Exception e)
+            catch
             {
                 return CreateFailed(new[] {"Database error"});
             }

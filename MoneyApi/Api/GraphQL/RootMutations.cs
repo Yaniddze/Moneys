@@ -51,7 +51,7 @@ namespace Api.GraphQL
             return await mediator.Send(request);
         }
         
-        public async Task<AbstractAnswer> RemoveTransactionAsync(RemoveTransactionRequest request)
+        public async Task<AbstractAnswer<Guid>> RemoveTransactionAsync(RemoveTransactionRequest request)
         {
             return await mediator.Send(request);
         }
