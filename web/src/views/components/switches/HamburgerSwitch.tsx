@@ -1,10 +1,6 @@
 import React, { FC, useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
-type Props = {
-  active: boolean;
-}
-
 const Wrapper = createGlobalStyle`
   .burger {
     width: 64px;
