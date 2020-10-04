@@ -32,7 +32,7 @@ namespace Api.GraphQL
             return await mediator.Send(request);
         }
         
-        public async Task<AbstractAnswer> UpdateBillAsync(UpdateBillRequest request)
+        public async Task<AbstractAnswer<Bill>> UpdateBillAsync(UpdateBillRequest request)
         {
             return await mediator.Send(request);
         }

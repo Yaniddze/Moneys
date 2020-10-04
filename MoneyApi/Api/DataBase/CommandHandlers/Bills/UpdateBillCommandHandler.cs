@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.DataBase.DbEntities;
+using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Z.EntityFramework.Plus;
-using static Api.UseCases.Abstractions.AbstractAnswer;
+using static Api.UseCases.Abstractions.AbstractAnswer<Api.Domain.Bill>;
 
 namespace Api.DataBase.CommandHandlers.Bills
 {
-    public class UpdateBillCommandHandler: IRequestHandler<UpdateBillCommand, AbstractAnswer>
+    public class UpdateBillCommandHandler: IRequestHandler<UpdateBillCommand, AbstractAnswer<Bill>>
     {
         private readonly MoneysContext context;
 
@@ -20,7 +20,7 @@ namespace Api.DataBase.CommandHandlers.Bills
             this.context = context;
         }
 
-        public async Task<AbstractAnswer> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Bill>> Handle(UpdateBillCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -33,12 +33,16 @@ namespace Api.DataBase.CommandHandlers.Bills
 
                 if (updatedCount > 0)
                 {
-                    return CreateSuccess();
+                    return CreateSuccess(new Bill
+                    {
+                        Id = request.BillId,
+                        Title = request.NewTitle,
+                    });
                 }
 
                 return CreateFailed(new[] {"Bad bill id"});
             }
-            catch (Exception e)
+            catch
             {
                 return CreateFailed(new[] {"Database error"});
             }

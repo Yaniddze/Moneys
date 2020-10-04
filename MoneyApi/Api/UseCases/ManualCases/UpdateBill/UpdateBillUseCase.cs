@@ -1,16 +1,15 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Api.Domain;
 using Api.EventBus.Abstractions;
-using Api.EventBus.Events;
 using Api.EventBus.Events.BillEvents;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 
 namespace Api.UseCases.ManualCases.UpdateBill
 {
-    public class UpdateBillUseCase: IRequestHandler<UpdateBillRequest, AbstractAnswer>
+    public class UpdateBillUseCase: IRequestHandler<UpdateBillRequest, AbstractAnswer<Bill>>
     {
         private readonly IMediator mediator;
         private readonly IEventBus eventBus;
@@ -21,7 +20,7 @@ namespace Api.UseCases.ManualCases.UpdateBill
             this.eventBus = eventBus;
         }
 
-        public async Task<AbstractAnswer> Handle(UpdateBillRequest request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Bill>> Handle(UpdateBillRequest request, CancellationToken cancellationToken)
         {
             var updateAnswer = await mediator.Send(new UpdateBillCommand
             {
