@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 
-import { useBills } from '../../hooks/useBills';
-import { useScreens } from '../../hooks/useScreens';
+import { useBills } from '../../../hooks/useBills';
+import { useScreens } from '../../../hooks/useScreens';
 
-import { Screens } from '../../hooks/useScreens/types';
+import { Screens } from '../../../hooks/useScreens/types';
 import {
   PcWrapper,
   TabletWrapper,
   MobileWrapper,
-} from '../components/wrappers';
-import { WrapperProps } from '../components/wrappers/types';
+} from '../../components/wrappers';
+import { WrapperProps } from '../../components/wrappers/types';
 
 type PropTypes = {
   children?: never;
