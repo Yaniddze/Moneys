@@ -1,16 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Api.EventBus.Abstractions;
-using Api.EventBus.Events;
 using Api.EventBus.Events.BillEvents;
 using Api.UseCases.Abstractions;
-using Api.UseCases.Commands;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 
 namespace Api.UseCases.ManualCases.RemoveBill
 {
-    public class RemoveBillUseCase: IRequestHandler<RemoveBillRequest, AbstractAnswer>
+    public class RemoveBillUseCase: IRequestHandler<RemoveBillRequest, AbstractAnswer<Guid>>
     {
         private readonly IMediator mediator;
         private readonly IEventBus eventBus;
@@ -21,7 +20,7 @@ namespace Api.UseCases.ManualCases.RemoveBill
             this.eventBus = eventBus;
         }
 
-        public async Task<AbstractAnswer> Handle(RemoveBillRequest request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Guid>> Handle(RemoveBillRequest request, CancellationToken cancellationToken)
         {
             var removingAnswer = await mediator.Send(new RemoveBillCommand
             {

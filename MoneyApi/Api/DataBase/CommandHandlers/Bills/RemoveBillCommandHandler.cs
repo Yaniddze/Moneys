@@ -6,11 +6,11 @@ using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.BillsCommands;
 using MediatR;
 using Z.EntityFramework.Plus;
-using static Api.UseCases.Abstractions.AbstractAnswer;
+using static Api.UseCases.Abstractions.AbstractAnswer<System.Guid>;
 
 namespace Api.DataBase.CommandHandlers.Bills
 {
-    public class RemoveBillCommandHandler: IRequestHandler<RemoveBillCommand, AbstractAnswer>
+    public class RemoveBillCommandHandler: IRequestHandler<RemoveBillCommand, AbstractAnswer<Guid>>
     {
         private readonly MoneysContext context;
 
@@ -19,7 +19,7 @@ namespace Api.DataBase.CommandHandlers.Bills
             this.context = context;
         }
 
-        public async Task<AbstractAnswer> Handle(RemoveBillCommand request, CancellationToken cancellationToken)
+        public async Task<AbstractAnswer<Guid>> Handle(RemoveBillCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -29,12 +29,12 @@ namespace Api.DataBase.CommandHandlers.Bills
 
                 if (deletedCount > 0)
                 {
-                    return CreateSuccess();
+                    return CreateSuccess(request.BillId);
                 }
 
                 return CreateFailed(new[] {"Bad bill id"});
             }
-            catch (Exception e)
+            catch
             {
                 return CreateFailed(new[] {"Database error"});
             }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.ManualCases.NewBill;
@@ -26,7 +27,7 @@ namespace Api.GraphQL
             return await mediator.Send(request);
         }
         
-        public async Task<AbstractAnswer> RemoveBillAsync(RemoveBillRequest request)
+        public async Task<AbstractAnswer<Guid>> RemoveBillAsync(RemoveBillRequest request)
         {
             return await mediator.Send(request);
         }
