@@ -7,7 +7,7 @@ import { SimpleLoader } from '../../components/loaders';
 
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
-import { useBills } from '../../../hooks/useBills';
+import { useBills } from '../../../hooks/bills';
 
 type PropTypes = {
   children?: never;

@@ -2,7 +2,7 @@
 import React, { FC } from 'react';
 
 // Hooks
-import { useBills } from '../../../hooks/useBills';
+import { useBills } from '../../../hooks/bills';
 import { usePageWrapper } from '../hooks/usePageWrapper';
 
 // Styles

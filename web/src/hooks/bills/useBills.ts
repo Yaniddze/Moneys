@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 
-import { getBillsQuery, Variables } from '../requests/queries/getBillsQuery';
+import { getBillsQuery, Variables } from '../../requests/queries/getBillsQuery';
 
 type Bill = {
   id: string;
