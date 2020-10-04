@@ -61,7 +61,7 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
 
         <HorizontalWrapper>
           <SquareButtonWithShadow>
-            Sign out
+            Выйти
           </SquareButtonWithShadow>
         </HorizontalWrapper>
       </MobileWrapper>
@@ -82,7 +82,7 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
 
           <HorizontalWrapper>
             <SquareButtonWithShadow>
-              Sign out
+              Выйти
             </SquareButtonWithShadow>
           </HorizontalWrapper>
         </ButtonWrapper>
