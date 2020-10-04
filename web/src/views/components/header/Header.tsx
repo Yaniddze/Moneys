@@ -1,13 +1,17 @@
 // Core
 import React, { FC, ReactElement, useState } from 'react';
 import styled from 'styled-components';
+
 // Components
 import { StyledHeader } from './StyledHeader';
 import { Navbar } from './navbar/Navbar';
 import { HamburgerSwitch, ToggleSwitch } from '../switches';
+import { SquareButtonWithShadow } from '../buttons';
+
 // Hooks
 import { useHeaderVM } from '../../../hooks/viewModels/useHeaderVM';
 import { useScreens } from '../../../hooks/useScreens';
+
 // Types
 import { Nav } from './navbar/types';
 import { Screens } from '../../../hooks/useScreens/types';
@@ -48,6 +52,9 @@ const NavsWrapper = styled(VerticalWrapper)`
 
 const ButtonWrapper = styled(VerticalWrapper)`
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
 `;
 
 type MobileWrapperProps = {
@@ -80,6 +87,14 @@ const MobileWrapper = styled.div<MobileWrapperProps>`
 
 const HamburgerWrapper = styled.div`
   z-index: 11;
+`;
+
+const HorizontalWrapper = styled.div`
+  display: flex;
+  & > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const Header: FC<PropTypes> = (
@@ -115,11 +130,17 @@ export const Header: FC<PropTypes> = (
         </NavsWrapper>
 
         <ButtonWrapper>
-          {username}
+          <HorizontalWrapper>
+            <span>
+              {username}
+            </span>
+          </HorizontalWrapper>
 
-          <button type="button">
-            Sign out
-          </button>
+          <HorizontalWrapper>
+            <SquareButtonWithShadow>
+              Sign out
+            </SquareButtonWithShadow>
+          </HorizontalWrapper>
         </ButtonWrapper>
       </>
     );

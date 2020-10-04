@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const SquareButtonWithShadow = styled.button`
   padding: 10px;
   border: none;
-  color: ${(props): string => props.theme.colors.primary.contrast};
-  background: ${(props): string => props.theme.colors.primary.color};
-  box-shadow: 3px 3px ${(props): string => props.theme.colors.secondary.color};
+  color: ${(props): string => props.theme.colors.background.contrast};
+  background: ${(props): string => props.theme.colors.background.color};
+  box-shadow: 3px 3px ${(props): string => props.theme.colors.secondary.contrast};
   transition: .2s all ease;
   font-size: ${(props): string => props.theme.font.btnFontSize};
   width: 100%;
