@@ -1,5 +1,15 @@
 import React, { FC, ReactElement, MouseEvent } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const EnterAnim = keyframes`
+  from {
+    opacity: 0;
+  }
+  
+  to {
+    opacity: 0.2;
+  }
+`;
 
 type BackgroundProps = {
   hidden: boolean;
@@ -15,7 +25,7 @@ const BackgroundWrapper = styled.div<BackgroundProps>`
   background: black;
   z-index: 12;
   
-  transition: 0.2s all ease;
+  animation: ${EnterAnim} 0.2s linear normal;
   
   ${(props): string => (props.hidden && 'display: none;') || ''}
 `;
@@ -24,6 +34,7 @@ const ContentWrapper = styled.div`
   position: fixed;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); 
   border-radius: 10px;
+  opacity: 1;
   
   width: auto;
   height: auto;
