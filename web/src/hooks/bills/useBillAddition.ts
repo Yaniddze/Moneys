@@ -5,9 +5,8 @@ import { useMutation } from '@apollo/client';
 // Queries
 import {
   addBillMutation,
-  Variables,
-  MutationAnswer,
-} from '../../requests/mutations/addBillMutation';
+} from '../../requests/mutations/bills';
+
 import {
   getBillsQuery,
   Variables as QueryVariables,
@@ -16,6 +15,11 @@ import {
 
 // Types
 import { Bill } from '../../domain/types';
+
+import {
+  AddBillMutationAnswer,
+  AddBillVariables,
+} from '../../requests/mutations/bills/types';
 
 type FetchingAnswer = {
   fetching: boolean;
@@ -45,7 +49,7 @@ const initialState: FetchingAnswer = {
 
 export const useBillAddition = (): ReturnType => {
   const { oidcUser } = useReactOidc();
-  const [addBill, options] = useMutation<MutationAnswer, Variables>(addBillMutation,
+  const [addBill, options] = useMutation<AddBillMutationAnswer, AddBillVariables>(addBillMutation,
     {
       update(cache, { data }) {
         if (data !== undefined && data !== null) {

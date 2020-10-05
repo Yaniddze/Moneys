@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 
 // Hooks
-import { useBillAddition } from '../../../hooks/bills/useBillAddition';
+import { useBillAddition } from '../../../hooks/bills';
 
 // Components
 import { ModalContainer } from '../../components/modals';

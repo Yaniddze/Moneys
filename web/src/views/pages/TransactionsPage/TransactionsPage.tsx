@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 // Components
 import { Title } from '../styles';
 import { SimpleLoader } from '../../components/loaders';
+import { SquareButtonWithShadow } from '../../components/buttons';
 
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
@@ -32,6 +33,11 @@ export const TransactionsPage: FC<PropTypes> = () => {
           Транзакции
         </Title>
         {items}
+        <div style={{ display: 'flex' }}>
+          <SquareButtonWithShadow>
+            +
+          </SquareButtonWithShadow>
+        </div>
       </div>
     </Wrapper>
   );
