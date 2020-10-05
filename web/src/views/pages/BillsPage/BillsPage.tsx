@@ -1,9 +1,10 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 // Components
 import { Title } from '../styles';
 import { SimpleLoader } from '../../components/loaders';
+import { ModalContainer } from '../../components/modals';
 
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
@@ -15,6 +16,7 @@ type PropTypes = {
 }
 
 export const BillsPage: FC<PropTypes> = () => {
+  const [modalOpened, setModalOpened] = useState(false);
   const { state } = useBills();
   const addition = useBillAddition();
   const { Wrapper } = usePageWrapper();
@@ -28,9 +30,23 @@ export const BillsPage: FC<PropTypes> = () => {
       </div>
     ));
 
+  const modal = modalOpened && (
+    <ModalContainer
+      handleClose={(): void => {
+        setModalOpened(false);
+      }}
+      hidden={!modalOpened}
+    >
+      <form>
+        <input type="text" />
+      </form>
+    </ModalContainer>
+  );
+
   return (
     <Wrapper>
       <div>
+        { modal }
         { loader }
         <Title>
           124
@@ -41,7 +57,7 @@ export const BillsPage: FC<PropTypes> = () => {
         <button
           type="button"
           onClick={(): void => {
-            addition.fetch('123');
+            setModalOpened((old) => !old);
           }}
         >
           Click
