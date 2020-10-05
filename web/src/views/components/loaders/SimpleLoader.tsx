@@ -6,10 +6,10 @@ const Wrapper = styled.div`
   top: 15%;
   left: 50%;
   
-  transform: translate(-50%, -50%);
-  transform: -webkit-translate(-50%, -50%);
-  transform: -moz-translate(-50%, -50%);
-  transform: -ms-translate(-50%, -50%);
+  transform: translate(-50%, -100%);
+  transform: -webkit-translate(-50%, -100%);
+  transform: -moz-translate(-50%, -100%);
+  transform: -ms-translate(-50%, -100%);
   
   & svg {
     width: 100px;
