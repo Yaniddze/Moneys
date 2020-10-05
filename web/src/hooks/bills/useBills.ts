@@ -1,26 +1,17 @@
 import { useQuery } from '@apollo/client';
 import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 
-import { getBillsQuery, Variables } from '../../requests/queries/getBillsQuery';
+import { getBillsQuery, Variables, QueryAnswer } from '../../requests/queries/getBillsQuery';
 
-type Bill = {
-  id: string;
-  title: string;
-}
-
-type Answer = {
-  success: boolean;
-  errors: string[];
-  data: Bill[];
-}
-
-type AnswerFromServer = {
-  bills: Answer;
-}
+import { Bill } from '../../domain/types';
 
 type FetchingBills = {
   fetching: boolean;
-  data: Answer;
+  data: {
+    success: boolean;
+    errors: string[];
+    data: Bill[];
+  };
 }
 
 type ReturnType = {
@@ -39,7 +30,7 @@ const initState: FetchingBills = {
 export const useBills = (): ReturnType => {
   const { oidcUser } = useReactOidc();
 
-  const { loading, data } = useQuery<AnswerFromServer, Variables>(getBillsQuery, {
+  const { loading, data } = useQuery<QueryAnswer, Variables>(getBillsQuery, {
     variables: {
       command: {
         userId: oidcUser.profile['user.id'],
