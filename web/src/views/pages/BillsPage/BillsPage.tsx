@@ -1,5 +1,5 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 // Components
 import { Title } from '../styles';
@@ -8,16 +8,31 @@ import { SimpleLoader } from '../../components/loaders';
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
 import { useBills } from '../../../hooks/bills';
-import { useAdditionForm } from './useAdditonForm';
+import { AdditionModal } from './AdditonModal';
 
 type PropTypes = {
   children?: never;
 }
 
 export const BillsPage: FC<PropTypes> = () => {
+  const [modalOpened, setModalOpened] = useState(false);
   const { state } = useBills();
   const { Wrapper } = usePageWrapper();
-  const { modal, open } = useAdditionForm();
+
+  const handleModalClose = (): void => {
+    setModalOpened(false);
+  };
+
+  const handleModalOpen = (): void => {
+    setModalOpened(true);
+  };
+
+  const modal = modalOpened && (
+    <AdditionModal
+      handleClose={handleModalClose}
+      hidden={false}
+    />
+  );
 
   const loader = state.fetching && <SimpleLoader />;
   const items = !state.fetching
@@ -34,14 +49,14 @@ export const BillsPage: FC<PropTypes> = () => {
         { modal }
         { loader }
         <Title>
-          124
+          Счета
         </Title>
         <div>
           { items }
         </div>
         <button
           type="button"
-          onClick={open}
+          onClick={handleModalOpen}
         >
           Click
         </button>

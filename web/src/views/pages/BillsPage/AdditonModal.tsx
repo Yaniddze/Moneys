@@ -1,5 +1,9 @@
 // Core
-import React, { ReactElement, useState, MouseEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  MouseEvent,
+} from 'react';
 
 // Hooks
 import { useBillAddition } from '../../../hooks/bills/useBillAddition';
@@ -11,18 +15,19 @@ import { InputChangeEvent } from '../../components/inputs/InputWithAnimatedSpan'
 import { SquareButtonWithShadow } from '../../components/buttons';
 import { SimpleLoader } from '../../components/loaders';
 
-// Types
-type ReturnType = {
-  modal: ReactElement | false;
-  open: () => void;
-}
-
 type FormValue = {
   title: string;
 }
 
-export const useAdditionForm = (): ReturnType => {
-  const [modalOpened, setModalOpened] = useState(false);
+type PropTypes = {
+  children?: never;
+  handleClose: () => void;
+  hidden: boolean;
+}
+
+export const AdditionModal: FC<PropTypes> = (
+  { handleClose, hidden }: PropTypes,
+) => {
   const [formValues, setFormValues] = useState<FormValue>({
     title: '',
   });
@@ -48,6 +53,12 @@ export const useAdditionForm = (): ReturnType => {
     }
   };
 
+  const successMessage = !state.fetching && state.answer.success && (
+    <p>
+      Добавлен
+    </p>
+  );
+
   let errorMessage = '';
 
   if (!state.fetching && state.answer.errors.length > 0) {
@@ -64,16 +75,15 @@ export const useAdditionForm = (): ReturnType => {
 
   const loader = state.fetching && <SimpleLoader />;
 
-  const modal = modalOpened && (
+  return (
     <ModalContainer
-      handleClose={(): void => {
-        setModalOpened(false);
-      }}
-      hidden={!modalOpened}
+      hidden={hidden}
+      handleClose={handleClose}
     >
       <form>
         { loader }
         { errors }
+        { successMessage }
         <InputWithAnimatedSpan
           labelText="Title"
           inputName="title"
@@ -91,13 +101,4 @@ export const useAdditionForm = (): ReturnType => {
       </form>
     </ModalContainer>
   );
-
-  const open = (): void => {
-    setModalOpened(true);
-  };
-
-  return {
-    modal,
-    open,
-  };
 };
