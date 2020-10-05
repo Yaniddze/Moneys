@@ -11,7 +11,7 @@ export type AddTransactionVariables = {
 
 export type AddTransactionMutationAnswer = {
   createTransaction: {
-    data: Transaction[];
+    data: Transaction;
     errors: string[];
     success: boolean;
   };
