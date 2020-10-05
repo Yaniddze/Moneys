@@ -12,7 +12,7 @@ export type QueryAnswer = {
   transactions: {
     data: Transaction[];
     success: boolean;
-    errors: boolean;
+    errors: string[];
   };
 }
 
