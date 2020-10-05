@@ -27,7 +27,7 @@ export const HomePage: FC<PropTypes> = () => {
     <Wrapper>
       <div>
         <Title>
-          Home page
+          Домашняя страница
         </Title>
         {loading}
         {errors}

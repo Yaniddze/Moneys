@@ -11,11 +11,7 @@ const EnterAnim = keyframes`
   }
 `;
 
-type BackgroundProps = {
-  hidden: boolean;
-}
-
-const BackgroundWrapper = styled.div<BackgroundProps>`
+const BackgroundWrapper = styled.div`
   position: fixed;
   left: 0;
   top: 0;
@@ -26,8 +22,6 @@ const BackgroundWrapper = styled.div<BackgroundProps>`
   z-index: 12;
   
   animation: ${EnterAnim} 0.2s linear normal;
-  
-  ${(props): string => (props.hidden && 'display: none;') || ''}
 `;
 
 const ContentWrapper = styled.div`
@@ -49,11 +43,10 @@ const ContentWrapper = styled.div`
 type PropTypes = {
   children: ReactElement;
   handleClose: () => void;
-  hidden: boolean;
 }
 
 export const ModalContainer: FC<PropTypes> = (
-  { children, handleClose, hidden }: PropTypes,
+  { children, handleClose }: PropTypes,
 ) => {
   const handleClick = (e: MouseEvent): void => {
     e.preventDefault();
@@ -65,9 +58,7 @@ export const ModalContainer: FC<PropTypes> = (
   return (
     <div>
       <BackgroundWrapper
-        className={(hidden && 'hide') || ''}
         onClick={handleClick}
-        hidden={hidden}
       />
       <ContentWrapper>
         {children}

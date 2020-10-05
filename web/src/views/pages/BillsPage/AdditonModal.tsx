@@ -22,11 +22,10 @@ type FormValue = {
 type PropTypes = {
   children?: never;
   handleClose: () => void;
-  hidden: boolean;
 }
 
 export const AdditionModal: FC<PropTypes> = (
-  { handleClose, hidden }: PropTypes,
+  { handleClose }: PropTypes,
 ) => {
   const [formValues, setFormValues] = useState<FormValue>({
     title: '',
@@ -77,7 +76,6 @@ export const AdditionModal: FC<PropTypes> = (
 
   return (
     <ModalContainer
-      hidden={hidden}
       handleClose={handleClose}
     >
       <form>

@@ -30,7 +30,6 @@ export const BillsPage: FC<PropTypes> = () => {
   const modal = modalOpened && (
     <AdditionModal
       handleClose={handleModalClose}
-      hidden={false}
     />
   );
 
