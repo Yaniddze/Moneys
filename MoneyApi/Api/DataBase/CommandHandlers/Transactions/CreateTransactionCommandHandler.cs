@@ -6,6 +6,7 @@ using Api.Domain;
 using Api.UseCases.Abstractions;
 using Api.UseCases.Commands.TransactionCommands;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using static Api.UseCases.Abstractions.AbstractAnswer<Api.Domain.Transaction>;
 
 namespace Api.DataBase.CommandHandlers.Transactions
@@ -25,6 +26,22 @@ namespace Api.DataBase.CommandHandlers.Transactions
             {
                 var tempId = Guid.NewGuid();
 
+                var foundedBill =
+                    await context.Bills.FirstOrDefaultAsync(x => x.Id == request.BillId, cancellationToken);
+
+                if (foundedBill is null)
+                {
+                    return CreateFailed(new[] {"Bill not found"});
+                }
+                
+                var foundedType =
+                    await context.TransactionTypes.FirstOrDefaultAsync(x => x.Id == request.TypeId, cancellationToken);
+
+                if (foundedType is null)
+                {
+                    return CreateFailed(new[] {"Transactions type not found"});
+                }
+                
                 context.Transactions.Add(new TransactionDB
                 {
                     Id = tempId,
@@ -43,10 +60,12 @@ namespace Api.DataBase.CommandHandlers.Transactions
                     Type = new TransactionType
                     {
                         Id = request.TypeId,
+                        Title = foundedType.Title
                     },
                     Bill = new Bill
                     {
                         Id = request.BillId,
+                        Title = foundedBill.Title,
                     },
                     Info = new TransactionInfo
                     {
