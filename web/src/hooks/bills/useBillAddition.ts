@@ -3,36 +3,27 @@ import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 import { useMutation } from '@apollo/client';
 
 // Queries
-import { addBillMutation, Variables } from '../../requests/mutations/addBillMutation';
+import {
+  addBillMutation,
+  Variables,
+  MutationAnswer,
+} from '../../requests/mutations/addBillMutation';
 import {
   getBillsQuery,
   Variables as QueryVariables,
+  QueryAnswer,
 } from '../../requests/queries/getBillsQuery';
 
-type Bill = {
-  id: string;
-  title: string;
-}
+// Types
+import { Bill } from '../../domain/types';
 
 type FetchingAnswer = {
   fetching: boolean;
-  answer: Answer;
-}
-
-type Answer = {
-  success: boolean;
-  errors: string[];
-  data: Bill;
-}
-
-type QueryAnswer = {
-  success: boolean;
-  errors: string[];
-  bills: Bill[];
-}
-
-type AnswerFromServer = {
-  createBill: Answer;
+  answer: {
+    data: Bill;
+    errors: string[];
+    success: boolean;
+  };
 }
 
 type ReturnType = {
@@ -54,7 +45,7 @@ const initialState: FetchingAnswer = {
 
 export const useBillAddition = (): ReturnType => {
   const { oidcUser } = useReactOidc();
-  const [addBill, { loading }] = useMutation<AnswerFromServer, Variables>(addBillMutation,
+  const [addBill, options] = useMutation<MutationAnswer, Variables>(addBillMutation,
     {
       update(cache, { data }) {
         if (data !== undefined && data !== null) {
@@ -74,9 +65,9 @@ export const useBillAddition = (): ReturnType => {
           if (existingBills !== undefined && existingBills !== null) {
             let bills: Bill[];
 
-            if (existingBills.bills.length > 0) {
+            if (existingBills.bills.data.length > 0) {
               bills = [
-                ...existingBills.bills,
+                ...existingBills.bills.data,
                 newBill,
               ];
             } else {
@@ -85,7 +76,7 @@ export const useBillAddition = (): ReturnType => {
               ];
             }
 
-            cache.writeQuery({
+            cache.writeQuery<QueryAnswer, QueryVariables>({
               query: getBillsQuery,
               variables: {
                 command: {
@@ -93,9 +84,11 @@ export const useBillAddition = (): ReturnType => {
                 },
               },
               data: {
-                bills,
-                errors: existingBills.errors,
-                success: existingBills.success,
+                bills: {
+                  data: bills,
+                  errors: existingBills.bills.errors,
+                  success: existingBills.bills.success,
+                },
               },
             });
           }
@@ -115,11 +108,11 @@ export const useBillAddition = (): ReturnType => {
   };
 
   const answer: FetchingAnswer = {
-    fetching: loading,
+    fetching: options.loading,
     answer: {
-      success: initialState.answer.success,
-      errors: initialState.answer.errors,
-      data: initialState.answer.data,
+      success: options.data?.createBill.success || initialState.answer.success,
+      errors: options.data?.createBill.errors || initialState.answer.errors,
+      data: options.data?.createBill.data || initialState.answer.data,
     },
   };
 
