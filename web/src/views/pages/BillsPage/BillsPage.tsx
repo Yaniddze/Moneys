@@ -5,6 +5,7 @@ import React, { FC, useState } from 'react';
 import { Title } from '../styles';
 import { SimpleLoader } from '../../components/loaders';
 import { ModalContainer } from '../../components/modals';
+import { InputWithAnimatedSpan } from '../../components/inputs';
 
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
@@ -38,7 +39,12 @@ export const BillsPage: FC<PropTypes> = () => {
       hidden={!modalOpened}
     >
       <form>
-        <input type="text" />
+        <InputWithAnimatedSpan
+          labelText="Title"
+          inputName="title"
+          inputType="text"
+          onChange={() => {}}
+        />
       </form>
     </ModalContainer>
   );
