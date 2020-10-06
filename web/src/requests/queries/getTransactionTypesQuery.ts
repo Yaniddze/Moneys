@@ -10,8 +10,8 @@ export type QueryAnswer = {
 }
 
 export const getTransactionTypeQuery = gql`
-  query GetTransactionTypes() {
-    transactionTypes() {
+  query {
+    transactionTypes {
       data {
         title,
         id,
