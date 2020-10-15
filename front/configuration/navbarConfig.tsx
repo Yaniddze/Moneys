@@ -2,7 +2,7 @@ import { Nav } from '../components/header/navbar/types';
 
 export const navs: Nav[] = [
   {
-    path: '/home',
+    path: '/',
     title: 'Домой',
   },
   {
