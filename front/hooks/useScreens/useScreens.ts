@@ -2,9 +2,9 @@
 import { useScreenStorage } from '../storage/useScreenStorage';
 
 // Types
-import { Screens, SortedScreensValues } from './types';
+import { MinWidths, SortedScreensValues } from './types';
 
-export const useScreens = (): Screens => {
+export const useScreens = (): MinWidths => {
   const { width } = useScreenStorage();
 
   for (let i = 0; i < SortedScreensValues.length; i++) {
@@ -15,5 +15,5 @@ export const useScreens = (): Screens => {
     }
   }
 
-  return Screens.PC;
+  return MinWidths.PC;
 };

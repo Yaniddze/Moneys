@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useScreens } from './useScreens';
 import { WrapperProps } from '../components/wrappers/types';
-import { Screens } from './useScreens/types';
+import { MinWidths } from './useScreens/types';
 import { MobileWrapper, PcWrapper, TabletWrapper } from '../components/wrappers';
 
 type ReturnType = {
@@ -15,15 +15,15 @@ export const usePageWrapper = (): ReturnType => {
   let Wrapper: FC<WrapperProps> = () => <div />;
 
   switch (screen) {
-    case Screens.PC:
+    case MinWidths.PC:
       Wrapper = PcWrapper;
       break;
 
-    case Screens.Tablet:
+    case MinWidths.Tablet:
       Wrapper = TabletWrapper;
       break;
 
-    case Screens.Mobile:
+    case MinWidths.Mobile:
       Wrapper = MobileWrapper;
       break;
 

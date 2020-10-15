@@ -11,10 +11,12 @@
     "@apollo/client": "^3.2.4",
     "@axa-fr/react-oidc-context": "^3.1.6",
     "axios": "^0.20.0",
+    "graphql": "^15.3.0",
     "js-cookie": "^2.2.1",
     "lodash.debounce": "^4.0.8",
     "mobx": "^6.0.1",
     "next": "9.5.5",
+    "oidc-client": "^1.10.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "styled-components": "^5.2.0"

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { observable, autorun } from 'mobx';
 
 const storage = observable({
-  width: window.innerWidth,
+  width: 0,
 });
 
 type ReturnType = {

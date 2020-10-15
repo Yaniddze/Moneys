@@ -17,7 +17,7 @@ import { SquareButtonWithShadow } from '../buttons';
 
 // Hooks
 import { useScreens } from '../../hooks/useScreens';
-import { Screens } from '../../hooks/useScreens/types';
+import { MinWidths } from '../../hooks/useScreens/types';
 
 // Types
 import { Nav } from './navbar/types';
@@ -34,20 +34,20 @@ type PropTypes = {
 
 export const useHeaderWrappers = (props: PropTypes): ReturnType => {
   const width = useScreens();
-  const [navOffset, setNavOffset] = useState(-Screens.PC);
+  const [navOffset, setNavOffset] = useState(-MinWidths.PC);
   const [hamburgerClicked, setHamburgerClicked] = useState(false);
   const { username, navs } = props;
 
   const handleHamburgerClick = (value: boolean): void => {
     setHamburgerClicked(value);
-    setNavOffset((old) => (old !== 0 ? 0 : -Screens.PC));
+    setNavOffset((old) => (old !== 0 ? 0 : -MinWidths.PC));
   };
 
   const handleMobileWrapperClick = (): void => {
     handleHamburgerClick(false);
   };
 
-  const menuSwitch = width === Screens.Mobile && (
+  const menuSwitch = width === MinWidths.Mobile && (
     <HamburgerWrapper>
       <HamburgerSwitch
         clicked={hamburgerClicked}
@@ -58,7 +58,7 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
 
   let navBar: ReactElement;
 
-  if (width === Screens.Mobile) {
+  if (width === MinWidths.Mobile) {
     navBar = (
       <MobileWrapper
         onClick={handleMobileWrapperClick}

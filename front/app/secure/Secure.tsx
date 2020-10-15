@@ -1,5 +1,10 @@
 // Core
-import { FC, ReactElement } from 'react';
+import { 
+  FC, 
+  ReactElement, 
+  useEffect,
+  useState,
+} from 'react';
 import {
   AuthenticationProvider,
   InMemoryWebStorage,
@@ -21,18 +26,34 @@ type PropTypes = {
 
 export const Secure: FC<PropTypes> = (
   { children }: PropTypes,
-) => (
-  <AuthenticationProvider
-    isEnabled
-    configuration={oidcConfig}
-    UserStore={InMemoryWebStorage}
-    authenticating={Authenticating}
-    notAuthenticated={NotAuthenticated}
-    notAuthorized={NotAuthorized}
-    callbackComponentOverride={Callback}
-  >
-    <OidcSecure>
-      {children}
-    </OidcSecure>
-  </AuthenticationProvider>
-);
+) => {
+  const [Wrapper, setWrapper] = useState<FC>(
+    () => (<div />),
+  );
+
+  useEffect(() => {
+    setWrapper(
+      (props) => (
+        <AuthenticationProvider
+          isEnabled
+          configuration={oidcConfig}
+          UserStore={InMemoryWebStorage}
+          authenticating={Authenticating}
+          notAuthenticated={NotAuthenticated}
+          notAuthorized={NotAuthorized}
+          callbackComponentOverride={Callback}
+        >
+          <OidcSecure>
+            {props.children}
+          </OidcSecure>
+        </AuthenticationProvider>
+      ), 
+    );
+  });
+  
+  return (
+    <Wrapper>
+      { children }
+    </Wrapper>
+  );
+};

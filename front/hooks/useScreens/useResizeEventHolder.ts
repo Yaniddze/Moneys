@@ -12,6 +12,7 @@ export const useResizeEventHolder = (): void => {
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
+    setWidth(window.innerWidth);
 
     return (): void => {
       window.removeEventListener('resize', handleResize);
