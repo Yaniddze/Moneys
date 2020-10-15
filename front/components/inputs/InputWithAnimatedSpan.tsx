@@ -1,10 +1,15 @@
 // Core
-import React, { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import styled from 'styled-components';
 
 // Components
 import { LabelAnimationStyles } from './LabelAnimationStyles';
 import { StyledInput } from './StyledInput';
+
+export type InputChangeEvent = {
+  name: string;
+  newText: string;
+};
 
 type PropTypes = {
   children?: never;
@@ -12,11 +17,6 @@ type PropTypes = {
   inputName: string;
   inputType: string;
   onChange: (e: InputChangeEvent) => void;
-};
-
-export type InputChangeEvent = {
-  name: string;
-  newText: string;
 };
 
 const Wrapper = styled.div`

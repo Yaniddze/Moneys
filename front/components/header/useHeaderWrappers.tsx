@@ -1,5 +1,5 @@
 // Core
-import React, { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 // Wrappers
 import {
@@ -16,8 +16,8 @@ import { Navbar } from './navbar/Navbar';
 import { SquareButtonWithShadow } from '../buttons';
 
 // Hooks
-import { useScreens } from '../../../hooks/useScreens';
-import { Screens } from '../../../hooks/useScreens/types';
+import { useScreens } from '../../hooks/useScreens';
+import { Screens } from '../../hooks/useScreens/types';
 
 // Types
 import { Nav } from './navbar/types';

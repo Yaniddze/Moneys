@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 const Wrapper = createGlobalStyle`

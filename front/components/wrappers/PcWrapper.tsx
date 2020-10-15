@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { Screens } from '../../../hooks/useScreens/types';
+import { Screens } from '../../hooks/useScreens/types';
 import { WrapperProps } from './types';
 
 const Wrapper = styled.div`

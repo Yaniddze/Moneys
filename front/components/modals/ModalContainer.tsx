@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, MouseEvent } from 'react';
+import { FC, ReactElement, MouseEvent } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const EnterAnim = keyframes`

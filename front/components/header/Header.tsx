@@ -1,5 +1,5 @@
 // Core
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 // Styles
 import {
@@ -12,7 +12,7 @@ import {
 import { ToggleSwitch } from '../switches';
 
 // Hooks
-import { useHeaderVM } from '../../../hooks/viewModels/useHeaderVM';
+import { useHeaderVM } from '../../hooks/viewModels/useHeaderVM';
 import { useHeaderWrappers } from './useHeaderWrappers';
 
 // Types
