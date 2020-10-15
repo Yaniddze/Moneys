@@ -1,12 +1,18 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import { Nav } from './types';
 
 type PropTypes = {
   children?: never;
   navs: Nav[];
 }
+
+const StyledLink = styled.a`
+  text-decoration: none;
+`;
 
 const Selected = styled.div`
   color: ${(props): string => props.theme.colors.primary.contrast};
@@ -22,7 +28,7 @@ const NotSelected = styled.div`
 export const Navbar: FC<PropTypes> = (
   { navs }: PropTypes,
 ) => {
-  const location = useLocation();
+  const location = useRouter();
 
   const navsToShow = navs.map((nav) => {
     if (nav.path === location.pathname) {
@@ -35,8 +41,10 @@ export const Navbar: FC<PropTypes> = (
 
     return (
       <NotSelected key={nav.path}>
-        <Link to={nav.path}>
-          { nav.title }
+        <Link href={nav.path}>
+          <StyledLink>
+            { nav.title }
+          </StyledLink>
         </Link>
       </NotSelected>
     );
