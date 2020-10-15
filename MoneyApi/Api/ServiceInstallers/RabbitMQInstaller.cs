@@ -1,11 +1,12 @@
-﻿using Api.EventBus;
+﻿using System.Threading;
+using Api.EventBus;
 using Api.EventBus.Abstractions;
 using Api.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
-using Api.EventBus;
 using Api.ServiceInstallers.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Api.ServiceInstallers
 {
@@ -17,15 +18,30 @@ namespace Api.ServiceInstallers
             var optionsFromConfig = configuration.GetSection(nameof(RabbitMQOptions));
             
             optionsFromConfig.Bind(rabbitConfig);
+            
+            var logger = services.BuildServiceProvider().GetService<ILogger<RabbitMQInstaller>>();
 
-            services.AddSingleton<IEventBus>(new RabbitBus(new ConnectionFactory
+            while (true)
             {
-                HostName = rabbitConfig.Host,
-                Port = rabbitConfig.Port,
-                UserName = rabbitConfig.User,
-                Password = rabbitConfig.Password,
-                DispatchConsumersAsync = true,
-            }, services.BuildServiceProvider()));
+                try
+                {
+                    services.AddSingleton<IEventBus>(new RabbitBus(new ConnectionFactory
+                    {
+                        HostName = rabbitConfig.Host,
+                        Port = rabbitConfig.Port,
+                        UserName = rabbitConfig.User,
+                        Password = rabbitConfig.Password,
+                        DispatchConsumersAsync = true,
+                    }, services.BuildServiceProvider()));
+
+                    break;
+                }
+                catch
+                {
+                    logger.LogInformation("Failed connect to RabbitMQ. Sleep 10s...");
+                    Thread.Sleep(10000);
+                }
+            }
         }
     }
 }
