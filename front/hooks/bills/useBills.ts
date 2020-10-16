@@ -34,7 +34,7 @@ export const useBills = (): ReturnType => {
   const { loading, data, client } = useQuery<QueryAnswer, Variables>(getBillsQuery, {
     variables: {
       command: {
-        userId: user?.profile['user.id'] || '123',
+        userId: user?.profile['user.id'],
       },
     },
   });

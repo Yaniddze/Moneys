@@ -15,6 +15,7 @@ import {
   AddTransactionVariables,
 } from '../../requests/mutations/transactions/types';
 import { Transaction } from '../../domain/types';
+import { useUserStorage } from '../storage/useUserStorage';
 
 type FetchingType = {
   fetching: boolean;
@@ -61,6 +62,7 @@ const initState: FetchingType = {
 };
 
 export const useTransactionAddition = (): ReturnType => {
+  const { user } = useUserStorage();
   const [addTransaction, options] = useMutation<
     AddTransactionMutationAnswer, AddTransactionVariables
   >(
@@ -79,7 +81,7 @@ export const useTransactionAddition = (): ReturnType => {
             query: getTransactionsQuery,
             variables: {
               command: {
-                userId: '123',
+                userId: user.profile['user.id'],
               },
             },
           });
@@ -100,7 +102,7 @@ export const useTransactionAddition = (): ReturnType => {
               query: getTransactionsQuery,
               variables: {
                 command: {
-                  userId: '123',
+                  userId: user.profile['user.id'],
                 },
               },
               data: {
@@ -130,7 +132,7 @@ export const useTransactionAddition = (): ReturnType => {
         date,
         description,
         typeId,
-        userId: '123',
+        userId: user.profile['user.id'],
         value,
       },
     });

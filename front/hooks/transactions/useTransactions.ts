@@ -7,6 +7,7 @@ import {
 } from '../../requests/queries/getTransactionsQuery';
 
 import { Transaction } from '../../domain/types';
+import { useUserStorage } from '../storage/useUserStorage';
 
 type FetchingAnswer = {
   fetching: boolean;
@@ -31,13 +32,18 @@ const initState: FetchingAnswer = {
 };
 
 export const useTransactions = (): ReturnType => {
-  const { loading, data } = useQuery<QueryAnswer, Variables>(getTransactionsQuery, {
+  const { user } = useUserStorage();
+  const { loading, data, client } = useQuery<QueryAnswer, Variables>(getTransactionsQuery, {
     variables: {
       command: {
-        userId: '123',
+        userId: user?.profile['user.id'],
       },
     },
   });
+
+  if (user === null) {
+    client.stop();
+  }
 
   const transactions: FetchingAnswer = {
     fetching: loading,
