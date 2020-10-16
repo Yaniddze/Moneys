@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react';
 import { ApolloProvider } from '@apollo/client';
-// import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
+import { useUserStorage } from '../../hooks/storage/useUserStorage';
 
 import { createClient } from './apolloConfig';
 
@@ -11,8 +11,8 @@ type PropTypes = {
 export const Apollo: FC<PropTypes> = ({
   children,
 }: PropTypes) => {
-  // const { oidcUser } = useReactOidc();
-  const client = createClient('123');
+  const { user } = useUserStorage();
+  const client = createClient(user?.access_token);
 
   return (
     <ApolloProvider client={client}>

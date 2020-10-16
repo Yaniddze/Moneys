@@ -4,6 +4,8 @@ import { getBillsQuery, Variables, QueryAnswer } from '../../requests/queries/ge
 
 import { Bill } from '../../domain/types';
 
+import { useUserStorage } from '../storage/useUserStorage';
+
 type FetchingBills = {
   fetching: boolean;
   data: {
@@ -27,13 +29,19 @@ const initState: FetchingBills = {
 };
 
 export const useBills = (): ReturnType => {
-  const { loading, data } = useQuery<QueryAnswer, Variables>(getBillsQuery, {
+  const { user } = useUserStorage();
+
+  const { loading, data, client } = useQuery<QueryAnswer, Variables>(getBillsQuery, {
     variables: {
       command: {
-        userId: '123',
+        userId: user?.profile['user.id'] || '123',
       },
     },
   });
+
+  if (user === null) {
+    client.stop();
+  }
 
   const bills = {
     fetching: loading,

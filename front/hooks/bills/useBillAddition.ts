@@ -19,6 +19,7 @@ import {
   AddBillMutationAnswer,
   AddBillVariables,
 } from '../../requests/mutations/bills/types';
+import { useUserStorage } from '../storage/useUserStorage';
 
 type FetchingAnswer = {
   fetching: boolean;
@@ -47,6 +48,7 @@ const initialState: FetchingAnswer = {
 };
 
 export const useBillAddition = (): ReturnType => {
+  const { user } = useUserStorage();
   const [addBill, options] = useMutation<AddBillMutationAnswer, AddBillVariables>(addBillMutation,
     {
       update(cache, { data }) {
@@ -59,7 +61,7 @@ export const useBillAddition = (): ReturnType => {
             query: getBillsQuery,
             variables: {
               command: {
-                userId: '123',
+                userId: user.profile['user.id'],
               },
             },
           });
@@ -82,7 +84,7 @@ export const useBillAddition = (): ReturnType => {
               query: getBillsQuery,
               variables: {
                 command: {
-                  userId: oidcUser.profile['user.id'],
+                  userId: user.profile['user.id'],
                 },
               },
               data: {
@@ -102,7 +104,7 @@ export const useBillAddition = (): ReturnType => {
     addBill({
       variables: {
         request: {
-          userId: oidcUser.profile['user.id'],
+          userId: user.profile['user.id'],
           title,
         },
       },
