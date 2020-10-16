@@ -15,6 +15,9 @@ import { ToggleSwitch } from '../switches';
 import { useHeaderValues } from '../../hooks/viewModels/useHeaderValues';
 import { useHeaderWrappers } from './useHeaderWrappers';
 
+// Utils
+import { deleteUser } from '../../utils/cookieUtils';
+
 // Types
 import { Nav } from './navbar/types';
 
@@ -31,6 +34,7 @@ export const Header: FC<PropTypes> = (
   const { menuSwitch, navBar } = useHeaderWrappers({
     username,
     navs,
+    onLogout: deleteUser,
   });
 
   return (

@@ -1,5 +1,5 @@
 // Core
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, MouseEvent } from 'react';
 
 // Wrappers
 import {
@@ -18,6 +18,7 @@ import { SquareButtonWithShadow } from '../buttons';
 // Hooks
 import { useScreens } from '../../hooks/useScreens';
 import { MinWidths } from '../../hooks/useScreens/types';
+import { useUserManager } from '../../hooks/useUserManager';
 
 // Types
 import { Nav } from './navbar/types';
@@ -30,13 +31,16 @@ type ReturnType = {
 type PropTypes = {
   navs: Nav[];
   username: string;
+  onLogout: () => void;
 }
 
-export const useHeaderWrappers = (props: PropTypes): ReturnType => {
+export const useHeaderWrappers = ({ 
+  username, navs, onLogout,
+}: PropTypes): ReturnType => {
   const width = useScreens();
   const [navOffset, setNavOffset] = useState(-MinWidths.PC);
   const [hamburgerClicked, setHamburgerClicked] = useState(false);
-  const { username, navs } = props;
+  const { manager } = useUserManager();
 
   const handleHamburgerClick = (value: boolean): void => {
     setHamburgerClicked(value);
@@ -45,6 +49,12 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
 
   const handleMobileWrapperClick = (): void => {
     handleHamburgerClick(false);
+  };
+
+  const handleLogout = (e: MouseEvent) => {
+    e.preventDefault();
+    onLogout();
+    manager.signoutRedirect();
   };
 
   const menuSwitch = width === MinWidths.Mobile && (
@@ -72,7 +82,7 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
         </HorizontalWrapper>
 
         <HorizontalWrapper>
-          <SquareButtonWithShadow>
+          <SquareButtonWithShadow onClick={handleLogout}>
             Выйти
           </SquareButtonWithShadow>
         </HorizontalWrapper>
@@ -93,7 +103,7 @@ export const useHeaderWrappers = (props: PropTypes): ReturnType => {
           </HorizontalWrapper>
 
           <HorizontalWrapper>
-            <SquareButtonWithShadow>
+            <SquareButtonWithShadow onClick={handleLogout}>
               Выйти
             </SquareButtonWithShadow>
           </HorizontalWrapper>

@@ -6,7 +6,8 @@ import {
   autorun,
 } from 'mobx';
 import { User } from 'oidc-client';
-import Cookies, { CookieAttributes } from 'js-cookie';
+
+import { saveUser } from '../../utils/cookieUtils';
 
 class Storage {
   user: User = null;
@@ -39,12 +40,7 @@ export const useUserStorage = (): ReturnType => {
 
   const changeUser = (newUser: User) => {
     if (newUser !== null) {
-      const options: CookieAttributes = {
-        //  secure: true,
-      };
-
-      Cookies.set('access', newUser.access_token, options);
-      Cookies.set('user.id', newUser.profile['user.id'], options);
+      saveUser(newUser.access_token, newUser.profile['user.id']);
     }
     storage.setUser(newUser);
   };
