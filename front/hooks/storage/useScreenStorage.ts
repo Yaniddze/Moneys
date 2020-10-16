@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 
 class Storage {
-  width = 0;
+  width = 1200;
 
   constructor() {
     makeObservable(this, {
@@ -34,6 +34,10 @@ export const useScreenStorage = (): ReturnType => {
   useEffect(() => autorun(() => {
     setWidth(storageInstance.width);
   }), []);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  });
 
   return {
     width,
