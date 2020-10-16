@@ -1,5 +1,5 @@
 // Core
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 // Components
 import { Title } from '../../components/Title';
@@ -13,11 +13,7 @@ import { useTransactions } from '../../hooks/transactions';
 import { useBills } from '../../hooks/bills';
 import { useTransactionTypes } from '../../hooks/useTransactionTypes';
 
-type PropTypes = {
-  children?: never;
-}
-
-export const TransactionsPage: FC<PropTypes> = () => {
+export default function Transactions(): JSX.Element {
   const [modalShown, setModalShown] = useState(false);
   const { Wrapper } = usePageWrapper();
   const { state } = useTransactions();
@@ -72,4 +68,4 @@ export const TransactionsPage: FC<PropTypes> = () => {
       </div>
     </Wrapper>
   );
-};
+}

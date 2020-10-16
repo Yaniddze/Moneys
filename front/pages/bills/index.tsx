@@ -1,5 +1,5 @@
 // Core
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 // Components
 import { Title } from '../../components/Title';
@@ -10,11 +10,7 @@ import { usePageWrapper } from '../../hooks/usePageWrapper';
 import { useBills } from '../../hooks/bills';
 import { AdditionModal } from './AdditonModal';
 
-type PropTypes = {
-  children?: never;
-}
-
-export const BillsPage: FC<PropTypes> = () => {
+export default function Bills(): JSX.Element {
   const [modalOpened, setModalOpened] = useState(false);
   const { state } = useBills();
   const { Wrapper } = usePageWrapper();
@@ -63,4 +59,4 @@ export const BillsPage: FC<PropTypes> = () => {
       </div>
     </Wrapper>
   );
-};
+}
