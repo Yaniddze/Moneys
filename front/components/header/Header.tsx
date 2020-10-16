@@ -12,7 +12,7 @@ import {
 import { ToggleSwitch } from '../switches';
 
 // Hooks
-import { useHeaderVM } from '../../hooks/viewModels/useHeaderVM';
+import { useHeaderValues } from '../../hooks/viewModels/useHeaderValues';
 import { useHeaderWrappers } from './useHeaderWrappers';
 
 // Types
@@ -26,7 +26,7 @@ type PropTypes = {
 export const Header: FC<PropTypes> = (
   { navs }: PropTypes,
 ) => {
-  const { username, light, reverseLight } = useHeaderVM();
+  const { username, light, reverseLight } = useHeaderValues();
 
   const { menuSwitch, navBar } = useHeaderWrappers({
     username,

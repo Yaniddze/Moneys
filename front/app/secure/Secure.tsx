@@ -2,6 +2,7 @@
 import { 
   FC, 
   ReactElement, 
+  useEffect,
 } from 'react';
 import { useRouter } from 'next/router';
 
@@ -21,17 +22,19 @@ export const Secure: FC<PropTypes> = (
 
   const { manager } = useUserManager();
 
-  if (manager !== null) {
-    manager.getUser()
-      .then((user) => {
-        if (user === null) {
-          setUser(user);
-          if (router.pathname !== '/authentication/callback') {
-            manager.signinRedirect();
+  useEffect(() => {
+    if (manager !== null) {
+      manager.getUser()
+        .then((user) => {
+          if (user === null) {
+            if (router.pathname !== '/authentication/callback') {
+              manager.signinRedirect();
+            }
           }
-        }
-      });
-  }
+          setUser(user);
+        });
+    }
+  }, [manager]);
   
   return (
     <div>

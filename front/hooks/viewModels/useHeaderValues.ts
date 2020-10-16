@@ -1,8 +1,6 @@
-// Core
-// import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
-
 // Hooks
 import { useThemeStorage } from '../storage/useThemeStorage';
+import { useUserStorage } from '../storage/useUserStorage';
 
 type ReturnType = {
   username: string;
@@ -10,13 +8,13 @@ type ReturnType = {
   reverseLight: () => void;
 }
 
-export const useHeaderVM = (): ReturnType => {
-  // const { oidcUser } = useReactOidc();
+export const useHeaderValues = (): ReturnType => {
+  const { user } = useUserStorage();
   const { light, reverseLight } = useThemeStorage();
-  // const username = oidcUser.profile.preferred_username || 'unfounded';
+  const username = user?.profile.preferred_username || 'not found';
 
   return {
-    username: '123',
+    username,
     light,
     reverseLight,
   };
