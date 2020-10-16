@@ -1,28 +1,42 @@
 import { useState, useEffect } from 'react';
-import { observable, autorun } from 'mobx';
+import {
+  makeObservable,
+  observable, 
+  action,
+  autorun,
+} from 'mobx';
 
-const storage = observable({
-  width: 0,
-});
+class Storage {
+  width = 0;
+
+  constructor() {
+    makeObservable(this, {
+      width: observable,
+      setWidth: action,
+    });
+  }
+
+  setWidth(value: number) {
+    this.width = value;
+  }
+}
 
 type ReturnType = {
   width: number;
   setWidth: (value: number) => void;
 }
 
-export const useScreenStorage = (): ReturnType => {
-  const [width, setWidth] = useState(storage.width);
+const storageInstance = new Storage();
 
-  const resetWidth = (value: number): void => {
-    storage.width = value;
-  };
+export const useScreenStorage = (): ReturnType => {
+  const [width, setWidth] = useState(storageInstance.width);
 
   useEffect(() => autorun(() => {
-    setWidth(storage.width);
+    setWidth(storageInstance.width);
   }), []);
 
   return {
     width,
-    setWidth: resetWidth,
+    setWidth: storageInstance.setWidth.bind(storageInstance),
   };
 };

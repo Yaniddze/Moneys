@@ -1,10 +1,26 @@
 import { useState, useEffect } from 'react';
-import { observable, autorun } from 'mobx';
+import {
+  makeObservable,
+  observable, 
+  action,
+  autorun,
+} from 'mobx';
 import { User } from 'oidc-client';
 import Cookies, { CookieAttributes } from 'js-cookie';
 
-type StoreType = {
-  user: User,
+class Storage {
+  user: User = null;
+
+  constructor() {
+    makeObservable(this, {
+      user: observable,
+      setUser: action,
+    });
+  }
+
+  setUser(user: User) {
+    this.user = user;
+  }
 }
 
 type ReturnType = {
@@ -12,9 +28,7 @@ type ReturnType = {
   setUser: (user: User) => void;
 }
 
-const storage = observable<StoreType>({
-  user: null,
-});
+const storage = new Storage();
 
 export const useUserStorage = (): ReturnType => {
   const [user, setUser] = useState(storage.user);
@@ -32,7 +46,7 @@ export const useUserStorage = (): ReturnType => {
       Cookies.set('access', newUser.access_token, options);
       Cookies.set('user.id', newUser.profile['user.id'], options);
     }
-    storage.user = newUser;
+    storage.setUser(newUser);
   };
 
   return {

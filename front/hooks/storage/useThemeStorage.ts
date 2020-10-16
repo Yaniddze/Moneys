@@ -1,7 +1,31 @@
 // Core
 import { useEffect, useState } from 'react';
-import { observable, autorun } from 'mobx';
+import {
+  makeObservable,
+  observable, 
+  action,
+  autorun,
+} from 'mobx';
 import Cookies from 'js-cookie';
+
+export const lightValue = 'light';
+export const darkValue = 'dark';
+export const cookieName = 'Moneys.Theme';
+
+class Storage {
+  light = Cookies.get(cookieName) === lightValue;
+
+  constructor() {
+    makeObservable(this, {
+      light: observable,
+      setLight: action,
+    });
+  }
+
+  setLight(value: boolean) {
+    this.light = value;
+  }
+}
 
 export type ThemeStorage = {
   light: boolean;
@@ -12,13 +36,7 @@ type ReturnType = {
   reverseLight: () => void;
 }
 
-export const lightValue = 'light';
-export const darkValue = 'dark';
-export const cookieName = 'Moneys.Theme';
-
-const storage = observable<ThemeStorage>({
-  light: Cookies.get(cookieName) === lightValue,
-});
+const storage = new Storage();
 
 export const useThemeStorage = (): ReturnType => {
   const [current, setCurrent] = useState(storage.light);
@@ -33,7 +51,7 @@ export const useThemeStorage = (): ReturnType => {
   }), []);
 
   const reverseLight = (): void => {
-    storage.light = !storage.light;
+    storage.setLight(!storage.light);
   };
 
   return {
