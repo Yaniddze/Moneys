@@ -29,8 +29,12 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
   }
   
-  #root {
+  #__next {
     height: 100%;
+
+    > div {
+      height: 100%;
+    }
   }
 `;
 

@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 
 import {
   Variables,
@@ -32,11 +31,10 @@ const initState: FetchingAnswer = {
 };
 
 export const useTransactions = (): ReturnType => {
-  const { oidcUser } = useReactOidc();
   const { loading, data } = useQuery<QueryAnswer, Variables>(getTransactionsQuery, {
     variables: {
       command: {
-        userId: oidcUser.profile['user.id'],
+        userId: '123',
       },
     },
   });

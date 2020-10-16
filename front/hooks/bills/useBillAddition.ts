@@ -1,5 +1,4 @@
 // Core
-import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 import { useMutation } from '@apollo/client';
 
 // Queries
@@ -48,7 +47,6 @@ const initialState: FetchingAnswer = {
 };
 
 export const useBillAddition = (): ReturnType => {
-  const { oidcUser } = useReactOidc();
   const [addBill, options] = useMutation<AddBillMutationAnswer, AddBillVariables>(addBillMutation,
     {
       update(cache, { data }) {
@@ -61,7 +59,7 @@ export const useBillAddition = (): ReturnType => {
             query: getBillsQuery,
             variables: {
               command: {
-                userId: oidcUser.profile['user.id'],
+                userId: '123',
               },
             },
           });

@@ -2,23 +2,12 @@
 import { 
   FC, 
   ReactElement, 
-  useEffect,
-  useState,
 } from 'react';
-import {
-  AuthenticationProvider,
-  InMemoryWebStorage,
-  OidcSecure,
-} from '@axa-fr/react-oidc-context/dist';
+import { useRouter } from 'next/router';
 
-// Config
-import { oidcConfig } from '../../configuration/oidcConfig';
-
-// Pages
-import { Authenticating } from './Authenticating';
-import { NotAuthenticated } from './NotAuthenticated';
-import { NotAuthorized } from './NotAuthorized';
-import { Callback } from './Callback';
+// Hooks
+import { useUserManager } from '../../hooks/useUserManager';
+import { useUserStorage } from '../../hooks/storage/useUserStorage';
 
 type PropTypes = {
   children: ReactElement;
@@ -27,33 +16,26 @@ type PropTypes = {
 export const Secure: FC<PropTypes> = (
   { children }: PropTypes,
 ) => {
-  const [Wrapper, setWrapper] = useState<FC>(
-    () => (<div />),
-  );
+  const router = useRouter();
+  const { setUser } = useUserStorage();
 
-  useEffect(() => {
-    setWrapper(
-      (props) => (
-        <AuthenticationProvider
-          isEnabled
-          configuration={oidcConfig}
-          UserStore={InMemoryWebStorage}
-          authenticating={Authenticating}
-          notAuthenticated={NotAuthenticated}
-          notAuthorized={NotAuthorized}
-          callbackComponentOverride={Callback}
-        >
-          <OidcSecure>
-            {props.children}
-          </OidcSecure>
-        </AuthenticationProvider>
-      ), 
-    );
-  });
+  const { manager } = useUserManager();
+
+  if (manager !== null) {
+    manager.getUser()
+      .then((user) => {
+        if (user === null) {
+          setUser(user);
+          if (router.pathname !== '/authentication/callback') {
+            manager.signinRedirect();
+          }
+        }
+      });
+  }
   
   return (
-    <Wrapper>
+    <div>
       { children }
-    </Wrapper>
+    </div>
   );
 };

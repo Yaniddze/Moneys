@@ -2,7 +2,7 @@
 import { FC } from 'react';
 
 // Hooks
-import { useBills } from '../hooks/bills';
+// import { useBills } from '../hooks/bills';
 import { usePageWrapper } from '../hooks/usePageWrapper';
 
 // Styles
@@ -10,18 +10,14 @@ import {
   Title,
 } from '../components/Title';
 
-type PropTypes = {
-  children?: never;
-}
-
-export const HomePage: FC<PropTypes> = () => {
-  const { state } = useBills();
+export default function HomePage(): JSX.Element {
+  // const { state } = useBills();
   const { Wrapper } = usePageWrapper();
 
-  const loading = state.fetching && <div>Loading</div>;
-  const errors = !state.fetching && !state.data.success && state.data.errors.map((er) => (
-    <div>{er}</div>
-  ));
+  // const loading = state.fetching && <div>Loading</div>;
+  // const errors = !state.fetching && !state.data.success && state.data.errors.map((er) => (
+  // <div>{er}</div>
+  // ));
 
   return (
     <Wrapper>
@@ -29,9 +25,9 @@ export const HomePage: FC<PropTypes> = () => {
         <Title>
           Домашняя страница
         </Title>
-        {loading}
-        {errors}
+        {/* {loading} */}
+        {/* {errors} */}
       </div>
     </Wrapper>
   );
-};
+}

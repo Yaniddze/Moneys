@@ -1,5 +1,4 @@
 // Core
-import { useReactOidc } from '@axa-fr/react-oidc-context/dist';
 import { useMutation } from '@apollo/client';
 
 // Query
@@ -62,7 +61,6 @@ const initState: FetchingType = {
 };
 
 export const useTransactionAddition = (): ReturnType => {
-  const { oidcUser } = useReactOidc();
   const [addTransaction, options] = useMutation<
     AddTransactionMutationAnswer, AddTransactionVariables
   >(
@@ -81,7 +79,7 @@ export const useTransactionAddition = (): ReturnType => {
             query: getTransactionsQuery,
             variables: {
               command: {
-                userId: oidcUser.profile['user.id'],
+                userId: '123',
               },
             },
           });
@@ -102,7 +100,7 @@ export const useTransactionAddition = (): ReturnType => {
               query: getTransactionsQuery,
               variables: {
                 command: {
-                  userId: oidcUser.profile['user.id'],
+                  userId: '123',
                 },
               },
               data: {
@@ -132,7 +130,7 @@ export const useTransactionAddition = (): ReturnType => {
         date,
         description,
         typeId,
-        userId: oidcUser.profile['user.id'],
+        userId: '123',
         value,
       },
     });
