@@ -10,16 +10,15 @@ type PropTypes = {
   navs: Nav[];
 }
 
-const StyledLink = styled.a`
-  text-decoration: none;
-`;
-
 const Selected = styled.div`
   color: ${(props): string => props.theme.colors.primary.contrast};
 `;
 
 const NotSelected = styled.div`
-  & * {
+  a {
+    :hover {      
+      curosr: pointer;
+    }
     text-decoration: none;
     color: ${(props): string => props.theme.colors.secondary.contrast};
   }
@@ -42,9 +41,7 @@ export const Navbar: FC<PropTypes> = (
     return (
       <NotSelected key={nav.path}>
         <Link href={nav.path}>
-          <StyledLink>
-            { nav.title }
-          </StyledLink>
+          { nav.title }
         </Link>
       </NotSelected>
     );
