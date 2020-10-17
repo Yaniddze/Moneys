@@ -1,5 +1,6 @@
 // Core
 import { FC } from 'react';
+import { Switch, withStyles } from '@material-ui/core';
 
 // Styles
 import {
@@ -7,9 +8,6 @@ import {
   VerticalWrapper,
   StyledHeader,
 } from './styles';
-
-// Components
-import { ToggleSwitch } from '../switches';
 
 // Hooks
 import { useHeaderValues } from '../../hooks/viewModels/useHeaderValues';
@@ -20,6 +18,24 @@ import { deleteUser } from '../../utils/cookieUtils';
 
 // Types
 import { Nav } from './navbar/types';
+
+const StyledSwitch = withStyles({
+  root: {
+    width: 80,
+    height: 40,
+  },
+  switchBase: {
+    '&$checked': {
+      transform: 'translateX(40px)',
+    },
+  },
+  thumb: {
+    marginTop: -1,
+    width: 24,
+    height: 24,
+  },
+  checked: {},
+})(Switch);
 
 type PropTypes = {
   children?: never;
@@ -43,9 +59,9 @@ export const Header: FC<PropTypes> = (
         {menuSwitch}
         <Wrapper>
           <VerticalWrapper>
-            <ToggleSwitch
-              value={!light}
-              handleChange={reverseLight}
+            <StyledSwitch
+              checked={!light}
+              onChange={reverseLight}
             />
           </VerticalWrapper>
 
