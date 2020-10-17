@@ -1,1 +1,2 @@
-export { Themed } from './Themed';
+export { StyledThemed } from './StyledThemed';
+export { MaterialThemed } from './MaterialThemed';

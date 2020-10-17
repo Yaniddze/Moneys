@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import { Apollo } from '../app/apollo';
 import { Secure } from '../app/secure';
 import { StructureWrapper } from '../app/StructureWrapper';
-import { Themed } from '../app/themed';
+import { StyledThemed, MaterialThemed } from '../app/themed';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { useResizeEventHolder } from '../hooks/useScreens';
@@ -44,27 +44,29 @@ export default function MyApp(
   useResizeEventHolder();
 
   return (
-    <Themed>
-      <>
-        <GlobalStyles />
-        <Secure>
+    <StyledThemed>
+      <MaterialThemed>
+        <>
+          <GlobalStyles />
+          <Secure>
 
-          <Apollo>
+            <Apollo>
 
-            <StructureWrapper>
-              <>
-                <Header navs={navs} />
-                <main>
-                  <Component {...pageProps} />
-                </main>
-                <Footer />
-              </>
-            </StructureWrapper>
+              <StructureWrapper>
+                <>
+                  <Header navs={navs} />
+                  <main>
+                    <Component {...pageProps} />
+                  </main>
+                  <Footer />
+                </>
+              </StructureWrapper>
 
-          </Apollo>
+            </Apollo>
 
-        </Secure>
-      </>
-    </Themed>
+          </Secure>
+        </>
+      </MaterialThemed>
+    </StyledThemed>
   );
 }

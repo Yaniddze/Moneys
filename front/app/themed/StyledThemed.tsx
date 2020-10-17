@@ -17,7 +17,7 @@ type PropType = {
   children: ReactElement;
 };
 
-export const Themed: FC<PropType> = ({
+export const StyledThemed: FC<PropType> = ({
   children,
 }: PropType) => {
   const { light } = useThemeStorage();
