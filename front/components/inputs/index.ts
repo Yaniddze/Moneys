@@ -1,1 +1,0 @@
-export { InputWithAnimatedSpan } from './InputWithAnimatedSpan';
