@@ -44,7 +44,7 @@ export const Header: FC<PropTypes> = (
         <Wrapper>
           <VerticalWrapper>
             <ToggleSwitch
-              initValue={!light}
+              value={!light}
               handleChange={reverseLight}
             />
           </VerticalWrapper>

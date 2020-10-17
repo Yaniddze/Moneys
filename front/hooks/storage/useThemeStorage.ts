@@ -13,7 +13,7 @@ export const darkValue = 'dark';
 export const cookieName = 'Moneys.Theme';
 
 class Storage {
-  light = Cookies.get(cookieName) === lightValue;
+  light = false;
 
   constructor() {
     makeObservable(this, {
@@ -41,14 +41,22 @@ const storage = new Storage();
 export const useThemeStorage = (): ReturnType => {
   const [current, setCurrent] = useState(storage.light);
 
-  useEffect(() => autorun(() => {
-    if (!storage.light) {
-      Cookies.set(cookieName, darkValue);
-    } else {
-      Cookies.set(cookieName, lightValue);
+  useEffect(() => {
+    const init = Cookies.get(cookieName) === lightValue;
+    if (init !== storage.light) {
+      storage.setLight(init);
+      setCurrent(init);
     }
-    setCurrent(storage.light);
-  }), []);
+
+    return autorun(() => {
+      if (!storage.light) {
+        Cookies.set(cookieName, darkValue);
+      } else {
+        Cookies.set(cookieName, lightValue);
+      }
+      setCurrent(storage.light);
+    });
+  }, []);
 
   const reverseLight = (): void => {
     storage.setLight(!storage.light);

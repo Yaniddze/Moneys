@@ -35,27 +35,18 @@ const Wrapper = styled.div`
 
 type PropTypes = {
   children?: never;
-  initValue: boolean;
+  value: boolean;
   handleChange: () => void;
 }
 
 export const ToggleSwitch: FC<PropTypes> = ({
-  initValue, handleChange,
-}: PropTypes) => {
-  const [checked, setChecked] = useState(initValue);
-
-  const handleClick = (): void => {
-    setChecked((old) => !old);
-    handleChange();
-  };
-
-  return (
-    <Wrapper>
-      <StyledInput
-        checked={checked}
-        type="checkbox"
-        onChange={handleClick}
-      />
-    </Wrapper>
-  );
-};
+  value, handleChange,
+}: PropTypes) => (
+  <Wrapper>
+    <StyledInput
+      checked={value}
+      type="checkbox"
+      onChange={handleChange}
+    />
+  </Wrapper>
+);
