@@ -1,5 +1,6 @@
 // Core
 import { useState } from 'react';
+import Header from 'next/head';
 
 // Components
 import { Title } from '../../components/Title';
@@ -41,6 +42,13 @@ export default function Bills(): JSX.Element {
   return (
     <Wrapper>
       <div>
+
+        <Header>
+          <title>
+            Bills
+          </title>
+        </Header>
+        
         { modal }
         { loader }
         <Title>
