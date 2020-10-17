@@ -1,12 +1,11 @@
 // Core
 import { useState } from 'react';
 import Header from 'next/head';
+import { Button } from '@material-ui/core';
 
 // Components
 import { Title } from '../../components/Title';
 import { SimpleLoader } from '../../components/loaders';
-import { SquareButtonWithShadow } from '../../components/buttons';
-import { AdditionModal } from './AdditionModal';
 
 // Hooks
 import { usePageWrapper } from '../../hooks/usePageWrapper';
@@ -34,19 +33,15 @@ export default function Transactions(): JSX.Element {
     && transactionTypes.state.fetching
     && <SimpleLoader />;
 
-  const modal = modalShown && !loader && (
-    <AdditionModal
-      transactionTypes={transactionTypes.state.data.types}
-      bills={bills.state.data.data}
-      handleClose={handleModalClose}
-    />
-  );
-
   const additionBtn = !loader && (
     <div style={{ display: 'flex' }}>
-      <SquareButtonWithShadow onClick={handleModalOpen}>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={handleModalOpen}
+      >
         +
-      </SquareButtonWithShadow>
+      </Button>
     </div>
   );
 
@@ -66,7 +61,6 @@ export default function Transactions(): JSX.Element {
           </title>
         </Header>
 
-        { modal }
         { loader }
         <Title>
           Транзакции

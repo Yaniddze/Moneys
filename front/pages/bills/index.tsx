@@ -1,6 +1,7 @@
 // Core
 import { useState } from 'react';
 import Header from 'next/head';
+import { Button } from '@material-ui/core';
 
 // Components
 import { Title } from '../../components/Title';
@@ -9,7 +10,6 @@ import { SimpleLoader } from '../../components/loaders';
 // Hooks
 import { usePageWrapper } from '../../hooks/usePageWrapper';
 import { useBills } from '../../hooks/bills';
-import { AdditionModal } from './AdditonModal';
 
 export default function Bills(): JSX.Element {
   const [modalOpened, setModalOpened] = useState(false);
@@ -23,12 +23,6 @@ export default function Bills(): JSX.Element {
   const handleModalOpen = (): void => {
     setModalOpened(true);
   };
-
-  const modal = modalOpened && (
-    <AdditionModal
-      handleClose={handleModalClose}
-    />
-  );
 
   const loader = state.fetching && <SimpleLoader />;
   const items = !state.fetching
@@ -49,7 +43,6 @@ export default function Bills(): JSX.Element {
           </title>
         </Header>
         
-        { modal }
         { loader }
         <Title>
           Счета
@@ -57,12 +50,13 @@ export default function Bills(): JSX.Element {
         <div>
           { items }
         </div>
-        <button
-          type="button"
+        <Button
+          variant="contained"
+          color="secondary"
           onClick={handleModalOpen}
         >
           Click
-        </button>
+        </Button>
 
       </div>
     </Wrapper>
