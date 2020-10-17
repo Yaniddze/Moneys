@@ -29,5 +29,6 @@ export const MobileWrapper = styled.div<MobileWrapperProps>`
   
   & button {
     font-size: 38px;
+    width: 100%;
   }
 `;

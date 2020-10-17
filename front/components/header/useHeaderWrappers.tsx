@@ -1,5 +1,6 @@
 // Core
 import { ReactElement, useState, MouseEvent } from 'react';
+import { Button } from '@material-ui/core';
 
 // Wrappers
 import {
@@ -13,7 +14,6 @@ import {
 // Components
 import { HamburgerSwitch } from '../switches';
 import { Navbar } from './navbar/Navbar';
-import { SquareButtonWithShadow } from '../buttons';
 
 // Hooks
 import { useScreens } from '../../hooks/useScreens';
@@ -66,6 +66,26 @@ export const useHeaderWrappers = ({
     </HamburgerWrapper>
   );
 
+  const button = (
+    <>
+      <HorizontalWrapper>
+        <span>
+          {username}
+        </span>
+      </HorizontalWrapper>
+
+      <HorizontalWrapper>
+        <Button 
+          color="secondary"
+          variant="contained" 
+          onClick={handleLogout}
+        >
+          Выйти
+        </Button>
+      </HorizontalWrapper>  
+    </>
+  );
+
   let navBar: ReactElement;
 
   if (width === MinWidths.Mobile) {
@@ -75,17 +95,9 @@ export const useHeaderWrappers = ({
         offset={navOffset}
       >
         <Navbar navs={navs} />
-        <HorizontalWrapper>
-          <span>
-            {username}
-          </span>
-        </HorizontalWrapper>
 
-        <HorizontalWrapper>
-          <SquareButtonWithShadow onClick={handleLogout}>
-            Выйти
-          </SquareButtonWithShadow>
-        </HorizontalWrapper>
+        {button}
+
       </MobileWrapper>
     );
   } else {
@@ -96,17 +108,7 @@ export const useHeaderWrappers = ({
         </NavsWrapper>
 
         <ButtonWrapper>
-          <HorizontalWrapper>
-            <span>
-              {username}
-            </span>
-          </HorizontalWrapper>
-
-          <HorizontalWrapper>
-            <SquareButtonWithShadow onClick={handleLogout}>
-              Выйти
-            </SquareButtonWithShadow>
-          </HorizontalWrapper>
+          {button}
         </ButtonWrapper>
       </>
     );
