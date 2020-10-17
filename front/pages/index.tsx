@@ -6,15 +6,14 @@ import { useBills } from '../hooks/bills';
 import { usePageWrapper } from '../hooks/usePageWrapper';
 
 // Styles
-import {
-  Title,
-} from '../components/Title';
+import { Title } from '../components/Title';
+import { Loader } from '../components/Loader';
 
 export default function HomePage(): JSX.Element {
   const { state } = useBills();
   const { Wrapper } = usePageWrapper();
 
-  const loading = state.fetching && <div>Loading</div>;
+  const loading = state.fetching;
   const errors = !state.fetching && !state.data.success && state.data.errors.map((er) => (
     <div>{er}</div>
   ));
@@ -22,6 +21,10 @@ export default function HomePage(): JSX.Element {
   return (
     <Wrapper>
       <div>
+        
+        <Loader
+          visible={loading}
+        />
 
         <Header>
           <title>

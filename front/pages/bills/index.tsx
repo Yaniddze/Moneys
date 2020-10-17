@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 
 // Components
 import { Title } from '../../components/Title';
-import { SimpleLoader } from '../../components/loaders';
+import { Loader } from '../../components/Loader';
 
 // Hooks
 import { usePageWrapper } from '../../hooks/usePageWrapper';
@@ -24,7 +24,7 @@ export default function Bills(): JSX.Element {
     setModalOpened(true);
   };
 
-  const loader = state.fetching && <SimpleLoader />;
+  const loading = state.fetching;
   const items = !state.fetching
     && state.data.success
     && state.data.data.map((bill) => (
@@ -37,13 +37,16 @@ export default function Bills(): JSX.Element {
     <Wrapper>
       <div>
 
+        <Loader
+          visible={loading}
+        />
+
         <Header>
           <title>
             Bills
           </title>
         </Header>
         
-        { loader }
         <Title>
           Счета
         </Title>

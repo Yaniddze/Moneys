@@ -1,11 +1,11 @@
 // Core
 import { useState } from 'react';
-import Header from 'next/head';
 import { Button } from '@material-ui/core';
+import Header from 'next/head';
 
 // Components
 import { Title } from '../../components/Title';
-import { SimpleLoader } from '../../components/loaders';
+import { Loader } from '../../components/Loader';
 
 // Hooks
 import { usePageWrapper } from '../../hooks/usePageWrapper';
@@ -28,12 +28,11 @@ export default function Transactions(): JSX.Element {
     setModalShown(true);
   };
 
-  const loader = state.fetching
+  const loading = state.fetching
     && bills.state.fetching
-    && transactionTypes.state.fetching
-    && <SimpleLoader />;
+    && transactionTypes.state.fetching;
 
-  const additionBtn = !loader && (
+  const additionBtn = !loading && (
     <div style={{ display: 'flex' }}>
       <Button
         variant="contained"
@@ -54,6 +53,9 @@ export default function Transactions(): JSX.Element {
   return (
     <Wrapper>
       <div>
+        <Loader
+          visible={loading}
+        />
 
         <Header>
           <title>
@@ -61,7 +63,7 @@ export default function Transactions(): JSX.Element {
           </title>
         </Header>
 
-        { loader }
+        { loading }
         <Title>
           Транзакции
         </Title>
