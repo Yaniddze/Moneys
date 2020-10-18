@@ -13,21 +13,38 @@ namespace Api
                 {
                     Id = Guid.NewGuid(),
                     Title = "Еда",
+                    Spending = true,
                 },
                 new TransactionType
                 {
                     Id = Guid.NewGuid(),
                     Title = "Автомобиль",
+                    Spending = true,
                 },
                 new TransactionType
                 {
                     Id = Guid.NewGuid(),
-                    Title = "Квартира",
+                    Title = "Аренда",
+                    Spending = true,
                 },
                 new TransactionType
                 {
                     Id = Guid.NewGuid(),
                     Title = "Прочее",
+                    Spending = true,
+                },
+                
+                new TransactionType
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Прочее",
+                    Spending = false,
+                },
+                new TransactionType
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Зарплата",
+                    Spending = false,
                 },
             };
     }
