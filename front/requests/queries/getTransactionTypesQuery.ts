@@ -13,6 +13,7 @@ export const getTransactionTypeQuery = gql`
   query {
     transactionTypes {
       data {
+        spending,
         title,
         id,
       },

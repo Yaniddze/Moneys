@@ -6,6 +6,7 @@ export type Bill = {
 export type TransactionType = {
   id: string;
   title: string;
+  spending: boolean;
 }
 
 export type TransactionInfo = {
