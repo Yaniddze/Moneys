@@ -1,6 +1,6 @@
 // Core
 import { FC } from 'react';
-import { Switch, withStyles } from '@material-ui/core';
+import { Switch, withStyles, NoSsr } from '@material-ui/core';
 
 // Styles
 import {
@@ -58,13 +58,15 @@ export const Header: FC<PropTypes> = (
       <StyledHeader>
         {menuSwitch}
         <Wrapper>
-          <VerticalWrapper>
-            <StyledSwitch
-              checked={!light}
-              onChange={reverseLight}
-            />
-          </VerticalWrapper>
-
+          <NoSsr>
+            <VerticalWrapper>
+              <StyledSwitch
+                checked={!light}
+                onChange={reverseLight}
+              />
+            </VerticalWrapper>
+          </NoSsr>
+          
           {navBar}
 
         </Wrapper>

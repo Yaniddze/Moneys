@@ -8,7 +8,6 @@ import { StyledThemed } from '../app/themed';
 import { MaterialUi } from '../app/MaterialUi';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
-import { useResizeEventHolder } from '../hooks/useScreens';
 
 import { navs } from '../configuration/navbarConfig';
 
@@ -42,8 +41,6 @@ export const GlobalStyles = createGlobalStyle`
 export default function MyApp(
   { Component, pageProps }: PropTypes,
 ): ReactNode {
-  useResizeEventHolder();
-
   return (
     <StyledThemed>
       <MaterialUi>

@@ -1,19 +1,17 @@
 // Core
-import { useScreenStorage } from '../storage/useScreenStorage';
+import { useMediaQuery } from '@material-ui/core';
 
 // Types
-import { MinWidths, SortedScreensValues } from './types';
+import { MinWidths } from './types';
 
 export const useScreens = (): MinWidths => {
-  const { width } = useScreenStorage();
+  const mobile = useMediaQuery(`(min-width:${MinWidths.Mobile}px)`);
+  const tablet = useMediaQuery(`(min-width:${MinWidths.Tablet}px)`);
+  const pc = useMediaQuery(`(min-width:${MinWidths.PC}px)`);
 
-  for (let i = 0; i < SortedScreensValues.length; i++) {
-    const value = SortedScreensValues[i];
+  if (pc) return MinWidths.PC;
+  if (tablet) return MinWidths.Tablet;
+  if (mobile) return MinWidths.Mobile;
 
-    if (width >= value) {
-      return value;
-    }
-  }
-
-  return MinWidths.PC;
+  return MinWidths.Tablet;
 };
