@@ -140,8 +140,6 @@ export const useTransactionAddition = (): ReturnType => {
     });
   };
 
-  console.log(options);
-
   const state: FetchingType = {
     fetching: options.loading,
     data: {
