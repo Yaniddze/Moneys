@@ -20,10 +20,20 @@ export const getTransactionsQuery = gql`
   query GetTransactions($command: GetTransactionsCommandInput!) {
     transactions(command: $command) {
       data {
-        bill,
+        bill {
+          id,
+          title,
+        },
         id,
-        info,
-        type
+        info {
+          date,
+          description,
+          value,
+        },
+        type {
+          id,
+          title,
+        },
       },
       errors,
       success

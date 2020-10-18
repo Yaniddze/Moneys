@@ -33,18 +33,6 @@ export default function Transactions(): JSX.Element {
     && bills.state.fetching
     && transactionTypes.state.fetching;
 
-  const additionBtn = !loading && (
-    <div style={{ display: 'flex' }}>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={handleModalOpen}
-      >
-        +
-      </Button>
-    </div>
-  );
-
   const items = !state.fetching && state.data.success && state.data.data.map((transaction) => (
     <div key={transaction.id}>
       { transaction.info.value }
@@ -74,7 +62,17 @@ export default function Transactions(): JSX.Element {
           Транзакции
         </Title>
         {items}
-        {additionBtn}
+        
+        <div style={{ display: 'flex' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleModalOpen}
+            disabled={loading}
+          >
+            +
+          </Button>
+        </div>
       </div>
     </Wrapper>
   );

@@ -128,15 +128,19 @@ export const useTransactionAddition = (): ReturnType => {
   ): void => {
     addTransaction({
       variables: {
-        billId,
-        date,
-        description,
-        typeId,
-        userId: user.profile['user.id'],
-        value,
+        request: {  
+          billId,
+          date,
+          description,
+          typeId,
+          userId: user.profile['user.id'],
+          value,
+        },
       },
     });
   };
+
+  console.log(options);
 
   const state: FetchingType = {
     fetching: options.loading,

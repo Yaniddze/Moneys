@@ -4,10 +4,20 @@ export const addTransactionMutation = gql`
   mutation AddBill($request: NewTransactionRequestInput!) {
     createTransaction(request: $request) {
       data {
-        bill,
+        bill {
+          id,
+          title,
+        },
         id,
-        info,
-        type
+        info {
+          date,
+          description,
+          value,
+        },
+        type {
+          id,
+          title,
+        },
       },
       errors,
       success

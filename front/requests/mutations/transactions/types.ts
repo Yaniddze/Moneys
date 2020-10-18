@@ -1,12 +1,14 @@
 import { Transaction } from '../../../domain/types';
 
 export type AddTransactionVariables = {
-  billId: string;
-  date: Date;
-  description: string;
-  typeId: string;
-  userId: string;
-  value: number;
+  request: {
+    billId: string;
+    date: Date;
+    description: string;
+    typeId: string;
+    userId: string;
+    value: number;
+  };
 };
 
 export type AddTransactionMutationAnswer = {
