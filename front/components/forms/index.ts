@@ -1,2 +1,2 @@
 export { AddBillForm } from './AddBillForm';
-export { AddTransactionForm } from './AddTransactionForm';
+export { AddTransactionForm } from './addTransactionForm';

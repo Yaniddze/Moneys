@@ -13,13 +13,13 @@ import {
 } from '@material-ui/core';
 
 // Hooks
-import { useTransactionAddition } from '../../hooks/transactions';
-import { useBills } from '../../hooks/bills';
-import { useTransactionTypes } from '../../hooks/useTransactionTypes';
+import { useTransactionAddition } from '../../../hooks/transactions';
+import { useBills } from '../../../hooks/bills';
+import { useTransactionTypes } from '../../../hooks/useTransactionTypes';
 
 // Components
-import { Loader } from '../Loader';
-import { Select, Node } from '../Select';
+import { Loader } from '../../Loader';
+import { Select, Node } from '../../Select';
 
 const StyledForm = styled.form`
   padding: 10px;
