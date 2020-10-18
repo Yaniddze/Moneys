@@ -1,1 +1,1 @@
-export { AddTransactionForm } from './AddTransactionForm';
+export { AddTransaction as AddTransactionForm } from './AddTransaction';
