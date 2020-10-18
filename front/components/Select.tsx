@@ -4,7 +4,12 @@ import {
   ChangeEvent,
 } from 'react';
 import styled from 'styled-components';
-import { Select as MuiSelect, MenuItem } from '@material-ui/core';
+import { 
+  Select as MuiSelect,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from '@material-ui/core';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -23,6 +28,7 @@ type PropTypes = {
   children?: never;
   nodes: Node[];
   error: boolean;
+  label: string;
   onChange: (value: string) => void;
 }
 
@@ -31,9 +37,12 @@ type SelectChangeType = {
   value: string;
 }
 
-export const Select: FC<PropTypes> = (
-  { nodes, error, onChange }: PropTypes,
-) => {
+export const Select: FC<PropTypes> = ({ 
+  nodes,
+  error,
+  onChange,
+  label,
+}: PropTypes) => {
   const [selected, setSelected] = useState<string>(nodes.length > 0 ? nodes[0].value : '');
   
   const items = nodes.map((node) => (
@@ -50,15 +59,18 @@ export const Select: FC<PropTypes> = (
 
   return (
     <Wrapper>
-      <MuiSelect
-        color="primary"
-        variant="outlined"
-        onChange={handleChange}
-        value={selected}
-        error={error}
-      >
-        {items}
-      </MuiSelect>
+      <FormControl variant="outlined">
+        <InputLabel>{label}</InputLabel>
+        <MuiSelect
+          color="primary"
+          onChange={handleChange}
+          value={selected}
+          error={error}
+          label={label}
+        >
+          {items}
+        </MuiSelect>
+      </FormControl>
     </Wrapper>
   );
 };
