@@ -43,7 +43,7 @@ export const Select: FC<PropTypes> = ({
   onChange,
   label,
 }: PropTypes) => {
-  const [selected, setSelected] = useState<string>(nodes.length > 0 ? nodes[0].value : '');
+  const [selected, setSelected] = useState<string>('');
   
   const items = nodes.map((node) => (
     <MenuItem key={node.value} value={node.value}>{node.title}</MenuItem>

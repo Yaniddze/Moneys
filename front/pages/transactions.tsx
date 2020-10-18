@@ -6,6 +6,7 @@ import Header from 'next/head';
 // Components
 import { Title } from '../components/Title';
 import { Loader } from '../components/Loader';
+import { AddTransactionForm } from '../components/forms';
 
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
@@ -53,6 +54,11 @@ export default function Transactions(): JSX.Element {
   return (
     <Wrapper>
       <div>
+        <AddTransactionForm
+          shown={modalShown}
+          onClose={handleModalClose}
+        />
+
         <Loader
           visible={loading}
         />
