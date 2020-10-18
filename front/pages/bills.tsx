@@ -4,12 +4,12 @@ import Header from 'next/head';
 import { Button } from '@material-ui/core';
 
 // Components
-import { Title } from '../../components/Title';
-import { Loader } from '../../components/Loader';
+import { Title } from '../components/Title';
+import { Loader } from '../components/Loader';
 
 // Hooks
-import { usePageWrapper } from '../../hooks/usePageWrapper';
-import { useBills } from '../../hooks/bills';
+import { usePageWrapper } from '../hooks/usePageWrapper';
+import { useBills } from '../hooks/bills';
 
 export default function Bills(): JSX.Element {
   const [modalOpened, setModalOpened] = useState(false);
