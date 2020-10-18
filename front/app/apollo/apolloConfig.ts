@@ -1,9 +1,25 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { 
+  ApolloClient, 
+  InMemoryCache, 
+  ApolloLink, 
+  HttpLink, 
+} from '@apollo/client';
 
-export const createClient = (token: string) => new ApolloClient({
-  uri: 'https://yaniddze.com/api/moneys',
-  cache: new InMemoryCache(),
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
+export const createClient = (token: string, errorLink?: ApolloLink) => {
+  const httpLink = new HttpLink({
+    uri: 'https://yaniddze.com/api/moneys',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  
+  return new ApolloClient({
+    link: errorLink !== undefined 
+      ? ApolloLink.from([
+        errorLink,
+        httpLink,
+      ]) 
+      : httpLink,
+    cache: new InMemoryCache(),
+  });
+};

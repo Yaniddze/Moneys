@@ -1,4 +1,9 @@
-import { FC, ReactElement, useEffect } from 'react';
+import { 
+  FC, 
+  ReactElement, 
+  useEffect,
+  useState, 
+} from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 
@@ -16,14 +21,20 @@ export const Apollo: FC<PropTypes> = ({
   children,
 }: PropTypes) => {
   const { user } = useUserStorage();
+  const [client, setClient] = useState(createClient(user?.access_token));
   const { manager } = useUserManager();
-  const client = createClient(user?.access_token);
 
   useEffect(() => {
-    onError(() => {
-      manager.signoutRedirect();
-    });
-  }, [manager]);
+    if (user !== null) {
+      const errorLink = onError(({ graphQLErrors, networkError }) => {
+        if (networkError) {
+          manager.signoutRedirect();
+        }
+      });
+       
+      setClient(createClient(user?.access_token, errorLink));
+    }
+  }, [user]);
 
   return (
     <ApolloProvider client={client}>
