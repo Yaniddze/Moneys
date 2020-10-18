@@ -6,6 +6,7 @@ import { Button } from '@material-ui/core';
 // Components
 import { Title } from '../components/Title';
 import { Loader } from '../components/Loader';
+import { AddBillForm } from '../components/forms';
 
 // Hooks
 import { usePageWrapper } from '../hooks/usePageWrapper';
@@ -36,7 +37,10 @@ export default function Bills(): JSX.Element {
   return (
     <Wrapper>
       <div>
-
+        <AddBillForm
+          onClose={handleModalClose}
+          shown={modalOpened}
+        />
         <Loader
           visible={loading}
         />

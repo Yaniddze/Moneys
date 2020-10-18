@@ -19,6 +19,7 @@
     "oidc-client": "^1.10.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",
+    "react-hook-form": "^6.9.4",
     "react-loader-spinner": "^3.1.14",
     "styled-components": "^5.2.0"
   },
