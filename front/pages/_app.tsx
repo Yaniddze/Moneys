@@ -4,7 +4,8 @@ import { createGlobalStyle } from 'styled-components';
 import { Apollo } from '../app/apollo';
 import { Secure } from '../app/secure';
 import { StructureWrapper } from '../app/StructureWrapper';
-import { StyledThemed, MaterialThemed } from '../app/themed';
+import { StyledThemed } from '../app/themed';
+import { MaterialUi } from '../app/MaterialUi';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 import { useResizeEventHolder } from '../hooks/useScreens';
@@ -45,7 +46,7 @@ export default function MyApp(
 
   return (
     <StyledThemed>
-      <MaterialThemed>
+      <MaterialUi>
         <>
           <GlobalStyles />
           <Secure>
@@ -66,7 +67,7 @@ export default function MyApp(
 
           </Secure>
         </>
-      </MaterialThemed>
+      </MaterialUi>
     </StyledThemed>
   );
 }

@@ -10,7 +10,7 @@ type PropTypes = {
   children: ReactElement;
 }
 
-export const MaterialThemed: FC<PropTypes> = (
+export const MaterialUi: FC<PropTypes> = (
   { children }: PropTypes,
 ) => {
   const styledTheme = useTheme();
