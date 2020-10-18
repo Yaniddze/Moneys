@@ -5,5 +5,6 @@ namespace Api.Domain
     public class TransactionType: Entity
     {
         public string Title { get; set; }
+        public bool Spending { get; set; }
     }
 }

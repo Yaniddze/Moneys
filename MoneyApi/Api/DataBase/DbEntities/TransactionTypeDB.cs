@@ -7,6 +7,7 @@ namespace Api.DataBase.DbEntities
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
+        public bool Spending { get; set; }
 
         public IEnumerable<TransactionDB> Transactions { get; set; }
     }
