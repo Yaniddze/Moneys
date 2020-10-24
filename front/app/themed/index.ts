@@ -1,1 +1,0 @@
-export { StyledThemed } from './StyledThemed';

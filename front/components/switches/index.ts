@@ -1,1 +1,0 @@
-export { HamburgerSwitch } from './HamburgerSwitch';
