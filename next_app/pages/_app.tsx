@@ -4,6 +4,7 @@ import { FC } from 'react';
 // Setup
 import {
   GlobalStyles,
+  Secure,
 } from '../appSetup';
 
 // Dependencies
@@ -17,8 +18,10 @@ type PropTypes = {
 export default function App({ Component, pageProps }: PropTypes): JSX.Element {
   return (
     <UserManagerDependencies>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <Secure>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </Secure>
     </UserManagerDependencies>
   );
 }
