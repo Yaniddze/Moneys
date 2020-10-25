@@ -1,2 +1,1 @@
-export { oidcConfig } from './oidcConfig';
-export { CookieStateStore } from './CookieStateStorage';
+export { CreateUserManager } from './userManagerConfig';
