@@ -17,9 +17,7 @@ export const Secure: FC<PropTypes> = (
   if (userManager !== null) {
     userManager.getUser()
       .then((user: User) => {
-        console.log(router);
-        
-        if (user === null 
+        if ((user === null) 
           && router.route !== '/authentication/callback'
           && router.route !== '/authentication/silent'
         ) {
